@@ -1,0 +1,77 @@
+{
+    "name": "Attraction",
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "subtitle",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "latitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "longitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "adultPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "childPrice",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "accessible",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "facilities",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "openTime",
+            "fieldType": "Instant"
+        },
+        {
+            "fieldName": "closeTime",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "attraction",
+            "relationshipName": "groupTypes",
+            "otherEntityName": "attractionGroupType",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "attraction",
+            "relationshipName": "eventTypes",
+            "otherEntityName": "attractionEventType",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190423161718",
+    "entityTableName": "attraction",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

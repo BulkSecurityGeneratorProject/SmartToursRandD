@@ -1,0 +1,35 @@
+{
+    "name": "AttractionGroupType",
+    "fields": [
+        {
+            "fieldName": "groupType",
+            "fieldType": "GroupType",
+            "fieldValues": "NONE,KIDS,ADULTS"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "attraction",
+            "otherEntityName": "attraction",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "groupTypes"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "purchase",
+            "otherEntityName": "attractionPurchase",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "groupTypes"
+        }
+    ],
+    "changelogDate": "20190423161719",
+    "entityTableName": "attraction_group_type",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

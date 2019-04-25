@@ -1,0 +1,35 @@
+{
+    "name": "AttractionEventType",
+    "fields": [
+        {
+            "fieldName": "eventType",
+            "fieldType": "EventType",
+            "fieldValues": "NONE,GET_ACTIVE,RELAX"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "attraction",
+            "otherEntityName": "attraction",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "eventTypes"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "relationshipName": "purchase",
+            "otherEntityName": "attractionPurchase",
+            "ownerSide": false,
+            "otherEntityRelationshipName": "eventTypes"
+        }
+    ],
+    "changelogDate": "20190423161720",
+    "entityTableName": "attraction_event_type",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

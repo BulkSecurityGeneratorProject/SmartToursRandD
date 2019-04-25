@@ -1,0 +1,60 @@
+{
+    "name": "AttractionPurchase",
+    "fields": [
+        {
+            "fieldName": "attractionId",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "userDistance",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "weatherTemperature",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "weatherMinTemperature",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "weatherMaxTemperature",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "weatherHumidity",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "purchased",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "purchase",
+            "relationshipName": "groupTypes",
+            "otherEntityName": "attractionGroupType",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "purchase",
+            "relationshipName": "eventTypes",
+            "otherEntityName": "attractionEventType",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190424081633",
+    "entityTableName": "attraction_purchase",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

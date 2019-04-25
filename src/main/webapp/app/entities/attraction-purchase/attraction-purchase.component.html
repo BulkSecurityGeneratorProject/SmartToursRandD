@@ -1,0 +1,66 @@
+<div>
+    <h2 id="page-heading">
+        <span>Attraction Purchases</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-attraction-purchase" [routerLink]="['/attraction-purchase/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Attraction Purchase
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="attractionPurchases">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="attractionId"><span>Attraction Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userDistance"><span>User Distance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="weatherTemperature"><span>Weather Temperature</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="weatherMinTemperature"><span>Weather Min Temperature</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="weatherMaxTemperature"><span>Weather Max Temperature</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="weatherHumidity"><span>Weather Humidity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="purchased"><span>Purchased</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let attractionPurchase of attractionPurchases ;trackBy: trackId">
+                <td><a [routerLink]="['/attraction-purchase', attractionPurchase.id, 'view' ]">{{attractionPurchase.id}}</a></td>
+                <td>{{attractionPurchase.attractionId}}</td>
+                <td>{{attractionPurchase.userDistance}}</td>
+                <td>{{attractionPurchase.weatherTemperature}}</td>
+                <td>{{attractionPurchase.weatherMinTemperature}}</td>
+                <td>{{attractionPurchase.weatherMaxTemperature}}</td>
+                <td>{{attractionPurchase.weatherHumidity}}</td>
+                <td>{{attractionPurchase.purchased}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/attraction-purchase', attractionPurchase.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/attraction-purchase', attractionPurchase.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'attraction-purchase/'+ attractionPurchase.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

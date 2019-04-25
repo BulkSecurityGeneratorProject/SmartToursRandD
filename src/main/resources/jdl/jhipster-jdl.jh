@@ -1,0 +1,52 @@
+enum GroupType {
+	NONE, KIDS, ADULTS	
+}
+
+enum EventType {
+	NONE, GET_ACTIVE, RELAX
+}
+
+entity Attraction {
+	name String,
+    subtitle String,
+    description TextBlob,
+    latitude Double,
+    longitude Double,
+    adultPrice BigDecimal,
+    childPrice BigDecimal,
+    accessible Boolean,
+    facilities Boolean,
+    openTime Instant,
+    closeTime Instant
+}
+
+entity AttractionPurchase {
+	attractionId Long,
+
+	userDistance Double,
+    
+    weatherTemperature Double,
+    weatherMinTemperature Double,
+    weatherMaxTemperature Double,
+    weatherHumidity Double,
+
+    purchased Boolean
+}
+
+entity AttractionGroupType {
+	groupType GroupType
+}
+
+entity AttractionEventType {
+	eventType EventType
+}
+
+relationship ManyToMany {
+	Attraction{groupTypes} to AttractionGroupType{attraction},
+    Attraction{eventTypes} to AttractionEventType{attraction},
+    AttractionPurchase{groupTypes} to AttractionGroupType{purchase},
+    AttractionPurchase{eventTypes} to AttractionEventType{purchase}
+}
+
+paginate *  with infinite-scroll
+service  * with serviceClass

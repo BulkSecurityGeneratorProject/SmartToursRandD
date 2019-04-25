@@ -1,0 +1,95 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-attraction-heading">Create or edit a Attraction</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!attraction.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="attraction.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_name">Name</label>
+                    <input type="text" class="form-control" name="name" id="field_name"
+                        [(ngModel)]="attraction.name" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_subtitle">Subtitle</label>
+                    <input type="text" class="form-control" name="subtitle" id="field_subtitle"
+                        [(ngModel)]="attraction.subtitle" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_description">Description</label>
+                    <textarea class="form-control" name="description" id="field_description"
+                        [(ngModel)]="attraction.description" ></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_latitude">Latitude</label>
+                    <input type="number" class="form-control" name="latitude" id="field_latitude"
+                        [(ngModel)]="attraction.latitude" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_longitude">Longitude</label>
+                    <input type="number" class="form-control" name="longitude" id="field_longitude"
+                        [(ngModel)]="attraction.longitude" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_adultPrice">Adult Price</label>
+                    <input type="number" class="form-control" name="adultPrice" id="field_adultPrice"
+                        [(ngModel)]="attraction.adultPrice" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_childPrice">Child Price</label>
+                    <input type="number" class="form-control" name="childPrice" id="field_childPrice"
+                        [(ngModel)]="attraction.childPrice" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_accessible">Accessible</label>
+                    <input type="checkbox" class="form-control" name="accessible" id="field_accessible"
+                        [(ngModel)]="attraction.accessible" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_facilities">Facilities</label>
+                    <input type="checkbox" class="form-control" name="facilities" id="field_facilities"
+                        [(ngModel)]="attraction.facilities" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_openTime">Open Time</label>
+                    <div class="d-flex">
+                        <input id="field_openTime" type="datetime-local" class="form-control" name="openTime" [(ngModel)]="openTime"
+                        />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_closeTime">Close Time</label>
+                    <div class="d-flex">
+                        <input id="field_closeTime" type="datetime-local" class="form-control" name="closeTime" [(ngModel)]="closeTime"
+                        />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="field_groupTypes">Group Types</label>
+                    <select class="form-control" id="field_groupTypes" multiple name="groupTypes" [(ngModel)]="attraction.groupTypes">
+                        <option [ngValue]="getSelected(attraction.groupTypes, attractionGroupTypeOption)" *ngFor="let attractionGroupTypeOption of attractiongrouptypes; trackBy: trackAttractionGroupTypeById">{{attractionGroupTypeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_eventTypes">Event Types</label>
+                    <select class="form-control" id="field_eventTypes" multiple name="eventTypes" [(ngModel)]="attraction.eventTypes">
+                        <option [ngValue]="getSelected(attraction.eventTypes, attractionEventTypeOption)" *ngFor="let attractionEventTypeOption of attractioneventtypes; trackBy: trackAttractionEventTypeById">{{attractionEventTypeOption.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

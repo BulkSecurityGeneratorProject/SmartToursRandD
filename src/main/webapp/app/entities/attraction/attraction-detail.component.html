@@ -1,0 +1,79 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="attraction">
+            <h2><span>Attraction</span> {{attraction.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Name</span></dt>
+                <dd>
+                    <span>{{attraction.name}}</span>
+                </dd>
+                <dt><span>Subtitle</span></dt>
+                <dd>
+                    <span>{{attraction.subtitle}}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{attraction.description}}</span>
+                </dd>
+                <dt><span>Latitude</span></dt>
+                <dd>
+                    <span>{{attraction.latitude}}</span>
+                </dd>
+                <dt><span>Longitude</span></dt>
+                <dd>
+                    <span>{{attraction.longitude}}</span>
+                </dd>
+                <dt><span>Adult Price</span></dt>
+                <dd>
+                    <span>{{attraction.adultPrice}}</span>
+                </dd>
+                <dt><span>Child Price</span></dt>
+                <dd>
+                    <span>{{attraction.childPrice}}</span>
+                </dd>
+                <dt><span>Accessible</span></dt>
+                <dd>
+                    <span>{{attraction.accessible}}</span>
+                </dd>
+                <dt><span>Facilities</span></dt>
+                <dd>
+                    <span>{{attraction.facilities}}</span>
+                </dd>
+                <dt><span>Open Time</span></dt>
+                <dd>
+                    <span>{{attraction.openTime}}</span>
+                </dd>
+                <dt><span>Close Time</span></dt>
+                <dd>
+                    <span>{{attraction.closeTime}}</span>
+                </dd>
+                <dt><span>Group Types</span></dt>
+                <dd>
+                    <span *ngFor="let groupTypes of attraction.groupTypes; let last = last">
+                        <a [routerLink]="['/attraction-group-type', groupTypes?.id, 'view' ]">{{groupTypes.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Event Types</span></dt>
+                <dd>
+                    <span *ngFor="let eventTypes of attraction.eventTypes; let last = last">
+                        <a [routerLink]="['/attraction-event-type', eventTypes?.id, 'view' ]">{{eventTypes.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/attraction', attraction.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

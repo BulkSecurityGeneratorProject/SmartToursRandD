@@ -1,0 +1,74 @@
+<div>
+    <h2 id="page-heading">
+        <span>Attractions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-attraction" [routerLink]="['/attraction/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Attraction
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="attractions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="subtitle"><span>Subtitle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="latitude"><span>Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="longitude"><span>Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="adultPrice"><span>Adult Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="childPrice"><span>Child Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="accessible"><span>Accessible</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="facilities"><span>Facilities</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="openTime"><span>Open Time</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="closeTime"><span>Close Time</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let attraction of attractions ;trackBy: trackId">
+                <td><a [routerLink]="['/attraction', attraction.id, 'view' ]">{{attraction.id}}</a></td>
+                <td>{{attraction.name}}</td>
+                <td>{{attraction.subtitle}}</td>
+                <td>{{attraction.description}}</td>
+                <td>{{attraction.latitude}}</td>
+                <td>{{attraction.longitude}}</td>
+                <td>{{attraction.adultPrice}}</td>
+                <td>{{attraction.childPrice}}</td>
+                <td>{{attraction.accessible}}</td>
+                <td>{{attraction.facilities}}</td>
+                <td>{{attraction.openTime | date:'medium'}}</td>
+                <td>{{attraction.closeTime | date:'medium'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/attraction', attraction.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/attraction', attraction.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'attraction/'+ attraction.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

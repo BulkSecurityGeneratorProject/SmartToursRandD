@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="attractionPurchase">
+            <h2><span>Attraction Purchase</span> {{attractionPurchase.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Attraction Id</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.attractionId}}</span>
+                </dd>
+                <dt><span>User Distance</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.userDistance}}</span>
+                </dd>
+                <dt><span>Weather Temperature</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.weatherTemperature}}</span>
+                </dd>
+                <dt><span>Weather Min Temperature</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.weatherMinTemperature}}</span>
+                </dd>
+                <dt><span>Weather Max Temperature</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.weatherMaxTemperature}}</span>
+                </dd>
+                <dt><span>Weather Humidity</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.weatherHumidity}}</span>
+                </dd>
+                <dt><span>Purchased</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.purchased}}</span>
+                </dd>
+                <dt><span>Group Types</span></dt>
+                <dd>
+                    <span *ngFor="let groupTypes of attractionPurchase.groupTypes; let last = last">
+                        <a [routerLink]="['/attraction-group-type', groupTypes?.id, 'view' ]">{{groupTypes.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Event Types</span></dt>
+                <dd>
+                    <span *ngFor="let eventTypes of attractionPurchase.eventTypes; let last = last">
+                        <a [routerLink]="['/attraction-event-type', eventTypes?.id, 'view' ]">{{eventTypes.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/attraction-purchase', attractionPurchase.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
