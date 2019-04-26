@@ -1,16 +1,9 @@
+package com.pa.twb.service.ext.processing.dto.weather;
 
-package com.pa.twb.service.ext.dto.weather;
-
-import java.util.HashMap;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-public class HourlyData {
+
+public class Currently {
 
     @JsonProperty("time")
     private Long time;
@@ -18,6 +11,10 @@ public class HourlyData {
     private String summary;
     @JsonProperty("icon")
     private String icon;
+    @JsonProperty("nearestStormDistance")
+    private Long nearestStormDistance;
+    @JsonProperty("nearestStormBearing")
+    private Long nearestStormBearing;
     @JsonProperty("precipIntensity")
     private Long precipIntensity;
     @JsonProperty("precipProbability")
@@ -43,11 +40,9 @@ public class HourlyData {
     @JsonProperty("uvIndex")
     private Long uvIndex;
     @JsonProperty("visibility")
-    private Long visibility;
+    private Double visibility;
     @JsonProperty("ozone")
     private Double ozone;
-    @JsonProperty("precipType")
-    private String precipType;
 
     @JsonProperty("time")
     public Long getTime() {
@@ -77,6 +72,26 @@ public class HourlyData {
     @JsonProperty("icon")
     public void setIcon(String icon) {
         this.icon = icon;
+    }
+
+    @JsonProperty("nearestStormDistance")
+    public Long getNearestStormDistance() {
+        return nearestStormDistance;
+    }
+
+    @JsonProperty("nearestStormDistance")
+    public void setNearestStormDistance(Long nearestStormDistance) {
+        this.nearestStormDistance = nearestStormDistance;
+    }
+
+    @JsonProperty("nearestStormBearing")
+    public Long getNearestStormBearing() {
+        return nearestStormBearing;
+    }
+
+    @JsonProperty("nearestStormBearing")
+    public void setNearestStormBearing(Long nearestStormBearing) {
+        this.nearestStormBearing = nearestStormBearing;
     }
 
     @JsonProperty("precipIntensity")
@@ -200,12 +215,12 @@ public class HourlyData {
     }
 
     @JsonProperty("visibility")
-    public Long getVisibility() {
+    public Double getVisibility() {
         return visibility;
     }
 
     @JsonProperty("visibility")
-    public void setVisibility(Long visibility) {
+    public void setVisibility(Double visibility) {
         this.visibility = visibility;
     }
 
@@ -217,16 +232,6 @@ public class HourlyData {
     @JsonProperty("ozone")
     public void setOzone(Double ozone) {
         this.ozone = ozone;
-    }
-
-    @JsonProperty("precipType")
-    public String getPrecipType() {
-        return precipType;
-    }
-
-    @JsonProperty("precipType")
-    public void setPrecipType(String precipType) {
-        this.precipType = precipType;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.pa.twb.service.ext.dto.csv;
+package com.pa.twb.service.ext.processing.dto.csv;
 
 public class CsvDataDTO {
 

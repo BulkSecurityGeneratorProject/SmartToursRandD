@@ -1,4 +1,4 @@
-package com.pa.twb.service.ext.dto.weather;
+package com.pa.twb.service.ext.processing.dto.weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

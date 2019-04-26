@@ -1,25 +1,19 @@
 
-package com.pa.twb.service.ext.dto.weather;
+package com.pa.twb.service.ext.processing.dto.weather;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-public class Minutely {
+public class Daily {
 
     @JsonProperty("summary")
     private String summary;
     @JsonProperty("icon")
     private String icon;
     @JsonProperty("data")
-    private List<MinutelyData> data = new ArrayList<MinutelyData>();
+    private List<DailyData> data = new ArrayList<DailyData>();
 
     @JsonProperty("summary")
     public String getSummary() {
@@ -42,13 +36,12 @@ public class Minutely {
     }
 
     @JsonProperty("data")
-    public List<MinutelyData> getData() {
+    public List<DailyData> getData() {
         return data;
     }
 
     @JsonProperty("data")
-    public void setData(List<MinutelyData> data) {
+    public void setData(List<DailyData> data) {
         this.data = data;
     }
-
 }

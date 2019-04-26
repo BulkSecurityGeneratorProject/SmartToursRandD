@@ -1,8 +1,8 @@
-package com.pa.twb.service.ext;
+package com.pa.twb.service.ext.processing;
 
-import com.pa.twb.service.ext.dto.weather.Daily;
-import com.pa.twb.service.ext.dto.weather.DailyData;
-import com.pa.twb.service.ext.dto.weather.DarkSkyWeatherDTO;
+import com.pa.twb.service.ext.processing.dto.weather.Daily;
+import com.pa.twb.service.ext.processing.dto.weather.DailyData;
+import com.pa.twb.service.ext.processing.dto.weather.DarkSkyWeatherDTO;
 import com.pa.twb.web.rest.errors.ext.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

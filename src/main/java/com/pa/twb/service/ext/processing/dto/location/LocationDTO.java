@@ -1,4 +1,4 @@
-package com.pa.twb.service.ext.dto.location;
+package com.pa.twb.service.ext.processing.dto.location;
 
 public class LocationDTO {
 

@@ -1,19 +1,19 @@
 
-package com.pa.twb.service.ext.dto.weather;
+package com.pa.twb.service.ext.processing.dto.weather;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-public class Daily {
+public class Minutely {
 
     @JsonProperty("summary")
     private String summary;
     @JsonProperty("icon")
     private String icon;
     @JsonProperty("data")
-    private List<DailyData> data = new ArrayList<DailyData>();
+    private List<MinutelyData> data = new ArrayList<MinutelyData>();
 
     @JsonProperty("summary")
     public String getSummary() {
@@ -36,12 +36,13 @@ public class Daily {
     }
 
     @JsonProperty("data")
-    public List<DailyData> getData() {
+    public List<MinutelyData> getData() {
         return data;
     }
 
     @JsonProperty("data")
-    public void setData(List<DailyData> data) {
+    public void setData(List<MinutelyData> data) {
         this.data = data;
     }
+
 }

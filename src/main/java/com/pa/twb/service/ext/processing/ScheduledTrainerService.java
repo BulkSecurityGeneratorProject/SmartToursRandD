@@ -1,10 +1,11 @@
-package com.pa.twb.service.ext;
+package com.pa.twb.service.ext.processing;
 
 import com.pa.twb.domain.Attraction;
 import com.pa.twb.repository.ext.ExtAttractionPurchaseRepository;
-import com.pa.twb.service.ext.dto.csv.CsvDataDTO;
-import com.pa.twb.service.ext.dto.location.LocationDTO;
-import com.pa.twb.service.ext.dto.weather.DailyData;
+import com.pa.twb.service.ext.ExtAttractionService;
+import com.pa.twb.service.ext.processing.dto.csv.CsvDataDTO;
+import com.pa.twb.service.ext.processing.dto.location.LocationDTO;
+import com.pa.twb.service.ext.processing.dto.weather.DailyData;
 import com.pa.twb.service.ext.util.DistanceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

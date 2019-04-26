@@ -1,6 +1,6 @@
-package com.pa.twb.service.ext;
+package com.pa.twb.service.ext.processing;
 
-import com.pa.twb.service.ext.dto.location.LocationDTO;
+import com.pa.twb.service.ext.processing.dto.location.LocationDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
