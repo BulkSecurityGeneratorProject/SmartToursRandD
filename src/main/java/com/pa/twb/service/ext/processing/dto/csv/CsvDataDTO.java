@@ -4,8 +4,10 @@ public class CsvDataDTO {
 
     private long id;
     private double distance;
-    private String weatherStatus;
     private double avgTemp;
+    private double cloudCover;
+    private double windSpeed;
+    private double weight;
     private boolean takenAction;
 
     public long getId() {
@@ -24,14 +26,6 @@ public class CsvDataDTO {
         this.distance = distance;
     }
 
-    public String getWeatherStatus() {
-        return weatherStatus;
-    }
-
-    public void setWeatherStatus(String weatherStatus) {
-        this.weatherStatus = weatherStatus;
-    }
-
     public double getAvgTemp() {
         return avgTemp;
     }
@@ -46,5 +40,29 @@ public class CsvDataDTO {
 
     public void setTakenAction(boolean takenAction) {
         this.takenAction = takenAction;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public double getCloudCover() {
+        return cloudCover;
+    }
+
+    public void setCloudCover(double cloudCover) {
+        this.cloudCover = cloudCover;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
     }
 }

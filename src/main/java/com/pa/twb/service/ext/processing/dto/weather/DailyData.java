@@ -473,4 +473,49 @@ public class DailyData {
     public void setApparentTemperatureMaxTime(Long apparentTemperatureMaxTime) {
         this.apparentTemperatureMaxTime = apparentTemperatureMaxTime;
     }
+
+    @Override
+    public String toString() {
+        return "DailyData{" +
+            "time=" + time +
+            ", summary='" + summary + '\'' +
+            ", icon='" + icon + '\'' +
+            ", sunriseTime=" + sunriseTime +
+            ", sunsetTime=" + sunsetTime +
+            ", moonPhase=" + moonPhase +
+            ", precipIntensity=" + precipIntensity +
+            ", precipIntensityMax=" + precipIntensityMax +
+            ", precipIntensityMaxTime=" + precipIntensityMaxTime +
+            ", precipProbability=" + precipProbability +
+            ", precipType='" + precipType + '\'' +
+            ", temperatureHigh=" + temperatureHigh +
+            ", temperatureHighTime=" + temperatureHighTime +
+            ", temperatureLow=" + temperatureLow +
+            ", temperatureLowTime=" + temperatureLowTime +
+            ", apparentTemperatureHigh=" + apparentTemperatureHigh +
+            ", apparentTemperatureHighTime=" + apparentTemperatureHighTime +
+            ", apparentTemperatureLow=" + apparentTemperatureLow +
+            ", apparentTemperatureLowTime=" + apparentTemperatureLowTime +
+            ", dewPoint=" + dewPoint +
+            ", humidity=" + humidity +
+            ", pressure=" + pressure +
+            ", windSpeed=" + windSpeed +
+            ", windGust=" + windGust +
+            ", windGustTime=" + windGustTime +
+            ", windBearing=" + windBearing +
+            ", cloudCover=" + cloudCover +
+            ", uvIndex=" + uvIndex +
+            ", uvIndexTime=" + uvIndexTime +
+            ", visibility=" + visibility +
+            ", ozone=" + ozone +
+            ", temperatureMin=" + temperatureMin +
+            ", temperatureMinTime=" + temperatureMinTime +
+            ", temperatureMax=" + temperatureMax +
+            ", temperatureMaxTime=" + temperatureMaxTime +
+            ", apparentTemperatureMin=" + apparentTemperatureMin +
+            ", apparentTemperatureMinTime=" + apparentTemperatureMinTime +
+            ", apparentTemperatureMax=" + apparentTemperatureMax +
+            ", apparentTemperatureMaxTime=" + apparentTemperatureMaxTime +
+            '}';
+    }
 }

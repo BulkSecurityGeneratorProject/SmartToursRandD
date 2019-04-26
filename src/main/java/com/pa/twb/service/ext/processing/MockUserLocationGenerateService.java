@@ -14,6 +14,9 @@ import static com.pa.twb.service.ext.util.BoundsValues.*;
 public class MockUserLocationGenerateService {
     private static final int USER_COUNT = 5;
 
+    private static final int MIN_USER_INTEREST = 3;
+    private static final int MAX_USER_INTEREST = 6;
+
     public List<LocationDTO> generate() {
         List<LocationDTO> locations = new ArrayList<>();
         for (int index = 0; index < USER_COUNT; index++) {
