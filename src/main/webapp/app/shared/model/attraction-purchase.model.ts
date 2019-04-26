@@ -5,10 +5,7 @@ export interface IAttractionPurchase {
     id?: number;
     attractionId?: number;
     userDistance?: number;
-    weatherTemperature?: number;
-    weatherMinTemperature?: number;
-    weatherMaxTemperature?: number;
-    weatherHumidity?: number;
+    weatherCategory?: string;
     purchased?: boolean;
     groupTypes?: IAttractionGroupType[];
     eventTypes?: IAttractionEventType[];
@@ -19,10 +16,7 @@ export class AttractionPurchase implements IAttractionPurchase {
         public id?: number,
         public attractionId?: number,
         public userDistance?: number,
-        public weatherTemperature?: number,
-        public weatherMinTemperature?: number,
-        public weatherMaxTemperature?: number,
-        public weatherHumidity?: number,
+        public weatherCategory?: string,
         public purchased?: boolean,
         public groupTypes?: IAttractionGroupType[],
         public eventTypes?: IAttractionEventType[]

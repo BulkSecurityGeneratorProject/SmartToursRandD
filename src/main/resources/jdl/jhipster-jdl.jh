@@ -25,15 +25,8 @@ entity Attraction {
 }
 
 entity AttractionPurchase {
-	attractionId Long,
-
 	userDistance Double,
-    
-    weatherTemperature Double,
-    weatherMinTemperature Double,
-    weatherMaxTemperature Double,
-    weatherHumidity Double,
-
+    weatherCategory String,
     purchased Boolean
 }
 
@@ -43,6 +36,10 @@ entity AttractionGroupType {
 
 entity AttractionEventType {
 	eventType EventType
+}
+
+relationship OneToMany {
+    Attraction{attractionPurchases} to AttractionPurchase{attraction}
 }
 
 relationship ManyToMany {

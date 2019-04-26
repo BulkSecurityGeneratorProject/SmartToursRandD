@@ -10,20 +10,8 @@
             "fieldType": "Double"
         },
         {
-            "fieldName": "weatherTemperature",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "weatherMinTemperature",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "weatherMaxTemperature",
-            "fieldType": "Double"
-        },
-        {
-            "fieldName": "weatherHumidity",
-            "fieldType": "Double"
+            "fieldName": "weatherCategory",
+            "fieldType": "String"
         },
         {
             "fieldName": "purchased",

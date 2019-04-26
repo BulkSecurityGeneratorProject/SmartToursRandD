@@ -98,21 +98,17 @@ public class Attraction implements Serializable {
         return sygicTravelId;
     }
 
-    public void setSygicTravelId(String sygicTravelId) {
-        this.sygicTravelId = sygicTravelId;
-    }
-
     public Attraction sygicTravelId(String sygicTravelId) {
         this.sygicTravelId = sygicTravelId;
         return this;
     }
 
-    public Double getRating() {
-        return rating;
+    public void setSygicTravelId(String sygicTravelId) {
+        this.sygicTravelId = sygicTravelId;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public Double getRating() {
+        return rating;
     }
 
     public Attraction rating(Double rating) {
@@ -120,12 +116,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getLat() {
-        return lat;
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
+    public Double getLat() {
+        return lat;
     }
 
     public Attraction lat(Double lat) {
@@ -133,17 +129,21 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getLng() {
-        return lng;
+    public void setLat(Double lat) {
+        this.lat = lat;
     }
 
-    public void setLng(Double lng) {
-        this.lng = lng;
+    public Double getLng() {
+        return lng;
     }
 
     public Attraction lng(Double lng) {
         this.lng = lng;
         return this;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 
     public String getName() {
@@ -163,21 +163,17 @@ public class Attraction implements Serializable {
         return marker;
     }
 
-    public void setMarker(String marker) {
-        this.marker = marker;
-    }
-
     public Attraction marker(String marker) {
         this.marker = marker;
         return this;
     }
 
-    public String getPerex() {
-        return perex;
+    public void setMarker(String marker) {
+        this.marker = marker;
     }
 
-    public void setPerex(String perex) {
-        this.perex = perex;
+    public String getPerex() {
+        return perex;
     }
 
     public Attraction perex(String perex) {
@@ -185,12 +181,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public String getThumbnailUrl() {
-        return thumbnailUrl;
+    public void setPerex(String perex) {
+        this.perex = perex;
     }
 
-    public void setThumbnailUrl(String thumbnailUrl) {
-        this.thumbnailUrl = thumbnailUrl;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
     public Attraction thumbnailUrl(String thumbnailUrl) {
@@ -198,17 +194,21 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public String getCategories() {
-        return categories;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
-    public void setCategories(String categories) {
-        this.categories = categories;
+    public String getCategories() {
+        return categories;
     }
 
     public Attraction categories(String categories) {
         this.categories = categories;
         return this;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
     public BigDecimal getAdultPrice() {

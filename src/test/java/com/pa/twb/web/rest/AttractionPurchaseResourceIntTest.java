@@ -1,12 +1,10 @@
 package com.pa.twb.web.rest;
 
 import com.pa.twb.SmarttoursApp;
-
 import com.pa.twb.domain.AttractionPurchase;
 import com.pa.twb.repository.AttractionPurchaseRepository;
 import com.pa.twb.service.AttractionPurchaseService;
 import com.pa.twb.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -27,7 +24,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import static com.pa.twb.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -51,17 +47,8 @@ public class AttractionPurchaseResourceIntTest {
     private static final Double DEFAULT_USER_DISTANCE = 1D;
     private static final Double UPDATED_USER_DISTANCE = 2D;
 
-    private static final Double DEFAULT_WEATHER_TEMPERATURE = 1D;
-    private static final Double UPDATED_WEATHER_TEMPERATURE = 2D;
-
-    private static final Double DEFAULT_WEATHER_MIN_TEMPERATURE = 1D;
-    private static final Double UPDATED_WEATHER_MIN_TEMPERATURE = 2D;
-
-    private static final Double DEFAULT_WEATHER_MAX_TEMPERATURE = 1D;
-    private static final Double UPDATED_WEATHER_MAX_TEMPERATURE = 2D;
-
-    private static final Double DEFAULT_WEATHER_HUMIDITY = 1D;
-    private static final Double UPDATED_WEATHER_HUMIDITY = 2D;
+    private static final String DEFAULT_WEATHER_CATEGORY = "AAAAAAAAAA";
+    private static final String UPDATED_WEATHER_CATEGORY = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_PURCHASED = false;
     private static final Boolean UPDATED_PURCHASED = true;
@@ -114,10 +101,7 @@ public class AttractionPurchaseResourceIntTest {
         AttractionPurchase attractionPurchase = new AttractionPurchase()
             .attractionId(DEFAULT_ATTRACTION_ID)
             .userDistance(DEFAULT_USER_DISTANCE)
-            .weatherTemperature(DEFAULT_WEATHER_TEMPERATURE)
-            .weatherMinTemperature(DEFAULT_WEATHER_MIN_TEMPERATURE)
-            .weatherMaxTemperature(DEFAULT_WEATHER_MAX_TEMPERATURE)
-            .weatherHumidity(DEFAULT_WEATHER_HUMIDITY)
+            .weatherCategory(DEFAULT_WEATHER_CATEGORY)
             .purchased(DEFAULT_PURCHASED);
         return attractionPurchase;
     }
@@ -144,10 +128,7 @@ public class AttractionPurchaseResourceIntTest {
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
         assertThat(testAttractionPurchase.getAttractionId()).isEqualTo(DEFAULT_ATTRACTION_ID);
         assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(DEFAULT_USER_DISTANCE);
-        assertThat(testAttractionPurchase.getWeatherTemperature()).isEqualTo(DEFAULT_WEATHER_TEMPERATURE);
-        assertThat(testAttractionPurchase.getWeatherMinTemperature()).isEqualTo(DEFAULT_WEATHER_MIN_TEMPERATURE);
-        assertThat(testAttractionPurchase.getWeatherMaxTemperature()).isEqualTo(DEFAULT_WEATHER_MAX_TEMPERATURE);
-        assertThat(testAttractionPurchase.getWeatherHumidity()).isEqualTo(DEFAULT_WEATHER_HUMIDITY);
+        assertThat(testAttractionPurchase.getWeatherCategory()).isEqualTo(DEFAULT_WEATHER_CATEGORY);
         assertThat(testAttractionPurchase.isPurchased()).isEqualTo(DEFAULT_PURCHASED);
     }
 
@@ -183,10 +164,7 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(attractionPurchase.getId().intValue())))
             .andExpect(jsonPath("$.[*].attractionId").value(hasItem(DEFAULT_ATTRACTION_ID.intValue())))
             .andExpect(jsonPath("$.[*].userDistance").value(hasItem(DEFAULT_USER_DISTANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].weatherTemperature").value(hasItem(DEFAULT_WEATHER_TEMPERATURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].weatherMinTemperature").value(hasItem(DEFAULT_WEATHER_MIN_TEMPERATURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].weatherMaxTemperature").value(hasItem(DEFAULT_WEATHER_MAX_TEMPERATURE.doubleValue())))
-            .andExpect(jsonPath("$.[*].weatherHumidity").value(hasItem(DEFAULT_WEATHER_HUMIDITY.doubleValue())))
+            .andExpect(jsonPath("$.[*].weatherCategory").value(hasItem(DEFAULT_WEATHER_CATEGORY.toString())))
             .andExpect(jsonPath("$.[*].purchased").value(hasItem(DEFAULT_PURCHASED.booleanValue())));
     }
     
@@ -234,10 +212,7 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(jsonPath("$.id").value(attractionPurchase.getId().intValue()))
             .andExpect(jsonPath("$.attractionId").value(DEFAULT_ATTRACTION_ID.intValue()))
             .andExpect(jsonPath("$.userDistance").value(DEFAULT_USER_DISTANCE.doubleValue()))
-            .andExpect(jsonPath("$.weatherTemperature").value(DEFAULT_WEATHER_TEMPERATURE.doubleValue()))
-            .andExpect(jsonPath("$.weatherMinTemperature").value(DEFAULT_WEATHER_MIN_TEMPERATURE.doubleValue()))
-            .andExpect(jsonPath("$.weatherMaxTemperature").value(DEFAULT_WEATHER_MAX_TEMPERATURE.doubleValue()))
-            .andExpect(jsonPath("$.weatherHumidity").value(DEFAULT_WEATHER_HUMIDITY.doubleValue()))
+            .andExpect(jsonPath("$.weatherCategory").value(DEFAULT_WEATHER_CATEGORY.toString()))
             .andExpect(jsonPath("$.purchased").value(DEFAULT_PURCHASED.booleanValue()));
     }
     @Test
@@ -263,10 +238,7 @@ public class AttractionPurchaseResourceIntTest {
         updatedAttractionPurchase
             .attractionId(UPDATED_ATTRACTION_ID)
             .userDistance(UPDATED_USER_DISTANCE)
-            .weatherTemperature(UPDATED_WEATHER_TEMPERATURE)
-            .weatherMinTemperature(UPDATED_WEATHER_MIN_TEMPERATURE)
-            .weatherMaxTemperature(UPDATED_WEATHER_MAX_TEMPERATURE)
-            .weatherHumidity(UPDATED_WEATHER_HUMIDITY)
+            .weatherCategory(UPDATED_WEATHER_CATEGORY)
             .purchased(UPDATED_PURCHASED);
 
         restAttractionPurchaseMockMvc.perform(put("/api/attraction-purchases")
@@ -280,10 +252,7 @@ public class AttractionPurchaseResourceIntTest {
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
         assertThat(testAttractionPurchase.getAttractionId()).isEqualTo(UPDATED_ATTRACTION_ID);
         assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(UPDATED_USER_DISTANCE);
-        assertThat(testAttractionPurchase.getWeatherTemperature()).isEqualTo(UPDATED_WEATHER_TEMPERATURE);
-        assertThat(testAttractionPurchase.getWeatherMinTemperature()).isEqualTo(UPDATED_WEATHER_MIN_TEMPERATURE);
-        assertThat(testAttractionPurchase.getWeatherMaxTemperature()).isEqualTo(UPDATED_WEATHER_MAX_TEMPERATURE);
-        assertThat(testAttractionPurchase.getWeatherHumidity()).isEqualTo(UPDATED_WEATHER_HUMIDITY);
+        assertThat(testAttractionPurchase.getWeatherCategory()).isEqualTo(UPDATED_WEATHER_CATEGORY);
         assertThat(testAttractionPurchase.isPurchased()).isEqualTo(UPDATED_PURCHASED);
     }
 

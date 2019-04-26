@@ -17,10 +17,9 @@
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="attractionId"><span>Attraction Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="userDistance"><span>User Distance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="weatherTemperature"><span>Weather Temperature</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="weatherMinTemperature"><span>Weather Min Temperature</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="weatherMaxTemperature"><span>Weather Max Temperature</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="weatherHumidity"><span>Weather Humidity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="weatherCategory"><span>Weather Category</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
             <th jhiSortBy="purchased"><span>Purchased</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
@@ -30,10 +29,7 @@
                 <td><a [routerLink]="['/attraction-purchase', attractionPurchase.id, 'view' ]">{{attractionPurchase.id}}</a></td>
                 <td>{{attractionPurchase.attractionId}}</td>
                 <td>{{attractionPurchase.userDistance}}</td>
-                <td>{{attractionPurchase.weatherTemperature}}</td>
-                <td>{{attractionPurchase.weatherMinTemperature}}</td>
-                <td>{{attractionPurchase.weatherMaxTemperature}}</td>
-                <td>{{attractionPurchase.weatherHumidity}}</td>
+                <td>{{attractionPurchase.weatherCategory}}</td>
                 <td>{{attractionPurchase.purchased}}</td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

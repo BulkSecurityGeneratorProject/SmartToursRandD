@@ -7,16 +7,12 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pa.twb.service.ext.util.BoundsValues.*;
+
 @Service
 @Transactional(readOnly = true)
 public class MockUserLocationGenerateService {
     private static final int USER_COUNT = 30;
-
-    private static final double SOUTH_WEST_LAT_COORD = 54.084530;
-    private static final double SOUTH_WEST_LONG_COORD = -8.012903;
-
-    private static final double NORTH_EAST_LAT_COORD = 55.244539;
-    private static final double NORTH_EAST_LONG_COORD = -5.551857;
 
     public List<LocationDTO> generate() {
         List<LocationDTO> locations = new ArrayList<>();

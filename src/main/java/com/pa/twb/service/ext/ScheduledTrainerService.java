@@ -88,7 +88,6 @@ public class ScheduledTrainerService {
 
             dataset.add(csvDataDTO);
         }
-
         try {
             csvService.write(dataset);
         } catch (Exception e) {

@@ -4,11 +4,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A AttractionPurchase.
@@ -30,17 +29,8 @@ public class AttractionPurchase implements Serializable {
     @Column(name = "user_distance")
     private Double userDistance;
 
-    @Column(name = "weather_temperature")
-    private Double weatherTemperature;
-
-    @Column(name = "weather_min_temperature")
-    private Double weatherMinTemperature;
-
-    @Column(name = "weather_max_temperature")
-    private Double weatherMaxTemperature;
-
-    @Column(name = "weather_humidity")
-    private Double weatherHumidity;
+    @Column(name = "weather_category")
+    private String weatherCategory;
 
     @Column(name = "purchased")
     private Boolean purchased;
@@ -94,56 +84,17 @@ public class AttractionPurchase implements Serializable {
         this.userDistance = userDistance;
     }
 
-    public Double getWeatherTemperature() {
-        return weatherTemperature;
+    public String getWeatherCategory() {
+        return weatherCategory;
     }
 
-    public AttractionPurchase weatherTemperature(Double weatherTemperature) {
-        this.weatherTemperature = weatherTemperature;
+    public void setWeatherCategory(String weatherCategory) {
+        this.weatherCategory = weatherCategory;
+    }
+
+    public AttractionPurchase weatherCategory(String weatherCategory) {
+        this.weatherCategory = weatherCategory;
         return this;
-    }
-
-    public void setWeatherTemperature(Double weatherTemperature) {
-        this.weatherTemperature = weatherTemperature;
-    }
-
-    public Double getWeatherMinTemperature() {
-        return weatherMinTemperature;
-    }
-
-    public AttractionPurchase weatherMinTemperature(Double weatherMinTemperature) {
-        this.weatherMinTemperature = weatherMinTemperature;
-        return this;
-    }
-
-    public void setWeatherMinTemperature(Double weatherMinTemperature) {
-        this.weatherMinTemperature = weatherMinTemperature;
-    }
-
-    public Double getWeatherMaxTemperature() {
-        return weatherMaxTemperature;
-    }
-
-    public AttractionPurchase weatherMaxTemperature(Double weatherMaxTemperature) {
-        this.weatherMaxTemperature = weatherMaxTemperature;
-        return this;
-    }
-
-    public void setWeatherMaxTemperature(Double weatherMaxTemperature) {
-        this.weatherMaxTemperature = weatherMaxTemperature;
-    }
-
-    public Double getWeatherHumidity() {
-        return weatherHumidity;
-    }
-
-    public AttractionPurchase weatherHumidity(Double weatherHumidity) {
-        this.weatherHumidity = weatherHumidity;
-        return this;
-    }
-
-    public void setWeatherHumidity(Double weatherHumidity) {
-        this.weatherHumidity = weatherHumidity;
     }
 
     public Boolean isPurchased() {
@@ -236,10 +187,7 @@ public class AttractionPurchase implements Serializable {
             "id=" + getId() +
             ", attractionId=" + getAttractionId() +
             ", userDistance=" + getUserDistance() +
-            ", weatherTemperature=" + getWeatherTemperature() +
-            ", weatherMinTemperature=" + getWeatherMinTemperature() +
-            ", weatherMaxTemperature=" + getWeatherMaxTemperature() +
-            ", weatherHumidity=" + getWeatherHumidity() +
+            ", weatherCategory='" + getWeatherCategory() + "'" +
             ", purchased='" + isPurchased() + "'" +
             "}";
     }
