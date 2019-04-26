@@ -4,13 +4,12 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Attraction.
@@ -26,21 +25,33 @@ public class Attraction implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "sygic_travel_id")
+    private String sygicTravelId;
+
+    @Column(name = "rating")
+    private Double rating;
+
+    @Column(name = "lat")
+    private Double lat;
+
+    @Column(name = "lng")
+    private Double lng;
+
     @Column(name = "name")
     private String name;
 
-    @Column(name = "subtitle")
-    private String subtitle;
+    @Column(name = "marker")
+    private String marker;
 
     @Lob
-    @Column(name = "description")
-    private String description;
+    @Column(name = "perex")
+    private String perex;
 
-    @Column(name = "latitude")
-    private Double latitude;
+    @Column(name = "thumbnail_url")
+    private String thumbnailUrl;
 
-    @Column(name = "longitude")
-    private Double longitude;
+    @Column(name = "categories")
+    private String categories;
 
     @Column(name = "adult_price", precision = 10, scale = 2)
     private BigDecimal adultPrice;
@@ -83,6 +94,58 @@ public class Attraction implements Serializable {
         this.id = id;
     }
 
+    public String getSygicTravelId() {
+        return sygicTravelId;
+    }
+
+    public void setSygicTravelId(String sygicTravelId) {
+        this.sygicTravelId = sygicTravelId;
+    }
+
+    public Attraction sygicTravelId(String sygicTravelId) {
+        this.sygicTravelId = sygicTravelId;
+        return this;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public Attraction rating(Double rating) {
+        this.rating = rating;
+        return this;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Attraction lat(Double lat) {
+        this.lat = lat;
+        return this;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
+    }
+
+    public Attraction lng(Double lng) {
+        this.lng = lng;
+        return this;
+    }
+
     public String getName() {
         return name;
     }
@@ -96,56 +159,56 @@ public class Attraction implements Serializable {
         this.name = name;
     }
 
-    public String getSubtitle() {
-        return subtitle;
+    public String getMarker() {
+        return marker;
     }
 
-    public Attraction subtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public void setMarker(String marker) {
+        this.marker = marker;
+    }
+
+    public Attraction marker(String marker) {
+        this.marker = marker;
         return this;
     }
 
-    public void setSubtitle(String subtitle) {
-        this.subtitle = subtitle;
+    public String getPerex() {
+        return perex;
     }
 
-    public String getDescription() {
-        return description;
+    public void setPerex(String perex) {
+        this.perex = perex;
     }
 
-    public Attraction description(String description) {
-        this.description = description;
+    public Attraction perex(String perex) {
+        this.perex = perex;
         return this;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public Double getLatitude() {
-        return latitude;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
-    public Attraction latitude(Double latitude) {
-        this.latitude = latitude;
+    public Attraction thumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
         return this;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public String getCategories() {
+        return categories;
     }
 
-    public Double getLongitude() {
-        return longitude;
+    public void setCategories(String categories) {
+        this.categories = categories;
     }
 
-    public Attraction longitude(Double longitude) {
-        this.longitude = longitude;
+    public Attraction categories(String categories) {
+        this.categories = categories;
         return this;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
     }
 
     public BigDecimal getAdultPrice() {
@@ -301,11 +364,15 @@ public class Attraction implements Serializable {
     public String toString() {
         return "Attraction{" +
             "id=" + getId() +
+            ", sygicTravelId='" + getSygicTravelId() + "'" +
+            ", rating=" + getRating() +
+            ", lat=" + getLat() +
+            ", lng=" + getLng() +
             ", name='" + getName() + "'" +
-            ", subtitle='" + getSubtitle() + "'" +
-            ", description='" + getDescription() + "'" +
-            ", latitude=" + getLatitude() +
-            ", longitude=" + getLongitude() +
+            ", marker='" + getMarker() + "'" +
+            ", perex='" + getPerex() + "'" +
+            ", thumbnailUrl='" + getThumbnailUrl() + "'" +
+            ", categories='" + getCategories() + "'" +
             ", adultPrice=" + getAdultPrice() +
             ", childPrice=" + getChildPrice() +
             ", accessible='" + isAccessible() + "'" +

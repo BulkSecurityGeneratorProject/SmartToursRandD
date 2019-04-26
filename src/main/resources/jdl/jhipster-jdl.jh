@@ -7,11 +7,15 @@ enum EventType {
 }
 
 entity Attraction {
-	name String,
-    subtitle String,
-    description TextBlob,
-    latitude Double,
-    longitude Double,
+    sygicTravelId String,
+    rating Double,
+    lat Double,
+    lng Double,
+    name String,
+    marker String,
+    perex TextBlob,
+    thumbnailUrl String,
+    categories String,
     adultPrice BigDecimal,
     childPrice BigDecimal,
     accessible Boolean,

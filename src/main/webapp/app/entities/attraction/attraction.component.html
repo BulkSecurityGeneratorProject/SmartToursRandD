@@ -15,11 +15,31 @@
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="sygicTravelId"><span>Sygic Travel Id</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="rating"><span>Rating</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="lat"><span>Lat</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="lng"><span>Lng</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
             <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="subtitle"><span>Subtitle</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="latitude"><span>Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="longitude"><span>Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th jhiSortBy="marker"><span>Marker</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="perex"><span>Perex</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="thumbnailUrl"><span>Thumbnail Url</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th jhiSortBy="categories"><span>Categories</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
             <th jhiSortBy="adultPrice"><span>Adult Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="childPrice"><span>Child Price</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="accessible"><span>Accessible</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -32,11 +52,15 @@
             <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
             <tr *ngFor="let attraction of attractions ;trackBy: trackId">
                 <td><a [routerLink]="['/attraction', attraction.id, 'view' ]">{{attraction.id}}</a></td>
+                <td>{{attraction.sygicTravelId}}</td>
+                <td>{{attraction.rating}}</td>
+                <td>{{attraction.lat}}</td>
+                <td>{{attraction.lng}}</td>
                 <td>{{attraction.name}}</td>
-                <td>{{attraction.subtitle}}</td>
-                <td>{{attraction.description}}</td>
-                <td>{{attraction.latitude}}</td>
-                <td>{{attraction.longitude}}</td>
+                <td>{{attraction.marker}}</td>
+                <td>{{attraction.perex}}</td>
+                <td>{{attraction.thumbnailUrl}}</td>
+                <td>{{attraction.categories}}</td>
                 <td>{{attraction.adultPrice}}</td>
                 <td>{{attraction.childPrice}}</td>
                 <td>{{attraction.accessible}}</td>

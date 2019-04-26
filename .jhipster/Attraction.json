@@ -2,25 +2,41 @@
     "name": "Attraction",
     "fields": [
         {
+            "fieldName": "sygicTravelId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "rating",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "lat",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "lng",
+            "fieldType": "Double"
+        },
+        {
             "fieldName": "name",
             "fieldType": "String"
         },
         {
-            "fieldName": "subtitle",
+            "fieldName": "marker",
             "fieldType": "String"
         },
         {
-            "fieldName": "description",
+            "fieldName": "perex",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "text"
         },
         {
-            "fieldName": "latitude",
-            "fieldType": "Double"
+            "fieldName": "thumbnailUrl",
+            "fieldType": "String"
         },
         {
-            "fieldName": "longitude",
-            "fieldType": "Double"
+            "fieldName": "categories",
+            "fieldType": "String"
         },
         {
             "fieldName": "adultPrice",

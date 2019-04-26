@@ -4,11 +4,15 @@ import { IAttractionEventType } from 'app/shared/model//attraction-event-type.mo
 
 export interface IAttraction {
     id?: number;
+    sygicTravelId?: string;
+    rating?: number;
+    lat?: number;
+    lng?: number;
     name?: string;
-    subtitle?: string;
-    description?: any;
-    latitude?: number;
-    longitude?: number;
+    marker?: string;
+    perex?: any;
+    thumbnailUrl?: string;
+    categories?: string;
     adultPrice?: number;
     childPrice?: number;
     accessible?: boolean;
@@ -22,11 +26,15 @@ export interface IAttraction {
 export class Attraction implements IAttraction {
     constructor(
         public id?: number,
+        public sygicTravelId?: string,
+        public rating?: number,
+        public lat?: number,
+        public lng?: number,
         public name?: string,
-        public subtitle?: string,
-        public description?: any,
-        public latitude?: number,
-        public longitude?: number,
+        public marker?: string,
+        public perex?: any,
+        public thumbnailUrl?: string,
+        public categories?: string,
         public adultPrice?: number,
         public childPrice?: number,
         public accessible?: boolean,

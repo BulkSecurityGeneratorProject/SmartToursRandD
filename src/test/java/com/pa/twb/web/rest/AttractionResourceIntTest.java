@@ -1,12 +1,10 @@
 package com.pa.twb.web.rest;
 
 import com.pa.twb.SmarttoursApp;
-
 import com.pa.twb.domain.Attraction;
 import com.pa.twb.repository.AttractionRepository;
 import com.pa.twb.service.AttractionService;
 import com.pa.twb.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +13,6 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -23,7 +20,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
@@ -31,7 +27,6 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-
 
 import static com.pa.twb.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -49,20 +44,32 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SmarttoursApp.class)
 public class AttractionResourceIntTest {
 
+    private static final String DEFAULT_SYGIC_TRAVEL_ID = "AAAAAAAAAA";
+    private static final String UPDATED_SYGIC_TRAVEL_ID = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_RATING = 1D;
+    private static final Double UPDATED_RATING = 2D;
+
+    private static final Double DEFAULT_LAT = 1D;
+    private static final Double UPDATED_LAT = 2D;
+
+    private static final Double DEFAULT_LNG = 1D;
+    private static final Double UPDATED_LNG = 2D;
+
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
 
-    private static final String DEFAULT_SUBTITLE = "AAAAAAAAAA";
-    private static final String UPDATED_SUBTITLE = "BBBBBBBBBB";
+    private static final String DEFAULT_MARKER = "AAAAAAAAAA";
+    private static final String UPDATED_MARKER = "BBBBBBBBBB";
 
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
+    private static final String DEFAULT_PEREX = "AAAAAAAAAA";
+    private static final String UPDATED_PEREX = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_LATITUDE = 1D;
-    private static final Double UPDATED_LATITUDE = 2D;
+    private static final String DEFAULT_THUMBNAIL_URL = "AAAAAAAAAA";
+    private static final String UPDATED_THUMBNAIL_URL = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_LONGITUDE = 1D;
-    private static final Double UPDATED_LONGITUDE = 2D;
+    private static final String DEFAULT_CATEGORIES = "AAAAAAAAAA";
+    private static final String UPDATED_CATEGORIES = "BBBBBBBBBB";
 
     private static final BigDecimal DEFAULT_ADULT_PRICE = new BigDecimal(1);
     private static final BigDecimal UPDATED_ADULT_PRICE = new BigDecimal(2);
@@ -128,11 +135,15 @@ public class AttractionResourceIntTest {
      */
     public static Attraction createEntity(EntityManager em) {
         Attraction attraction = new Attraction()
+            .sygicTravelId(DEFAULT_SYGIC_TRAVEL_ID)
+            .rating(DEFAULT_RATING)
+            .lat(DEFAULT_LAT)
+            .lng(DEFAULT_LNG)
             .name(DEFAULT_NAME)
-            .subtitle(DEFAULT_SUBTITLE)
-            .description(DEFAULT_DESCRIPTION)
-            .latitude(DEFAULT_LATITUDE)
-            .longitude(DEFAULT_LONGITUDE)
+            .marker(DEFAULT_MARKER)
+            .perex(DEFAULT_PEREX)
+            .thumbnailUrl(DEFAULT_THUMBNAIL_URL)
+            .categories(DEFAULT_CATEGORIES)
             .adultPrice(DEFAULT_ADULT_PRICE)
             .childPrice(DEFAULT_CHILD_PRICE)
             .accessible(DEFAULT_ACCESSIBLE)
@@ -162,11 +173,15 @@ public class AttractionResourceIntTest {
         List<Attraction> attractionList = attractionRepository.findAll();
         assertThat(attractionList).hasSize(databaseSizeBeforeCreate + 1);
         Attraction testAttraction = attractionList.get(attractionList.size() - 1);
+        assertThat(testAttraction.getSygicTravelId()).isEqualTo(DEFAULT_SYGIC_TRAVEL_ID);
+        assertThat(testAttraction.getRating()).isEqualTo(DEFAULT_RATING);
+        assertThat(testAttraction.getLat()).isEqualTo(DEFAULT_LAT);
+        assertThat(testAttraction.getLng()).isEqualTo(DEFAULT_LNG);
         assertThat(testAttraction.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testAttraction.getSubtitle()).isEqualTo(DEFAULT_SUBTITLE);
-        assertThat(testAttraction.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testAttraction.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
-        assertThat(testAttraction.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
+        assertThat(testAttraction.getMarker()).isEqualTo(DEFAULT_MARKER);
+        assertThat(testAttraction.getPerex()).isEqualTo(DEFAULT_PEREX);
+        assertThat(testAttraction.getThumbnailUrl()).isEqualTo(DEFAULT_THUMBNAIL_URL);
+        assertThat(testAttraction.getCategories()).isEqualTo(DEFAULT_CATEGORIES);
         assertThat(testAttraction.getAdultPrice()).isEqualTo(DEFAULT_ADULT_PRICE);
         assertThat(testAttraction.getChildPrice()).isEqualTo(DEFAULT_CHILD_PRICE);
         assertThat(testAttraction.isAccessible()).isEqualTo(DEFAULT_ACCESSIBLE);
@@ -205,11 +220,15 @@ public class AttractionResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(attraction.getId().intValue())))
+            .andExpect(jsonPath("$.[*].sygicTravelId").value(hasItem(DEFAULT_SYGIC_TRAVEL_ID.toString())))
+            .andExpect(jsonPath("$.[*].rating").value(hasItem(DEFAULT_RATING.doubleValue())))
+            .andExpect(jsonPath("$.[*].lat").value(hasItem(DEFAULT_LAT.doubleValue())))
+            .andExpect(jsonPath("$.[*].lng").value(hasItem(DEFAULT_LNG.doubleValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].subtitle").value(hasItem(DEFAULT_SUBTITLE.toString())))
-            .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
-            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
-            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].marker").value(hasItem(DEFAULT_MARKER.toString())))
+            .andExpect(jsonPath("$.[*].perex").value(hasItem(DEFAULT_PEREX.toString())))
+            .andExpect(jsonPath("$.[*].thumbnailUrl").value(hasItem(DEFAULT_THUMBNAIL_URL.toString())))
+            .andExpect(jsonPath("$.[*].categories").value(hasItem(DEFAULT_CATEGORIES.toString())))
             .andExpect(jsonPath("$.[*].adultPrice").value(hasItem(DEFAULT_ADULT_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].childPrice").value(hasItem(DEFAULT_CHILD_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].accessible").value(hasItem(DEFAULT_ACCESSIBLE.booleanValue())))
@@ -260,11 +279,15 @@ public class AttractionResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(attraction.getId().intValue()))
+            .andExpect(jsonPath("$.sygicTravelId").value(DEFAULT_SYGIC_TRAVEL_ID.toString()))
+            .andExpect(jsonPath("$.rating").value(DEFAULT_RATING.doubleValue()))
+            .andExpect(jsonPath("$.lat").value(DEFAULT_LAT.doubleValue()))
+            .andExpect(jsonPath("$.lng").value(DEFAULT_LNG.doubleValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.subtitle").value(DEFAULT_SUBTITLE.toString()))
-            .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
-            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
-            .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()))
+            .andExpect(jsonPath("$.marker").value(DEFAULT_MARKER.toString()))
+            .andExpect(jsonPath("$.perex").value(DEFAULT_PEREX.toString()))
+            .andExpect(jsonPath("$.thumbnailUrl").value(DEFAULT_THUMBNAIL_URL.toString()))
+            .andExpect(jsonPath("$.categories").value(DEFAULT_CATEGORIES.toString()))
             .andExpect(jsonPath("$.adultPrice").value(DEFAULT_ADULT_PRICE.intValue()))
             .andExpect(jsonPath("$.childPrice").value(DEFAULT_CHILD_PRICE.intValue()))
             .andExpect(jsonPath("$.accessible").value(DEFAULT_ACCESSIBLE.booleanValue()))
@@ -293,11 +316,15 @@ public class AttractionResourceIntTest {
         // Disconnect from session so that the updates on updatedAttraction are not directly saved in db
         em.detach(updatedAttraction);
         updatedAttraction
+            .sygicTravelId(UPDATED_SYGIC_TRAVEL_ID)
+            .rating(UPDATED_RATING)
+            .lat(UPDATED_LAT)
+            .lng(UPDATED_LNG)
             .name(UPDATED_NAME)
-            .subtitle(UPDATED_SUBTITLE)
-            .description(UPDATED_DESCRIPTION)
-            .latitude(UPDATED_LATITUDE)
-            .longitude(UPDATED_LONGITUDE)
+            .marker(UPDATED_MARKER)
+            .perex(UPDATED_PEREX)
+            .thumbnailUrl(UPDATED_THUMBNAIL_URL)
+            .categories(UPDATED_CATEGORIES)
             .adultPrice(UPDATED_ADULT_PRICE)
             .childPrice(UPDATED_CHILD_PRICE)
             .accessible(UPDATED_ACCESSIBLE)
@@ -314,11 +341,15 @@ public class AttractionResourceIntTest {
         List<Attraction> attractionList = attractionRepository.findAll();
         assertThat(attractionList).hasSize(databaseSizeBeforeUpdate);
         Attraction testAttraction = attractionList.get(attractionList.size() - 1);
+        assertThat(testAttraction.getSygicTravelId()).isEqualTo(UPDATED_SYGIC_TRAVEL_ID);
+        assertThat(testAttraction.getRating()).isEqualTo(UPDATED_RATING);
+        assertThat(testAttraction.getLat()).isEqualTo(UPDATED_LAT);
+        assertThat(testAttraction.getLng()).isEqualTo(UPDATED_LNG);
         assertThat(testAttraction.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testAttraction.getSubtitle()).isEqualTo(UPDATED_SUBTITLE);
-        assertThat(testAttraction.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testAttraction.getLatitude()).isEqualTo(UPDATED_LATITUDE);
-        assertThat(testAttraction.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
+        assertThat(testAttraction.getMarker()).isEqualTo(UPDATED_MARKER);
+        assertThat(testAttraction.getPerex()).isEqualTo(UPDATED_PEREX);
+        assertThat(testAttraction.getThumbnailUrl()).isEqualTo(UPDATED_THUMBNAIL_URL);
+        assertThat(testAttraction.getCategories()).isEqualTo(UPDATED_CATEGORIES);
         assertThat(testAttraction.getAdultPrice()).isEqualTo(UPDATED_ADULT_PRICE);
         assertThat(testAttraction.getChildPrice()).isEqualTo(UPDATED_CHILD_PRICE);
         assertThat(testAttraction.isAccessible()).isEqualTo(UPDATED_ACCESSIBLE);

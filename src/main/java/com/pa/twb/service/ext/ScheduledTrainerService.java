@@ -2,20 +2,23 @@ package com.pa.twb.service.ext;
 
 import com.pa.twb.domain.Attraction;
 import com.pa.twb.repository.ext.ExtAttractionPurchaseRepository;
+import com.pa.twb.service.ext.dto.csv.CsvDataDTO;
+import com.pa.twb.service.ext.dto.location.LocationDTO;
 import com.pa.twb.service.ext.dto.weather.DailyData;
 import com.pa.twb.service.ext.util.DistanceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @Component
-@Transactional(readOnly = true)
 public class ScheduledTrainerService {
     private final Logger log = LoggerFactory.getLogger(ScheduledTrainerService.class);
 
@@ -23,29 +26,34 @@ public class ScheduledTrainerService {
 
     private final ExtAttractionPurchaseRepository extAttractionPurchaseRepository;
 
+    private final MockUserLocationGenerateService locationGenerateService;
+
     private final DarkSkyWeatherService darkSkyWeatherService;
+
+    private final CsvService csvService;
 
     public ScheduledTrainerService(ExtAttractionService extAttractionService,
                                    ExtAttractionPurchaseRepository extAttractionPurchaseRepository,
-                                   DarkSkyWeatherService darkSkyWeatherService) {
+                                   MockUserLocationGenerateService locationGenerateService,
+                                   DarkSkyWeatherService darkSkyWeatherService,
+                                   CsvService csvService) {
         this.extAttractionService = extAttractionService;
         this.extAttractionPurchaseRepository = extAttractionPurchaseRepository;
+        this.locationGenerateService = locationGenerateService;
         this.darkSkyWeatherService = darkSkyWeatherService;
+        this.csvService = csvService;
     }
 
     @Scheduled(initialDelay = 5000L, fixedDelay = 10000L)
     public void train() {
         Long attractionId = 1L;
 
-        double userLatitude = 54.599869d;
-        double userLongitude = -5.9276189d;
+        List<LocationDTO> randomLocations = locationGenerateService.generate();
 
         Attraction attraction = extAttractionService.findByIdThrowException(attractionId);
 
-        double attrLatitude = attraction.getLatitude();
-        double attrLongitude = attraction.getLongitude();
-
-        double userDistanceInMiles = DistanceUtil.distance(userLatitude, userLongitude, attrLatitude, attrLongitude, 'M');
+        double attrLatitude = attraction.getLat();
+        double attrLongitude = attraction.getLng();
 
         DailyData tomorrowsCurrentWeather = darkSkyWeatherService.getWeatherForecastTomorrow(attrLatitude, attrLongitude);
 
@@ -59,26 +67,32 @@ public class ScheduledTrainerService {
 
         double avgApparentTemperatureCelcius = ((5 * (avgApparentTemperatureFarenheit - 32.0)) / 9.0);
 
-        BigDecimal avgApparentTempBigDecimal = new BigDecimal(avgApparentTemperatureCelcius).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal avgApparentTempBigDecimal = new BigDecimal(avgApparentTemperatureCelcius).
+            setScale(2, RoundingMode.HALF_UP);
 
+        List<CsvDataDTO> dataset = new ArrayList<>();
 
+        for (LocationDTO userLocation : randomLocations) {
+            double userLatitude = userLocation.getLatitude();
+            double userLongitude = userLocation.getLongitude();
 
+            double userDistanceInMiles = DistanceUtil.distance(userLatitude, userLongitude, attrLatitude, attrLongitude, 'M');
 
-    }
+            Random random = new Random();
+            int randomNumber = random.nextInt(10);
+            boolean actionTaken = (randomNumber > 5);
+            CsvDataDTO csvDataDTO = new CsvDataDTO();
+            csvDataDTO.setDistance(userDistanceInMiles);
+            csvDataDTO.setWeatherStatus(dailyIcon);
+            csvDataDTO.setTakenAction(actionTaken);
 
-//    split the distance into a category, used to determine how far away
-    private String getDistanceCategoryForDistance(double distance, double largestLandBound) {
-        final int categoryRange = 32;
-        double landSegmentSize = largestLandBound / categoryRange;
-        int counter = categoryRange;
-        double thisSegmentSize = largestLandBound;
-        while (thisSegmentSize > 0) {
-            if (distance > thisSegmentSize) {
-                return "distance-seg-" + counter;
-            }
-            counter--;
-            thisSegmentSize -= landSegmentSize;
+            dataset.add(csvDataDTO);
         }
-        return "unknown-distance";
+
+        try {
+            csvService.write(dataset);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
