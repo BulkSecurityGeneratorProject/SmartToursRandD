@@ -17,10 +17,13 @@ public interface ExtAttractionRepository extends AttractionRepository {
     @Override
     @Query("SELECT a " +
         "FROM Attraction a " +
-        "WHERE a.id = :id " +
-        "AND a.lat IS NOT NULL " +
-        "AND a.lng IS NOT NULL")
+        "WHERE a.id = :id ")
     Optional<Attraction> findById(@Param("id") Long id);
+
+    @Query("SELECT a " +
+        "FROM Attraction a " +
+        "ORDER BY FUNCTION('RAND')")
+    List<Attraction> findAllRandomOrder();
 
     @Override
     @Query("SELECT a " +

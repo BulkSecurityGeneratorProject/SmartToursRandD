@@ -12,7 +12,7 @@ import static com.pa.twb.service.ext.util.BoundsValues.*;
 @Service
 @Transactional(readOnly = true)
 public class MockUserLocationGenerateService {
-    private static final int USER_COUNT = 30;
+    private static final int USER_COUNT = 5;
 
     public List<LocationDTO> generate() {
         List<LocationDTO> locations = new ArrayList<>();

@@ -33,13 +33,10 @@ public class CsvService {
                 CsvPreference.STANDARD_PREFERENCE);
 
             // the header elements are used to map the bean values to each column (names must match)
-            final String[] header = new String[]{"distance", "weatherStatus", "takenAction"};
+            final String[] header = new String[]{"id", "distance", "weatherStatus", "avgTemp", "takenAction"};
             final CellProcessor[] processors = new CellProcessor[]{
-                new NotNull(),
-                new NotNull(),
-                new NotNull(),
+                new NotNull(), new NotNull(), new NotNull(), new NotNull(), new NotNull(),
             };
-
             // write the header
             beanWriter.writeHeader(header);
 
