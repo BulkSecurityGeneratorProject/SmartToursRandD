@@ -1,8 +1,5 @@
 package com.pa.twb.service.ext.dto.attraction;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -13,8 +10,6 @@ import java.time.Instant;
 public class GetAttractionDTO {
     @Min(1L)
     @NotNull
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String sygicTravelId;
