@@ -20,14 +20,14 @@
                            [(ngModel)]="attraction.rating"/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_lat">Lat</label>
-                    <input type="number" class="form-control" name="lat" id="field_lat"
-                           [(ngModel)]="attraction.lat"/>
+                    <label class="form-control-label" for="field_latitude">Latitude</label>
+                    <input type="number" class="form-control" name="latitude" id="field_latitude"
+                           [(ngModel)]="attraction.latitude"/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_lng">Lng</label>
-                    <input type="number" class="form-control" name="lng" id="field_lng"
-                           [(ngModel)]="attraction.lng"/>
+                    <label class="form-control-label" for="field_longitude">Longitude</label>
+                    <input type="number" class="form-control" name="longitude" id="field_longitude"
+                           [(ngModel)]="attraction.longitude"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_name">Name</label>
@@ -53,6 +53,65 @@
                     <label class="form-control-label" for="field_categories">Categories</label>
                     <input type="text" class="form-control" name="categories" id="field_categories"
                            [(ngModel)]="attraction.categories"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsSummary">Ds Summary</label>
+                    <textarea class="form-control" name="dsSummary" id="field_dsSummary"
+                              [(ngModel)]="attraction.dsSummary"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsIcon">Ds Icon</label>
+                    <input type="text" class="form-control" name="dsIcon" id="field_dsIcon"
+                           [(ngModel)]="attraction.dsIcon"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsApparentTemperatureHigh">Ds Apparent Temperature
+                        High</label>
+                    <input type="number" class="form-control" name="dsApparentTemperatureHigh"
+                           id="field_dsApparentTemperatureHigh"
+                           [(ngModel)]="attraction.dsApparentTemperatureHigh"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsApparentTemperatureLow">Ds Apparent Temperature
+                        Low</label>
+                    <input type="number" class="form-control" name="dsApparentTemperatureLow"
+                           id="field_dsApparentTemperatureLow"
+                           [(ngModel)]="attraction.dsApparentTemperatureLow"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsDewPoint">Ds Dew Point</label>
+                    <input type="number" class="form-control" name="dsDewPoint" id="field_dsDewPoint"
+                           [(ngModel)]="attraction.dsDewPoint"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsHumidity">Ds Humidity</label>
+                    <input type="number" class="form-control" name="dsHumidity" id="field_dsHumidity"
+                           [(ngModel)]="attraction.dsHumidity"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsPressure">Ds Pressure</label>
+                    <input type="number" class="form-control" name="dsPressure" id="field_dsPressure"
+                           [(ngModel)]="attraction.dsPressure"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsWindSpeed">Ds Wind Speed</label>
+                    <input type="number" class="form-control" name="dsWindSpeed" id="field_dsWindSpeed"
+                           [(ngModel)]="attraction.dsWindSpeed"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsWindGust">Ds Wind Gust</label>
+                    <input type="number" class="form-control" name="dsWindGust" id="field_dsWindGust"
+                           [(ngModel)]="attraction.dsWindGust"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsCloudCover">Ds Cloud Cover</label>
+                    <input type="number" class="form-control" name="dsCloudCover" id="field_dsCloudCover"
+                           [(ngModel)]="attraction.dsCloudCover"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dsVisibility">Ds Visibility</label>
+                    <input type="number" class="form-control" name="dsVisibility" id="field_dsVisibility"
+                           [(ngModel)]="attraction.dsVisibility"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_adultPrice">Adult Price</label>

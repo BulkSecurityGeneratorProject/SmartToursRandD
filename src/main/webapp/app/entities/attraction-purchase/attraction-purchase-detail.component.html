@@ -5,17 +5,17 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>Attraction Id</span></dt>
+                <dt><span>User Latitude</span></dt>
                 <dd>
-                    <span>{{attractionPurchase.attractionId}}</span>
+                    <span>{{attractionPurchase.userLatitude}}</span>
+                </dd>
+                <dt><span>User Longitude</span></dt>
+                <dd>
+                    <span>{{attractionPurchase.userLongitude}}</span>
                 </dd>
                 <dt><span>User Distance</span></dt>
                 <dd>
                     <span>{{attractionPurchase.userDistance}}</span>
-                </dd>
-                <dt><span>Weather Category</span></dt>
-                <dd>
-                    <span>{{attractionPurchase.weatherCategory}}</span>
                 </dd>
                 <dt><span>Purchased</span></dt>
                 <dd>
@@ -32,6 +32,12 @@
                     <span *ngFor="let eventTypes of attractionPurchase.eventTypes; let last = last">
                         <a [routerLink]="['/attraction-event-type', eventTypes?.id, 'view' ]">{{eventTypes.id}}</a>{{last ? '' : ', '}}
                     </span>
+                </dd>
+                <dt><span>Attraction</span></dt>
+                <dd>
+                    <div *ngIf="attractionPurchase.attraction">
+                        <a [routerLink]="['/attraction', attractionPurchase.attraction?.id, 'view']">{{attractionPurchase.attraction?.id}}</a>
+                    </div>
                 </dd>
             </dl>
 

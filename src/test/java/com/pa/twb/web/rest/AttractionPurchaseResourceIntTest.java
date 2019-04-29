@@ -41,14 +41,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SmarttoursApp.class)
 public class AttractionPurchaseResourceIntTest {
 
-    private static final Long DEFAULT_ATTRACTION_ID = 1L;
-    private static final Long UPDATED_ATTRACTION_ID = 2L;
+    private static final Double DEFAULT_USER_LATITUDE = 1D;
+    private static final Double UPDATED_USER_LATITUDE = 2D;
+
+    private static final Double DEFAULT_USER_LONGITUDE = 1D;
+    private static final Double UPDATED_USER_LONGITUDE = 2D;
 
     private static final Double DEFAULT_USER_DISTANCE = 1D;
     private static final Double UPDATED_USER_DISTANCE = 2D;
-
-    private static final String DEFAULT_WEATHER_CATEGORY = "AAAAAAAAAA";
-    private static final String UPDATED_WEATHER_CATEGORY = "BBBBBBBBBB";
 
     private static final Boolean DEFAULT_PURCHASED = false;
     private static final Boolean UPDATED_PURCHASED = true;
@@ -99,9 +99,9 @@ public class AttractionPurchaseResourceIntTest {
      */
     public static AttractionPurchase createEntity(EntityManager em) {
         AttractionPurchase attractionPurchase = new AttractionPurchase()
-            .attractionId(DEFAULT_ATTRACTION_ID)
+            .userLatitude(DEFAULT_USER_LATITUDE)
+            .userLongitude(DEFAULT_USER_LONGITUDE)
             .userDistance(DEFAULT_USER_DISTANCE)
-            .weatherCategory(DEFAULT_WEATHER_CATEGORY)
             .purchased(DEFAULT_PURCHASED);
         return attractionPurchase;
     }
@@ -126,9 +126,9 @@ public class AttractionPurchaseResourceIntTest {
         List<AttractionPurchase> attractionPurchaseList = attractionPurchaseRepository.findAll();
         assertThat(attractionPurchaseList).hasSize(databaseSizeBeforeCreate + 1);
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
-        assertThat(testAttractionPurchase.getAttractionId()).isEqualTo(DEFAULT_ATTRACTION_ID);
+        assertThat(testAttractionPurchase.getUserLatitude()).isEqualTo(DEFAULT_USER_LATITUDE);
+        assertThat(testAttractionPurchase.getUserLongitude()).isEqualTo(DEFAULT_USER_LONGITUDE);
         assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(DEFAULT_USER_DISTANCE);
-        assertThat(testAttractionPurchase.getWeatherCategory()).isEqualTo(DEFAULT_WEATHER_CATEGORY);
         assertThat(testAttractionPurchase.isPurchased()).isEqualTo(DEFAULT_PURCHASED);
     }
 
@@ -162,9 +162,9 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(attractionPurchase.getId().intValue())))
-            .andExpect(jsonPath("$.[*].attractionId").value(hasItem(DEFAULT_ATTRACTION_ID.intValue())))
+            .andExpect(jsonPath("$.[*].userLatitude").value(hasItem(DEFAULT_USER_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].userLongitude").value(hasItem(DEFAULT_USER_LONGITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].userDistance").value(hasItem(DEFAULT_USER_DISTANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].weatherCategory").value(hasItem(DEFAULT_WEATHER_CATEGORY.toString())))
             .andExpect(jsonPath("$.[*].purchased").value(hasItem(DEFAULT_PURCHASED.booleanValue())));
     }
     
@@ -210,9 +210,9 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(attractionPurchase.getId().intValue()))
-            .andExpect(jsonPath("$.attractionId").value(DEFAULT_ATTRACTION_ID.intValue()))
+            .andExpect(jsonPath("$.userLatitude").value(DEFAULT_USER_LATITUDE.doubleValue()))
+            .andExpect(jsonPath("$.userLongitude").value(DEFAULT_USER_LONGITUDE.doubleValue()))
             .andExpect(jsonPath("$.userDistance").value(DEFAULT_USER_DISTANCE.doubleValue()))
-            .andExpect(jsonPath("$.weatherCategory").value(DEFAULT_WEATHER_CATEGORY.toString()))
             .andExpect(jsonPath("$.purchased").value(DEFAULT_PURCHASED.booleanValue()));
     }
     @Test
@@ -236,9 +236,9 @@ public class AttractionPurchaseResourceIntTest {
         // Disconnect from session so that the updates on updatedAttractionPurchase are not directly saved in db
         em.detach(updatedAttractionPurchase);
         updatedAttractionPurchase
-            .attractionId(UPDATED_ATTRACTION_ID)
+            .userLatitude(UPDATED_USER_LATITUDE)
+            .userLongitude(UPDATED_USER_LONGITUDE)
             .userDistance(UPDATED_USER_DISTANCE)
-            .weatherCategory(UPDATED_WEATHER_CATEGORY)
             .purchased(UPDATED_PURCHASED);
 
         restAttractionPurchaseMockMvc.perform(put("/api/attraction-purchases")
@@ -250,9 +250,9 @@ public class AttractionPurchaseResourceIntTest {
         List<AttractionPurchase> attractionPurchaseList = attractionPurchaseRepository.findAll();
         assertThat(attractionPurchaseList).hasSize(databaseSizeBeforeUpdate);
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
-        assertThat(testAttractionPurchase.getAttractionId()).isEqualTo(UPDATED_ATTRACTION_ID);
+        assertThat(testAttractionPurchase.getUserLatitude()).isEqualTo(UPDATED_USER_LATITUDE);
+        assertThat(testAttractionPurchase.getUserLongitude()).isEqualTo(UPDATED_USER_LONGITUDE);
         assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(UPDATED_USER_DISTANCE);
-        assertThat(testAttractionPurchase.getWeatherCategory()).isEqualTo(UPDATED_WEATHER_CATEGORY);
         assertThat(testAttractionPurchase.isPurchased()).isEqualTo(UPDATED_PURCHASED);
     }
 

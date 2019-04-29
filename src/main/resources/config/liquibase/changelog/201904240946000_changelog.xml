@@ -16,8 +16,8 @@
     </changeSet>
     <changeSet author="thomasbigger (generated)" id="1556095534332-3">
         <loadData encoding="UTF-8"
-                  file="config/liquibase/ext/attractions.csv"
-                  separator=","
+                  file="config/liquibase/ext/attractions_weather.csv"
+                  separator=";"
                   tableName="attraction"/>
     </changeSet>
 </databaseChangeLog>

@@ -9,13 +9,27 @@ enum EventType {
 entity Attraction {
     sygicTravelId String,
     rating Double,
-    lat Double,
-    lng Double,
+    latitude Double,
+    longitude Double,
     name String,
     marker String,
     perex TextBlob,
     thumbnailUrl String,
     categories String,
+
+    dsSummary TextBlob,
+    dsIcon String,
+    dsApparentTemperatureHigh Double,
+    dsApparentTemperatureLow Double,
+    dsDewPoint Double,
+    dsHumidity Double,
+    dsPressure Double,
+    dsWindSpeed Double,
+    dsWindGust Double,
+    dsCloudCover Double,
+    dsVisibility Long,
+
+
     adultPrice BigDecimal,
     childPrice BigDecimal,
     accessible Boolean,
@@ -25,8 +39,9 @@ entity Attraction {
 }
 
 entity AttractionPurchase {
+    userLatitude Double,
+    userLongitude Double,
 	userDistance Double,
-    weatherCategory String,
     purchased Boolean
 }
 

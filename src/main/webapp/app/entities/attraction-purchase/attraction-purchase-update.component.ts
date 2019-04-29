@@ -10,6 +10,8 @@ import { IAttractionGroupType } from 'app/shared/model/attraction-group-type.mod
 import { AttractionGroupTypeService } from 'app/entities/attraction-group-type';
 import { IAttractionEventType } from 'app/shared/model/attraction-event-type.model';
 import { AttractionEventTypeService } from 'app/entities/attraction-event-type';
+import { IAttraction } from 'app/shared/model/attraction.model';
+import { AttractionService } from 'app/entities/attraction';
 
 @Component({
     selector: 'jhi-attraction-purchase-update',
@@ -23,11 +25,14 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
 
     attractioneventtypes: IAttractionEventType[];
 
+    attractions: IAttraction[];
+
     constructor(
         private jhiAlertService: JhiAlertService,
         private attractionPurchaseService: AttractionPurchaseService,
         private attractionGroupTypeService: AttractionGroupTypeService,
         private attractionEventTypeService: AttractionEventTypeService,
+        private attractionService: AttractionService,
         private activatedRoute: ActivatedRoute
     ) {}
 
@@ -45,6 +50,12 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
         this.attractionEventTypeService.query().subscribe(
             (res: HttpResponse<IAttractionEventType[]>) => {
                 this.attractioneventtypes = res.body;
+            },
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+        this.attractionService.query().subscribe(
+            (res: HttpResponse<IAttraction[]>) => {
+                this.attractions = res.body;
             },
             (res: HttpErrorResponse) => this.onError(res.message)
         );
@@ -85,6 +96,10 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
     }
 
     trackAttractionEventTypeById(index: number, item: IAttractionEventType) {
+        return item.id;
+    }
+
+    trackAttractionById(index: number, item: IAttraction) {
         return item.id;
     }
 

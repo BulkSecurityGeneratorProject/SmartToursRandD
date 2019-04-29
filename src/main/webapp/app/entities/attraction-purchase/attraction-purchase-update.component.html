@@ -10,19 +10,19 @@
                         [(ngModel)]="attractionPurchase.id" readonly />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_attractionId">Attraction Id</label>
-                    <input type="number" class="form-control" name="attractionId" id="field_attractionId"
-                        [(ngModel)]="attractionPurchase.attractionId" />
+                    <label class="form-control-label" for="field_userLatitude">User Latitude</label>
+                    <input type="number" class="form-control" name="userLatitude" id="field_userLatitude"
+                           [(ngModel)]="attractionPurchase.userLatitude"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_userLongitude">User Longitude</label>
+                    <input type="number" class="form-control" name="userLongitude" id="field_userLongitude"
+                           [(ngModel)]="attractionPurchase.userLongitude"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_userDistance">User Distance</label>
                     <input type="number" class="form-control" name="userDistance" id="field_userDistance"
                         [(ngModel)]="attractionPurchase.userDistance" />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_weatherCategory">Weather Category</label>
-                    <input type="text" class="form-control" name="weatherCategory" id="field_weatherCategory"
-                           [(ngModel)]="attractionPurchase.weatherCategory"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_purchased">Purchased</label>
@@ -40,6 +40,18 @@
                     <label for="field_eventTypes">Event Types</label>
                     <select class="form-control" id="field_eventTypes" multiple name="eventTypes" [(ngModel)]="attractionPurchase.eventTypes">
                         <option [ngValue]="getSelected(attractionPurchase.eventTypes, attractionEventTypeOption)" *ngFor="let attractionEventTypeOption of attractioneventtypes; trackBy: trackAttractionEventTypeById">{{attractionEventTypeOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_attraction">Attraction</label>
+                    <select class="form-control" id="field_attraction" name="attraction"
+                            [(ngModel)]="attractionPurchase.attraction">
+                        <option [ngValue]="null"></option>
+                        <option
+                            [ngValue]="attractionOption.id === attractionPurchase.attraction?.id ? attractionPurchase.attraction : attractionOption"
+                            *ngFor="let attractionOption of attractions; trackBy: trackAttractionById">
+                            {{attractionOption.id}}
+                        </option>
                     </select>
                 </div>
             </div>

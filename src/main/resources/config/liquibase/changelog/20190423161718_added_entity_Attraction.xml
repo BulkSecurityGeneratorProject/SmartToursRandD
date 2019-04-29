@@ -28,11 +28,11 @@
                 <constraints nullable="true"/>
             </column>
 
-            <column name="lat" type="double">
+            <column name="latitude" type="double">
                 <constraints nullable="true"/>
             </column>
 
-            <column name="lng" type="double">
+            <column name="longitude" type="double">
                 <constraints nullable="true"/>
             </column>
 
@@ -54,6 +54,50 @@
 
             <column name="categories" type="varchar(255)">
                 <constraints nullable="true" />
+            </column>
+
+            <column name="ds_summary" type="clob">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_icon" type="varchar(255)">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_apparent_temperature_high" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_apparent_temperature_low" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_dew_point" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_humidity" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_pressure" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_wind_speed" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_wind_gust" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_cloud_cover" type="double">
+                <constraints nullable="true"/>
+            </column>
+
+            <column name="ds_visibility" type="bigint">
+                <constraints nullable="true"/>
             </column>
 
             <column name="adult_price" type="decimal(10,2)">

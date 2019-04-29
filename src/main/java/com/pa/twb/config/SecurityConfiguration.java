@@ -1,8 +1,8 @@
 package com.pa.twb.config;
 
-import com.pa.twb.security.*;
-import com.pa.twb.security.jwt.*;
-
+import com.pa.twb.security.AuthoritiesConstants;
+import com.pa.twb.security.jwt.JWTConfigurer;
+import com.pa.twb.security.jwt.TokenProvider;
 import org.springframework.beans.factory.BeanInitializationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -101,6 +101,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
             .authorizeRequests()
+
+            .antMatchers("/api/ext-**").permitAll()
+
             .antMatchers("/api/register").permitAll()
             .antMatchers("/api/activate").permitAll()
             .antMatchers("/api/authenticate").permitAll()

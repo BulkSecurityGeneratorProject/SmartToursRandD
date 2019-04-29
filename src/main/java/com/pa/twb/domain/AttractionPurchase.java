@@ -1,5 +1,6 @@
 package com.pa.twb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -23,14 +24,14 @@ public class AttractionPurchase implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "attraction_id")
-    private Long attractionId;
+    @Column(name = "user_latitude")
+    private Double userLatitude;
+
+    @Column(name = "user_longitude")
+    private Double userLongitude;
 
     @Column(name = "user_distance")
     private Double userDistance;
-
-    @Column(name = "weather_category")
-    private String weatherCategory;
 
     @Column(name = "purchased")
     private Boolean purchased;
@@ -49,6 +50,10 @@ public class AttractionPurchase implements Serializable {
                inverseJoinColumns = @JoinColumn(name = "event_types_id", referencedColumnName = "id"))
     private Set<AttractionEventType> eventTypes = new HashSet<>();
 
+    @ManyToOne
+    @JsonIgnoreProperties("attractionPurchases")
+    private Attraction attraction;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -58,17 +63,30 @@ public class AttractionPurchase implements Serializable {
         this.id = id;
     }
 
-    public Long getAttractionId() {
-        return attractionId;
+    public Double getUserLatitude() {
+        return userLatitude;
     }
 
-    public AttractionPurchase attractionId(Long attractionId) {
-        this.attractionId = attractionId;
+    public void setUserLatitude(Double userLatitude) {
+        this.userLatitude = userLatitude;
+    }
+
+    public AttractionPurchase userLatitude(Double userLatitude) {
+        this.userLatitude = userLatitude;
         return this;
     }
 
-    public void setAttractionId(Long attractionId) {
-        this.attractionId = attractionId;
+    public Double getUserLongitude() {
+        return userLongitude;
+    }
+
+    public void setUserLongitude(Double userLongitude) {
+        this.userLongitude = userLongitude;
+    }
+
+    public AttractionPurchase userLongitude(Double userLongitude) {
+        this.userLongitude = userLongitude;
+        return this;
     }
 
     public Double getUserDistance() {
@@ -82,19 +100,6 @@ public class AttractionPurchase implements Serializable {
 
     public void setUserDistance(Double userDistance) {
         this.userDistance = userDistance;
-    }
-
-    public String getWeatherCategory() {
-        return weatherCategory;
-    }
-
-    public void setWeatherCategory(String weatherCategory) {
-        this.weatherCategory = weatherCategory;
-    }
-
-    public AttractionPurchase weatherCategory(String weatherCategory) {
-        this.weatherCategory = weatherCategory;
-        return this;
     }
 
     public Boolean isPurchased() {
@@ -159,6 +164,19 @@ public class AttractionPurchase implements Serializable {
     public void setEventTypes(Set<AttractionEventType> attractionEventTypes) {
         this.eventTypes = attractionEventTypes;
     }
+
+    public Attraction getAttraction() {
+        return attraction;
+    }
+
+    public void setAttraction(Attraction attraction) {
+        this.attraction = attraction;
+    }
+
+    public AttractionPurchase attraction(Attraction attraction) {
+        this.attraction = attraction;
+        return this;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
@@ -185,9 +203,9 @@ public class AttractionPurchase implements Serializable {
     public String toString() {
         return "AttractionPurchase{" +
             "id=" + getId() +
-            ", attractionId=" + getAttractionId() +
+            ", userLatitude=" + getUserLatitude() +
+            ", userLongitude=" + getUserLongitude() +
             ", userDistance=" + getUserDistance() +
-            ", weatherCategory='" + getWeatherCategory() + "'" +
             ", purchased='" + isPurchased() + "'" +
             "}";
     }

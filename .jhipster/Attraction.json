@@ -10,11 +10,11 @@
             "fieldType": "Double"
         },
         {
-            "fieldName": "lat",
+            "fieldName": "latitude",
             "fieldType": "Double"
         },
         {
-            "fieldName": "lng",
+            "fieldName": "longitude",
             "fieldType": "Double"
         },
         {
@@ -37,6 +37,51 @@
         {
             "fieldName": "categories",
             "fieldType": "String"
+        },
+        {
+            "fieldName": "dsSummary",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "dsIcon",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "dsApparentTemperatureHigh",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsApparentTemperatureLow",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsDewPoint",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsHumidity",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsPressure",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsWindSpeed",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsWindGust",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsCloudCover",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "dsVisibility",
+            "fieldType": "Long"
         },
         {
             "fieldName": "adultPrice",
@@ -64,6 +109,12 @@
         }
     ],
     "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "attractionPurchases",
+            "otherEntityName": "attractionPurchase",
+            "otherEntityRelationshipName": "attraction"
+        },
         {
             "relationshipType": "many-to-many",
             "otherEntityRelationshipName": "attraction",

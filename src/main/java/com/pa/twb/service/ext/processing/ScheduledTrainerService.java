@@ -9,7 +9,6 @@ import com.pa.twb.service.ext.processing.dto.weather.DailyData;
 import com.pa.twb.service.ext.util.DistanceUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -41,7 +40,7 @@ public class ScheduledTrainerService {
         this.csvService = csvService;
     }
 
-    @Scheduled(initialDelay = 5000L, fixedDelay = 10000L)
+    //    @Scheduled(initialDelay = 5000L, fixedDelay = 10000L)
     public void train() {
         List<CsvDataDTO> dataset = new ArrayList<>();
 
@@ -54,8 +53,8 @@ public class ScheduledTrainerService {
 
             Attraction attraction = attractions.get(index);
 
-            double attrLatitude = attraction.getLat();
-            double attrLongitude = attraction.getLng();
+            double attrLatitude = attraction.getLatitude();
+            double attrLongitude = attraction.getLongitude();
 
             DailyData tomorrowsWeather = darkSkyWeatherService.
                 getWeatherForecastTomorrow(attrLatitude, attrLongitude);

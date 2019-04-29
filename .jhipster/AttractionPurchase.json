@@ -2,16 +2,16 @@
     "name": "AttractionPurchase",
     "fields": [
         {
-            "fieldName": "attractionId",
-            "fieldType": "Long"
+            "fieldName": "userLatitude",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "userLongitude",
+            "fieldType": "Double"
         },
         {
             "fieldName": "userDistance",
             "fieldType": "Double"
-        },
-        {
-            "fieldName": "weatherCategory",
-            "fieldType": "String"
         },
         {
             "fieldName": "purchased",
@@ -34,6 +34,12 @@
             "otherEntityName": "attractionEventType",
             "otherEntityField": "id",
             "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "attraction",
+            "otherEntityName": "attraction",
+            "otherEntityField": "id"
         }
     ],
     "changelogDate": "20190424081633",

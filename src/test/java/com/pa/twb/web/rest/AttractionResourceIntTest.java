@@ -50,11 +50,11 @@ public class AttractionResourceIntTest {
     private static final Double DEFAULT_RATING = 1D;
     private static final Double UPDATED_RATING = 2D;
 
-    private static final Double DEFAULT_LAT = 1D;
-    private static final Double UPDATED_LAT = 2D;
+    private static final Double DEFAULT_LATITUDE = 1D;
+    private static final Double UPDATED_LATITUDE = 2D;
 
-    private static final Double DEFAULT_LNG = 1D;
-    private static final Double UPDATED_LNG = 2D;
+    private static final Double DEFAULT_LONGITUDE = 1D;
+    private static final Double UPDATED_LONGITUDE = 2D;
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -70,6 +70,39 @@ public class AttractionResourceIntTest {
 
     private static final String DEFAULT_CATEGORIES = "AAAAAAAAAA";
     private static final String UPDATED_CATEGORIES = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DS_SUMMARY = "AAAAAAAAAA";
+    private static final String UPDATED_DS_SUMMARY = "BBBBBBBBBB";
+
+    private static final String DEFAULT_DS_ICON = "AAAAAAAAAA";
+    private static final String UPDATED_DS_ICON = "BBBBBBBBBB";
+
+    private static final Double DEFAULT_DS_APPARENT_TEMPERATURE_HIGH = 1D;
+    private static final Double UPDATED_DS_APPARENT_TEMPERATURE_HIGH = 2D;
+
+    private static final Double DEFAULT_DS_APPARENT_TEMPERATURE_LOW = 1D;
+    private static final Double UPDATED_DS_APPARENT_TEMPERATURE_LOW = 2D;
+
+    private static final Double DEFAULT_DS_DEW_POINT = 1D;
+    private static final Double UPDATED_DS_DEW_POINT = 2D;
+
+    private static final Double DEFAULT_DS_HUMIDITY = 1D;
+    private static final Double UPDATED_DS_HUMIDITY = 2D;
+
+    private static final Double DEFAULT_DS_PRESSURE = 1D;
+    private static final Double UPDATED_DS_PRESSURE = 2D;
+
+    private static final Double DEFAULT_DS_WIND_SPEED = 1D;
+    private static final Double UPDATED_DS_WIND_SPEED = 2D;
+
+    private static final Double DEFAULT_DS_WIND_GUST = 1D;
+    private static final Double UPDATED_DS_WIND_GUST = 2D;
+
+    private static final Double DEFAULT_DS_CLOUD_COVER = 1D;
+    private static final Double UPDATED_DS_CLOUD_COVER = 2D;
+
+    private static final Long DEFAULT_DS_VISIBILITY = 1L;
+    private static final Long UPDATED_DS_VISIBILITY = 2L;
 
     private static final BigDecimal DEFAULT_ADULT_PRICE = new BigDecimal(1);
     private static final BigDecimal UPDATED_ADULT_PRICE = new BigDecimal(2);
@@ -137,13 +170,24 @@ public class AttractionResourceIntTest {
         Attraction attraction = new Attraction()
             .sygicTravelId(DEFAULT_SYGIC_TRAVEL_ID)
             .rating(DEFAULT_RATING)
-            .lat(DEFAULT_LAT)
-            .lng(DEFAULT_LNG)
+            .latitude(DEFAULT_LATITUDE)
+            .longitude(DEFAULT_LONGITUDE)
             .name(DEFAULT_NAME)
             .marker(DEFAULT_MARKER)
             .perex(DEFAULT_PEREX)
             .thumbnailUrl(DEFAULT_THUMBNAIL_URL)
             .categories(DEFAULT_CATEGORIES)
+            .dsSummary(DEFAULT_DS_SUMMARY)
+            .dsIcon(DEFAULT_DS_ICON)
+            .dsApparentTemperatureHigh(DEFAULT_DS_APPARENT_TEMPERATURE_HIGH)
+            .dsApparentTemperatureLow(DEFAULT_DS_APPARENT_TEMPERATURE_LOW)
+            .dsDewPoint(DEFAULT_DS_DEW_POINT)
+            .dsHumidity(DEFAULT_DS_HUMIDITY)
+            .dsPressure(DEFAULT_DS_PRESSURE)
+            .dsWindSpeed(DEFAULT_DS_WIND_SPEED)
+            .dsWindGust(DEFAULT_DS_WIND_GUST)
+            .dsCloudCover(DEFAULT_DS_CLOUD_COVER)
+            .dsVisibility(DEFAULT_DS_VISIBILITY)
             .adultPrice(DEFAULT_ADULT_PRICE)
             .childPrice(DEFAULT_CHILD_PRICE)
             .accessible(DEFAULT_ACCESSIBLE)
@@ -175,13 +219,24 @@ public class AttractionResourceIntTest {
         Attraction testAttraction = attractionList.get(attractionList.size() - 1);
         assertThat(testAttraction.getSygicTravelId()).isEqualTo(DEFAULT_SYGIC_TRAVEL_ID);
         assertThat(testAttraction.getRating()).isEqualTo(DEFAULT_RATING);
-        assertThat(testAttraction.getLat()).isEqualTo(DEFAULT_LAT);
-        assertThat(testAttraction.getLng()).isEqualTo(DEFAULT_LNG);
+        assertThat(testAttraction.getLatitude()).isEqualTo(DEFAULT_LATITUDE);
+        assertThat(testAttraction.getLongitude()).isEqualTo(DEFAULT_LONGITUDE);
         assertThat(testAttraction.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testAttraction.getMarker()).isEqualTo(DEFAULT_MARKER);
         assertThat(testAttraction.getPerex()).isEqualTo(DEFAULT_PEREX);
         assertThat(testAttraction.getThumbnailUrl()).isEqualTo(DEFAULT_THUMBNAIL_URL);
         assertThat(testAttraction.getCategories()).isEqualTo(DEFAULT_CATEGORIES);
+        assertThat(testAttraction.getDsSummary()).isEqualTo(DEFAULT_DS_SUMMARY);
+        assertThat(testAttraction.getDsIcon()).isEqualTo(DEFAULT_DS_ICON);
+        assertThat(testAttraction.getDsApparentTemperatureHigh()).isEqualTo(DEFAULT_DS_APPARENT_TEMPERATURE_HIGH);
+        assertThat(testAttraction.getDsApparentTemperatureLow()).isEqualTo(DEFAULT_DS_APPARENT_TEMPERATURE_LOW);
+        assertThat(testAttraction.getDsDewPoint()).isEqualTo(DEFAULT_DS_DEW_POINT);
+        assertThat(testAttraction.getDsHumidity()).isEqualTo(DEFAULT_DS_HUMIDITY);
+        assertThat(testAttraction.getDsPressure()).isEqualTo(DEFAULT_DS_PRESSURE);
+        assertThat(testAttraction.getDsWindSpeed()).isEqualTo(DEFAULT_DS_WIND_SPEED);
+        assertThat(testAttraction.getDsWindGust()).isEqualTo(DEFAULT_DS_WIND_GUST);
+        assertThat(testAttraction.getDsCloudCover()).isEqualTo(DEFAULT_DS_CLOUD_COVER);
+        assertThat(testAttraction.getDsVisibility()).isEqualTo(DEFAULT_DS_VISIBILITY);
         assertThat(testAttraction.getAdultPrice()).isEqualTo(DEFAULT_ADULT_PRICE);
         assertThat(testAttraction.getChildPrice()).isEqualTo(DEFAULT_CHILD_PRICE);
         assertThat(testAttraction.isAccessible()).isEqualTo(DEFAULT_ACCESSIBLE);
@@ -222,13 +277,24 @@ public class AttractionResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(attraction.getId().intValue())))
             .andExpect(jsonPath("$.[*].sygicTravelId").value(hasItem(DEFAULT_SYGIC_TRAVEL_ID.toString())))
             .andExpect(jsonPath("$.[*].rating").value(hasItem(DEFAULT_RATING.doubleValue())))
-            .andExpect(jsonPath("$.[*].lat").value(hasItem(DEFAULT_LAT.doubleValue())))
-            .andExpect(jsonPath("$.[*].lng").value(hasItem(DEFAULT_LNG.doubleValue())))
+            .andExpect(jsonPath("$.[*].latitude").value(hasItem(DEFAULT_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].longitude").value(hasItem(DEFAULT_LONGITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
             .andExpect(jsonPath("$.[*].marker").value(hasItem(DEFAULT_MARKER.toString())))
             .andExpect(jsonPath("$.[*].perex").value(hasItem(DEFAULT_PEREX.toString())))
             .andExpect(jsonPath("$.[*].thumbnailUrl").value(hasItem(DEFAULT_THUMBNAIL_URL.toString())))
             .andExpect(jsonPath("$.[*].categories").value(hasItem(DEFAULT_CATEGORIES.toString())))
+            .andExpect(jsonPath("$.[*].dsSummary").value(hasItem(DEFAULT_DS_SUMMARY.toString())))
+            .andExpect(jsonPath("$.[*].dsIcon").value(hasItem(DEFAULT_DS_ICON.toString())))
+            .andExpect(jsonPath("$.[*].dsApparentTemperatureHigh").value(hasItem(DEFAULT_DS_APPARENT_TEMPERATURE_HIGH.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsApparentTemperatureLow").value(hasItem(DEFAULT_DS_APPARENT_TEMPERATURE_LOW.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsDewPoint").value(hasItem(DEFAULT_DS_DEW_POINT.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsHumidity").value(hasItem(DEFAULT_DS_HUMIDITY.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsPressure").value(hasItem(DEFAULT_DS_PRESSURE.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsWindSpeed").value(hasItem(DEFAULT_DS_WIND_SPEED.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsWindGust").value(hasItem(DEFAULT_DS_WIND_GUST.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsCloudCover").value(hasItem(DEFAULT_DS_CLOUD_COVER.doubleValue())))
+            .andExpect(jsonPath("$.[*].dsVisibility").value(hasItem(DEFAULT_DS_VISIBILITY.intValue())))
             .andExpect(jsonPath("$.[*].adultPrice").value(hasItem(DEFAULT_ADULT_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].childPrice").value(hasItem(DEFAULT_CHILD_PRICE.intValue())))
             .andExpect(jsonPath("$.[*].accessible").value(hasItem(DEFAULT_ACCESSIBLE.booleanValue())))
@@ -281,13 +347,24 @@ public class AttractionResourceIntTest {
             .andExpect(jsonPath("$.id").value(attraction.getId().intValue()))
             .andExpect(jsonPath("$.sygicTravelId").value(DEFAULT_SYGIC_TRAVEL_ID.toString()))
             .andExpect(jsonPath("$.rating").value(DEFAULT_RATING.doubleValue()))
-            .andExpect(jsonPath("$.lat").value(DEFAULT_LAT.doubleValue()))
-            .andExpect(jsonPath("$.lng").value(DEFAULT_LNG.doubleValue()))
+            .andExpect(jsonPath("$.latitude").value(DEFAULT_LATITUDE.doubleValue()))
+            .andExpect(jsonPath("$.longitude").value(DEFAULT_LONGITUDE.doubleValue()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
             .andExpect(jsonPath("$.marker").value(DEFAULT_MARKER.toString()))
             .andExpect(jsonPath("$.perex").value(DEFAULT_PEREX.toString()))
             .andExpect(jsonPath("$.thumbnailUrl").value(DEFAULT_THUMBNAIL_URL.toString()))
             .andExpect(jsonPath("$.categories").value(DEFAULT_CATEGORIES.toString()))
+            .andExpect(jsonPath("$.dsSummary").value(DEFAULT_DS_SUMMARY.toString()))
+            .andExpect(jsonPath("$.dsIcon").value(DEFAULT_DS_ICON.toString()))
+            .andExpect(jsonPath("$.dsApparentTemperatureHigh").value(DEFAULT_DS_APPARENT_TEMPERATURE_HIGH.doubleValue()))
+            .andExpect(jsonPath("$.dsApparentTemperatureLow").value(DEFAULT_DS_APPARENT_TEMPERATURE_LOW.doubleValue()))
+            .andExpect(jsonPath("$.dsDewPoint").value(DEFAULT_DS_DEW_POINT.doubleValue()))
+            .andExpect(jsonPath("$.dsHumidity").value(DEFAULT_DS_HUMIDITY.doubleValue()))
+            .andExpect(jsonPath("$.dsPressure").value(DEFAULT_DS_PRESSURE.doubleValue()))
+            .andExpect(jsonPath("$.dsWindSpeed").value(DEFAULT_DS_WIND_SPEED.doubleValue()))
+            .andExpect(jsonPath("$.dsWindGust").value(DEFAULT_DS_WIND_GUST.doubleValue()))
+            .andExpect(jsonPath("$.dsCloudCover").value(DEFAULT_DS_CLOUD_COVER.doubleValue()))
+            .andExpect(jsonPath("$.dsVisibility").value(DEFAULT_DS_VISIBILITY.intValue()))
             .andExpect(jsonPath("$.adultPrice").value(DEFAULT_ADULT_PRICE.intValue()))
             .andExpect(jsonPath("$.childPrice").value(DEFAULT_CHILD_PRICE.intValue()))
             .andExpect(jsonPath("$.accessible").value(DEFAULT_ACCESSIBLE.booleanValue()))
@@ -318,13 +395,24 @@ public class AttractionResourceIntTest {
         updatedAttraction
             .sygicTravelId(UPDATED_SYGIC_TRAVEL_ID)
             .rating(UPDATED_RATING)
-            .lat(UPDATED_LAT)
-            .lng(UPDATED_LNG)
+            .latitude(UPDATED_LATITUDE)
+            .longitude(UPDATED_LONGITUDE)
             .name(UPDATED_NAME)
             .marker(UPDATED_MARKER)
             .perex(UPDATED_PEREX)
             .thumbnailUrl(UPDATED_THUMBNAIL_URL)
             .categories(UPDATED_CATEGORIES)
+            .dsSummary(UPDATED_DS_SUMMARY)
+            .dsIcon(UPDATED_DS_ICON)
+            .dsApparentTemperatureHigh(UPDATED_DS_APPARENT_TEMPERATURE_HIGH)
+            .dsApparentTemperatureLow(UPDATED_DS_APPARENT_TEMPERATURE_LOW)
+            .dsDewPoint(UPDATED_DS_DEW_POINT)
+            .dsHumidity(UPDATED_DS_HUMIDITY)
+            .dsPressure(UPDATED_DS_PRESSURE)
+            .dsWindSpeed(UPDATED_DS_WIND_SPEED)
+            .dsWindGust(UPDATED_DS_WIND_GUST)
+            .dsCloudCover(UPDATED_DS_CLOUD_COVER)
+            .dsVisibility(UPDATED_DS_VISIBILITY)
             .adultPrice(UPDATED_ADULT_PRICE)
             .childPrice(UPDATED_CHILD_PRICE)
             .accessible(UPDATED_ACCESSIBLE)
@@ -343,13 +431,24 @@ public class AttractionResourceIntTest {
         Attraction testAttraction = attractionList.get(attractionList.size() - 1);
         assertThat(testAttraction.getSygicTravelId()).isEqualTo(UPDATED_SYGIC_TRAVEL_ID);
         assertThat(testAttraction.getRating()).isEqualTo(UPDATED_RATING);
-        assertThat(testAttraction.getLat()).isEqualTo(UPDATED_LAT);
-        assertThat(testAttraction.getLng()).isEqualTo(UPDATED_LNG);
+        assertThat(testAttraction.getLatitude()).isEqualTo(UPDATED_LATITUDE);
+        assertThat(testAttraction.getLongitude()).isEqualTo(UPDATED_LONGITUDE);
         assertThat(testAttraction.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testAttraction.getMarker()).isEqualTo(UPDATED_MARKER);
         assertThat(testAttraction.getPerex()).isEqualTo(UPDATED_PEREX);
         assertThat(testAttraction.getThumbnailUrl()).isEqualTo(UPDATED_THUMBNAIL_URL);
         assertThat(testAttraction.getCategories()).isEqualTo(UPDATED_CATEGORIES);
+        assertThat(testAttraction.getDsSummary()).isEqualTo(UPDATED_DS_SUMMARY);
+        assertThat(testAttraction.getDsIcon()).isEqualTo(UPDATED_DS_ICON);
+        assertThat(testAttraction.getDsApparentTemperatureHigh()).isEqualTo(UPDATED_DS_APPARENT_TEMPERATURE_HIGH);
+        assertThat(testAttraction.getDsApparentTemperatureLow()).isEqualTo(UPDATED_DS_APPARENT_TEMPERATURE_LOW);
+        assertThat(testAttraction.getDsDewPoint()).isEqualTo(UPDATED_DS_DEW_POINT);
+        assertThat(testAttraction.getDsHumidity()).isEqualTo(UPDATED_DS_HUMIDITY);
+        assertThat(testAttraction.getDsPressure()).isEqualTo(UPDATED_DS_PRESSURE);
+        assertThat(testAttraction.getDsWindSpeed()).isEqualTo(UPDATED_DS_WIND_SPEED);
+        assertThat(testAttraction.getDsWindGust()).isEqualTo(UPDATED_DS_WIND_GUST);
+        assertThat(testAttraction.getDsCloudCover()).isEqualTo(UPDATED_DS_CLOUD_COVER);
+        assertThat(testAttraction.getDsVisibility()).isEqualTo(UPDATED_DS_VISIBILITY);
         assertThat(testAttraction.getAdultPrice()).isEqualTo(UPDATED_ADULT_PRICE);
         assertThat(testAttraction.getChildPrice()).isEqualTo(UPDATED_CHILD_PRICE);
         assertThat(testAttraction.isAccessible()).isEqualTo(UPDATED_ACCESSIBLE);
