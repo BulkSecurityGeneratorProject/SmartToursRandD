@@ -3,6 +3,7 @@ package com.pa.twb.web.rest.ext;
 import com.pa.twb.service.ext.ExtAttractionService;
 import com.pa.twb.service.ext.dto.attraction.CreateAttractionDTO;
 import com.pa.twb.service.ext.dto.attraction.GetAttractionDTO;
+import com.pa.twb.service.ext.dto.attraction.GetAttractionWithDistanceDTO;
 import com.pa.twb.service.ext.dto.attraction.UpdateAttractionDTO;
 import com.pa.twb.web.rest.util.HeaderUtil;
 import com.pa.twb.web.rest.util.PaginationUtil;
@@ -56,4 +57,13 @@ public class ExtAttractionResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ext-attraction");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+
+    @GetMapping("/by-location")
+    public ResponseEntity<List<GetAttractionWithDistanceDTO>> getAllAttractionByLocation(Pageable pageable, @RequestParam Double latitude,
+                                                                                         @RequestParam Double longitude,
+                                                                                         @RequestParam(required = false) Double radius) {
+        List<GetAttractionWithDistanceDTO> list = extAttractionService.getAllByLocation(pageable, latitude, longitude, radius);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
 }

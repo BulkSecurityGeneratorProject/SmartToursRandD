@@ -6,13 +6,19 @@ import com.pa.twb.repository.ext.ExtAttractionRepository;
 import com.pa.twb.service.AttractionService;
 import com.pa.twb.service.ext.dto.attraction.CreateAttractionDTO;
 import com.pa.twb.service.ext.dto.attraction.GetAttractionDTO;
+import com.pa.twb.service.ext.dto.attraction.GetAttractionWithDistanceDTO;
 import com.pa.twb.service.ext.dto.attraction.UpdateAttractionDTO;
 import com.pa.twb.service.mapper.ext.ExtAttractionMapper;
 import com.pa.twb.web.rest.errors.ext.AttractionNotFoundException;
+import com.pa.twb.web.rest.errors.ext.NoLocationProvidedException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -60,5 +66,27 @@ public class ExtAttractionService extends AttractionService {
     public Page<GetAttractionDTO> getAll(Pageable pageable) {
         Page<Attraction> page = extAttractionRepository.findAll(pageable);
         return page.map(extAttractionMapper::entityToGetDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<GetAttractionWithDistanceDTO> getAllByLocation(Pageable pageable, Double latitude, Double longitude, Double radius) {
+        if (latitude == null || longitude == null) {
+            throw new NoLocationProvidedException();
+        }
+        if (radius == null) {
+            radius = 100d;
+        }
+        return extAttractionRepository.findByDistance(latitude, longitude, pageable).stream().
+            map(getEntityWithLocationDto -> {
+                Long attractionId = getEntityWithLocationDto.getId();
+                Optional<Attraction> attractionOpt = extAttractionRepository.findById(attractionId);
+                if (attractionOpt.isPresent()) {
+                    GetAttractionWithDistanceDTO getSiteWithDistanceDTO =
+                        extAttractionMapper.entityToGetWithDistanceDto(attractionOpt.get());
+                    getSiteWithDistanceDTO.setDistance(getEntityWithLocationDto.getDistance());
+                    return getSiteWithDistanceDTO;
+                }
+                return null;
+            }).collect(Collectors.toList());
     }
 }

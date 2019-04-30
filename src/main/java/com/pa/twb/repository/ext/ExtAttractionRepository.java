@@ -2,6 +2,7 @@ package com.pa.twb.repository.ext;
 
 import com.pa.twb.domain.Attraction;
 import com.pa.twb.repository.AttractionRepository;
+import com.pa.twb.service.ext.processing.dto.location.GetEntityWithLocationDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
@@ -35,4 +36,16 @@ public interface ExtAttractionRepository extends AttractionRepository {
         "FROM Attraction a ")
     List<Attraction> findAll();
 
+    @Query(value = "SELECT " +
+        "    attraction.id                                         AS id, " +
+        "    (6371 * acos(cos(radians(?2)) " +
+        "                 * cos(radians(attraction.longitude)) " +
+        "                 * cos(radians(attraction.latitude) - radians(?1)) " +
+        "                 + sin(radians(?2)) " +
+        "                   * sin(radians(attraction.longitude)))) AS distance " +
+        "FROM attraction attraction " +
+        "ORDER BY distance",
+        countQuery = "SELECT COUNT(*) FROM attraction",
+        nativeQuery = true)
+    List<GetEntityWithLocationDTO> findByDistance(Double latitude, Double longitude, Pageable pageable);
 }

@@ -3,6 +3,7 @@ package com.pa.twb.service.mapper.ext;
 import com.pa.twb.domain.Attraction;
 import com.pa.twb.service.ext.dto.attraction.CreateAttractionDTO;
 import com.pa.twb.service.ext.dto.attraction.GetAttractionDTO;
+import com.pa.twb.service.ext.dto.attraction.GetAttractionWithDistanceDTO;
 import com.pa.twb.service.ext.dto.attraction.UpdateAttractionDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
@@ -22,4 +23,6 @@ public interface ExtAttractionMapper {
 
     Attraction updateEntity(UpdateAttractionDTO updateAttractionDto,
                             @MappingTarget Attraction attraction);
+
+    GetAttractionWithDistanceDTO entityToGetWithDistanceDto(Attraction attraction);
 }
