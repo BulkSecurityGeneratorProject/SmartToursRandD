@@ -1,10 +1,3 @@
-enum GroupType {
-	NONE, KIDS, ADULTS	
-}
-
-enum EventType {
-	NONE, GET_ACTIVE, RELAX
-}
 
 entity Attraction {
     sygicTravelId String,
@@ -39,29 +32,16 @@ entity Attraction {
 }
 
 entity AttractionPurchase {
-    userLatitude Double,
-    userLongitude Double,
-	userDistance Double,
-    purchased Boolean
-}
-
-entity AttractionGroupType {
-	groupType GroupType
-}
-
-entity AttractionEventType {
-	eventType EventType
+    traveling String,
+    activity String,
+	distance Double,
+	createdAt Instant,
+	actionTakenAt Instant,
+    actionTaken Boolean
 }
 
 relationship OneToMany {
     Attraction{attractionPurchases} to AttractionPurchase{attraction}
-}
-
-relationship ManyToMany {
-	Attraction{groupTypes} to AttractionGroupType{attraction},
-    Attraction{eventTypes} to AttractionEventType{attraction},
-    AttractionPurchase{groupTypes} to AttractionGroupType{purchase},
-    AttractionPurchase{eventTypes} to AttractionEventType{purchase}
 }
 
 paginate *  with infinite-scroll

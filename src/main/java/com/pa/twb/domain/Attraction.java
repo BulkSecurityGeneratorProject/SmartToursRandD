@@ -1,15 +1,17 @@
 package com.pa.twb.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
+import java.util.Objects;
 
 /**
  * A Attraction.
@@ -109,20 +111,6 @@ public class Attraction implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AttractionPurchase> attractionPurchases = new HashSet<>();
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "attraction_group_types",
-               joinColumns = @JoinColumn(name = "attractions_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "group_types_id", referencedColumnName = "id"))
-    private Set<AttractionGroupType> groupTypes = new HashSet<>();
-
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "attraction_event_types",
-               joinColumns = @JoinColumn(name = "attractions_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "event_types_id", referencedColumnName = "id"))
-    private Set<AttractionEventType> eventTypes = new HashSet<>();
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -162,26 +150,26 @@ public class Attraction implements Serializable {
         return latitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
     public Attraction latitude(Double latitude) {
         this.latitude = latitude;
         return this;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
     }
 
     public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
     public Attraction longitude(Double longitude) {
         this.longitude = longitude;
         return this;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getName() {
@@ -253,21 +241,17 @@ public class Attraction implements Serializable {
         return dsSummary;
     }
 
-    public void setDsSummary(String dsSummary) {
-        this.dsSummary = dsSummary;
-    }
-
     public Attraction dsSummary(String dsSummary) {
         this.dsSummary = dsSummary;
         return this;
     }
 
-    public String getDsIcon() {
-        return dsIcon;
+    public void setDsSummary(String dsSummary) {
+        this.dsSummary = dsSummary;
     }
 
-    public void setDsIcon(String dsIcon) {
-        this.dsIcon = dsIcon;
+    public String getDsIcon() {
+        return dsIcon;
     }
 
     public Attraction dsIcon(String dsIcon) {
@@ -275,12 +259,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsApparentTemperatureHigh() {
-        return dsApparentTemperatureHigh;
+    public void setDsIcon(String dsIcon) {
+        this.dsIcon = dsIcon;
     }
 
-    public void setDsApparentTemperatureHigh(Double dsApparentTemperatureHigh) {
-        this.dsApparentTemperatureHigh = dsApparentTemperatureHigh;
+    public Double getDsApparentTemperatureHigh() {
+        return dsApparentTemperatureHigh;
     }
 
     public Attraction dsApparentTemperatureHigh(Double dsApparentTemperatureHigh) {
@@ -288,12 +272,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsApparentTemperatureLow() {
-        return dsApparentTemperatureLow;
+    public void setDsApparentTemperatureHigh(Double dsApparentTemperatureHigh) {
+        this.dsApparentTemperatureHigh = dsApparentTemperatureHigh;
     }
 
-    public void setDsApparentTemperatureLow(Double dsApparentTemperatureLow) {
-        this.dsApparentTemperatureLow = dsApparentTemperatureLow;
+    public Double getDsApparentTemperatureLow() {
+        return dsApparentTemperatureLow;
     }
 
     public Attraction dsApparentTemperatureLow(Double dsApparentTemperatureLow) {
@@ -301,12 +285,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsDewPoint() {
-        return dsDewPoint;
+    public void setDsApparentTemperatureLow(Double dsApparentTemperatureLow) {
+        this.dsApparentTemperatureLow = dsApparentTemperatureLow;
     }
 
-    public void setDsDewPoint(Double dsDewPoint) {
-        this.dsDewPoint = dsDewPoint;
+    public Double getDsDewPoint() {
+        return dsDewPoint;
     }
 
     public Attraction dsDewPoint(Double dsDewPoint) {
@@ -314,12 +298,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsHumidity() {
-        return dsHumidity;
+    public void setDsDewPoint(Double dsDewPoint) {
+        this.dsDewPoint = dsDewPoint;
     }
 
-    public void setDsHumidity(Double dsHumidity) {
-        this.dsHumidity = dsHumidity;
+    public Double getDsHumidity() {
+        return dsHumidity;
     }
 
     public Attraction dsHumidity(Double dsHumidity) {
@@ -327,12 +311,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsPressure() {
-        return dsPressure;
+    public void setDsHumidity(Double dsHumidity) {
+        this.dsHumidity = dsHumidity;
     }
 
-    public void setDsPressure(Double dsPressure) {
-        this.dsPressure = dsPressure;
+    public Double getDsPressure() {
+        return dsPressure;
     }
 
     public Attraction dsPressure(Double dsPressure) {
@@ -340,12 +324,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsWindSpeed() {
-        return dsWindSpeed;
+    public void setDsPressure(Double dsPressure) {
+        this.dsPressure = dsPressure;
     }
 
-    public void setDsWindSpeed(Double dsWindSpeed) {
-        this.dsWindSpeed = dsWindSpeed;
+    public Double getDsWindSpeed() {
+        return dsWindSpeed;
     }
 
     public Attraction dsWindSpeed(Double dsWindSpeed) {
@@ -353,12 +337,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsWindGust() {
-        return dsWindGust;
+    public void setDsWindSpeed(Double dsWindSpeed) {
+        this.dsWindSpeed = dsWindSpeed;
     }
 
-    public void setDsWindGust(Double dsWindGust) {
-        this.dsWindGust = dsWindGust;
+    public Double getDsWindGust() {
+        return dsWindGust;
     }
 
     public Attraction dsWindGust(Double dsWindGust) {
@@ -366,12 +350,12 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Double getDsCloudCover() {
-        return dsCloudCover;
+    public void setDsWindGust(Double dsWindGust) {
+        this.dsWindGust = dsWindGust;
     }
 
-    public void setDsCloudCover(Double dsCloudCover) {
-        this.dsCloudCover = dsCloudCover;
+    public Double getDsCloudCover() {
+        return dsCloudCover;
     }
 
     public Attraction dsCloudCover(Double dsCloudCover) {
@@ -379,17 +363,21 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Long getDsVisibility() {
-        return dsVisibility;
+    public void setDsCloudCover(Double dsCloudCover) {
+        this.dsCloudCover = dsCloudCover;
     }
 
-    public void setDsVisibility(Long dsVisibility) {
-        this.dsVisibility = dsVisibility;
+    public Long getDsVisibility() {
+        return dsVisibility;
     }
 
     public Attraction dsVisibility(Long dsVisibility) {
         this.dsVisibility = dsVisibility;
         return this;
+    }
+
+    public void setDsVisibility(Long dsVisibility) {
+        this.dsVisibility = dsVisibility;
     }
 
     public BigDecimal getAdultPrice() {
@@ -474,10 +462,6 @@ public class Attraction implements Serializable {
         return attractionPurchases;
     }
 
-    public void setAttractionPurchases(Set<AttractionPurchase> attractionPurchases) {
-        this.attractionPurchases = attractionPurchases;
-    }
-
     public Attraction attractionPurchases(Set<AttractionPurchase> attractionPurchases) {
         this.attractionPurchases = attractionPurchases;
         return this;
@@ -495,54 +479,8 @@ public class Attraction implements Serializable {
         return this;
     }
 
-    public Set<AttractionGroupType> getGroupTypes() {
-        return groupTypes;
-    }
-
-    public Attraction groupTypes(Set<AttractionGroupType> attractionGroupTypes) {
-        this.groupTypes = attractionGroupTypes;
-        return this;
-    }
-
-    public Attraction addGroupTypes(AttractionGroupType attractionGroupType) {
-        this.groupTypes.add(attractionGroupType);
-        attractionGroupType.getAttractions().add(this);
-        return this;
-    }
-
-    public Attraction removeGroupTypes(AttractionGroupType attractionGroupType) {
-        this.groupTypes.remove(attractionGroupType);
-        attractionGroupType.getAttractions().remove(this);
-        return this;
-    }
-
-    public void setGroupTypes(Set<AttractionGroupType> attractionGroupTypes) {
-        this.groupTypes = attractionGroupTypes;
-    }
-
-    public Set<AttractionEventType> getEventTypes() {
-        return eventTypes;
-    }
-
-    public Attraction eventTypes(Set<AttractionEventType> attractionEventTypes) {
-        this.eventTypes = attractionEventTypes;
-        return this;
-    }
-
-    public Attraction addEventTypes(AttractionEventType attractionEventType) {
-        this.eventTypes.add(attractionEventType);
-        attractionEventType.getAttractions().add(this);
-        return this;
-    }
-
-    public Attraction removeEventTypes(AttractionEventType attractionEventType) {
-        this.eventTypes.remove(attractionEventType);
-        attractionEventType.getAttractions().remove(this);
-        return this;
-    }
-
-    public void setEventTypes(Set<AttractionEventType> attractionEventTypes) {
-        this.eventTypes = attractionEventTypes;
+    public void setAttractionPurchases(Set<AttractionPurchase> attractionPurchases) {
+        this.attractionPurchases = attractionPurchases;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

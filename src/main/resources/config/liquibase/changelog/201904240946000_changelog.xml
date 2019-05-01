@@ -2,18 +2,6 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="thomasbigger (generated)" id="1556095534332-1">
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/ext/attraction_group_types.csv"
-                  separator=";"
-                  tableName="attraction_group_type"/>
-    </changeSet>
-    <changeSet author="thomasbigger (generated)" id="1556095534332-2">
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/ext/attraction_event_types.csv"
-                  separator=";"
-                  tableName="attraction_event_type"/>
-    </changeSet>
     <changeSet author="thomasbigger (generated)" id="1556095534332-3">
         <loadData encoding="UTF-8"
                   file="config/liquibase/ext/attractions_weather_filtered_1.csv"

@@ -114,22 +114,6 @@
             "relationshipName": "attractionPurchases",
             "otherEntityName": "attractionPurchase",
             "otherEntityRelationshipName": "attraction"
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "attraction",
-            "relationshipName": "groupTypes",
-            "otherEntityName": "attractionGroupType",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "attraction",
-            "relationshipName": "eventTypes",
-            "otherEntityName": "attractionEventType",
-            "otherEntityField": "id",
-            "ownerSide": true
         }
     ],
     "changelogDate": "20190423161718",

@@ -49,15 +49,6 @@ public class AttractionPurchaseService {
         return attractionPurchaseRepository.findAll(pageable);
     }
 
-    /**
-     * Get all the AttractionPurchase with eager load of many-to-many relationships.
-     *
-     * @return the list of entities
-     */
-    public Page<AttractionPurchase> findAllWithEagerRelationships(Pageable pageable) {
-        return attractionPurchaseRepository.findAllWithEagerRelationships(pageable);
-    }
-    
 
     /**
      * Get one attractionPurchase by id.
@@ -68,7 +59,7 @@ public class AttractionPurchaseService {
     @Transactional(readOnly = true)
     public Optional<AttractionPurchase> findOne(Long id) {
         log.debug("Request to get AttractionPurchase : {}", id);
-        return attractionPurchaseRepository.findOneWithEagerRelationships(id);
+        return attractionPurchaseRepository.findById(id);
     }
 
     /**

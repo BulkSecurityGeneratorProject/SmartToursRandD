@@ -2,39 +2,31 @@
     "name": "AttractionPurchase",
     "fields": [
         {
-            "fieldName": "userLatitude",
+            "fieldName": "traveling",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "activity",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "distance",
             "fieldType": "Double"
         },
         {
-            "fieldName": "userLongitude",
-            "fieldType": "Double"
+            "fieldName": "createdAt",
+            "fieldType": "Instant"
         },
         {
-            "fieldName": "userDistance",
-            "fieldType": "Double"
+            "fieldName": "actionTakenAt",
+            "fieldType": "Instant"
         },
         {
-            "fieldName": "purchased",
+            "fieldName": "actionTaken",
             "fieldType": "Boolean"
         }
     ],
     "relationships": [
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "purchase",
-            "relationshipName": "groupTypes",
-            "otherEntityName": "attractionGroupType",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
-            "relationshipType": "many-to-many",
-            "otherEntityRelationshipName": "purchase",
-            "relationshipName": "eventTypes",
-            "otherEntityName": "attractionEventType",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
         {
             "relationshipType": "many-to-one",
             "relationshipName": "attraction",

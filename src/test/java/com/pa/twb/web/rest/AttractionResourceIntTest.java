@@ -1,18 +1,18 @@
 package com.pa.twb.web.rest;
 
 import com.pa.twb.SmarttoursApp;
+
 import com.pa.twb.domain.Attraction;
 import com.pa.twb.repository.AttractionRepository;
 import com.pa.twb.service.AttractionService;
 import com.pa.twb.web.rest.errors.ExceptionTranslator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -20,18 +20,18 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Base64Utils;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
+
 
 import static com.pa.twb.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -124,11 +124,8 @@ public class AttractionResourceIntTest {
 
     @Autowired
     private AttractionRepository attractionRepository;
-    @Mock
-    private AttractionRepository attractionRepositoryMock;
+
     
-    @Mock
-    private AttractionService attractionServiceMock;
 
     @Autowired
     private AttractionService attractionService;
@@ -303,36 +300,6 @@ public class AttractionResourceIntTest {
             .andExpect(jsonPath("$.[*].closeTime").value(hasItem(DEFAULT_CLOSE_TIME.toString())));
     }
     
-    public void getAllAttractionsWithEagerRelationshipsIsEnabled() throws Exception {
-        AttractionResource attractionResource = new AttractionResource(attractionServiceMock);
-        when(attractionServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        MockMvc restAttractionMockMvc = MockMvcBuilders.standaloneSetup(attractionResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restAttractionMockMvc.perform(get("/api/attractions?eagerload=true"))
-        .andExpect(status().isOk());
-
-        verify(attractionServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    public void getAllAttractionsWithEagerRelationshipsIsNotEnabled() throws Exception {
-        AttractionResource attractionResource = new AttractionResource(attractionServiceMock);
-            when(attractionServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restAttractionMockMvc = MockMvcBuilders.standaloneSetup(attractionResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restAttractionMockMvc.perform(get("/api/attractions?eagerload=true"))
-        .andExpect(status().isOk());
-
-            verify(attractionServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
 
     @Test
     @Transactional

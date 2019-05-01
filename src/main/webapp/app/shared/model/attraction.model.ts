@@ -1,7 +1,5 @@
 import { Moment } from 'moment';
 import { IAttractionPurchase } from 'app/shared/model//attraction-purchase.model';
-import { IAttractionGroupType } from 'app/shared/model//attraction-group-type.model';
-import { IAttractionEventType } from 'app/shared/model//attraction-event-type.model';
 
 export interface IAttraction {
     id?: number;
@@ -32,8 +30,6 @@ export interface IAttraction {
     openTime?: Moment;
     closeTime?: Moment;
     attractionPurchases?: IAttractionPurchase[];
-    groupTypes?: IAttractionGroupType[];
-    eventTypes?: IAttractionEventType[];
 }
 
 export class Attraction implements IAttraction {
@@ -65,9 +61,7 @@ export class Attraction implements IAttraction {
         public facilities?: boolean,
         public openTime?: Moment,
         public closeTime?: Moment,
-        public attractionPurchases?: IAttractionPurchase[],
-        public groupTypes?: IAttractionGroupType[],
-        public eventTypes?: IAttractionEventType[]
+        public attractionPurchases?: IAttractionPurchase[]
     ) {
         this.accessible = false;
         this.facilities = false;

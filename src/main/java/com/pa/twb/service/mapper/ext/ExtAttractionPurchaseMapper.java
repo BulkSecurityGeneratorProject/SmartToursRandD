@@ -1,7 +1,7 @@
 package com.pa.twb.service.mapper.ext;
 
 import com.pa.twb.domain.AttractionPurchase;
-import com.pa.twb.service.ext.dto.attractionpurchase.CreateAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.GetAttractionPurchaseDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.UpdateAttractionPurchaseDTO;
 import org.mapstruct.Mapper;
@@ -16,7 +16,7 @@ import static org.mapstruct.NullValueCheckStrategy.ALWAYS;
 )
 @SuppressWarnings("unused")
 public interface ExtAttractionPurchaseMapper {
-    AttractionPurchase createDtoToEntity(CreateAttractionPurchaseDTO createAttractionPurchaseDto);
+    AttractionPurchase createDtoToEntity(RegisterInterestDTO registerInterestDTO);
 
     GetAttractionPurchaseDTO entityToGetDto(AttractionPurchase attractionPurchase);
 

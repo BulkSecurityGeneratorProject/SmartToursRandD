@@ -1,9 +1,9 @@
 package com.pa.twb.web.rest.ext;
 
 import com.pa.twb.service.ext.ExtAttractionPurchaseService;
-import com.pa.twb.service.ext.dto.attractionpurchase.CreateAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.GetAttractionPurchaseDTO;
-import com.pa.twb.service.ext.dto.attractionpurchase.UpdateAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.TakeActionDTO;
 import com.pa.twb.web.rest.util.HeaderUtil;
 import com.pa.twb.web.rest.util.PaginationUtil;
 import org.springframework.data.domain.Page;
@@ -28,17 +28,17 @@ public class ExtAttractionPurchaseResource {
         this.extAttractionPurchaseService = extAttractionPurchaseService;
     }
 
-    @PostMapping
-    public ResponseEntity<GetAttractionPurchaseDTO> createAttractionPurchase(@Valid @RequestBody CreateAttractionPurchaseDTO createAttractionPurchaseDto) {
-        GetAttractionPurchaseDTO result = extAttractionPurchaseService.create(createAttractionPurchaseDto);
+    @PostMapping("/interest")
+    public ResponseEntity<GetAttractionPurchaseDTO> takeInterest(@Valid @RequestBody RegisterInterestDTO registerInterestDTO) {
+        GetAttractionPurchaseDTO result = extAttractionPurchaseService.create(registerInterestDTO);
         return ResponseEntity.status(HttpStatus.CREATED)
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
-    @PutMapping
-    public ResponseEntity<GetAttractionPurchaseDTO> updateAttractionPurchase(@Valid @RequestBody UpdateAttractionPurchaseDTO updateAttractionPurchaseDto) {
-        GetAttractionPurchaseDTO result = extAttractionPurchaseService.update(updateAttractionPurchaseDto);
+    @PutMapping("/take-action")
+    public ResponseEntity<GetAttractionPurchaseDTO> takeAction(@Valid @RequestBody TakeActionDTO takeActionDTO) {
+        GetAttractionPurchaseDTO result = extAttractionPurchaseService.takeAction(takeActionDTO);
         return ResponseEntity.status(HttpStatus.OK)
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

@@ -85,20 +85,14 @@ public class AttractionResource {
      * GET  /attractions : get all the attractions.
      *
      * @param pageable the pagination information
-     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of attractions in body
      */
     @GetMapping("/attractions")
     @Timed
-    public ResponseEntity<List<Attraction>> getAllAttractions(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Attraction>> getAllAttractions(Pageable pageable) {
         log.debug("REST request to get a page of Attractions");
-        Page<Attraction> page;
-        if (eagerload) {
-            page = attractionService.findAllWithEagerRelationships(pageable);
-        } else {
-            page = attractionService.findAll(pageable);
-        }
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, String.format("/api/attractions?eagerload=%b", eagerload));
+        Page<Attraction> page = attractionService.findAll(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/attractions");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

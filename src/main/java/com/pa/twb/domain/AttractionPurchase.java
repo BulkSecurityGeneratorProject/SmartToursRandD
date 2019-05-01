@@ -5,10 +5,10 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
-import java.util.HashSet;
+import java.time.Instant;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * A AttractionPurchase.
@@ -24,31 +24,23 @@ public class AttractionPurchase implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_latitude")
-    private Double userLatitude;
+    @Column(name = "traveling")
+    private String traveling;
 
-    @Column(name = "user_longitude")
-    private Double userLongitude;
+    @Column(name = "activity")
+    private String activity;
 
-    @Column(name = "user_distance")
-    private Double userDistance;
+    @Column(name = "distance")
+    private Double distance;
 
-    @Column(name = "purchased")
-    private Boolean purchased;
+    @Column(name = "created_at")
+    private Instant createdAt;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "attraction_purchase_group_types",
-               joinColumns = @JoinColumn(name = "attraction_purchases_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "group_types_id", referencedColumnName = "id"))
-    private Set<AttractionGroupType> groupTypes = new HashSet<>();
+    @Column(name = "action_taken_at")
+    private Instant actionTakenAt;
 
-    @ManyToMany
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @JoinTable(name = "attraction_purchase_event_types",
-               joinColumns = @JoinColumn(name = "attraction_purchases_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "event_types_id", referencedColumnName = "id"))
-    private Set<AttractionEventType> eventTypes = new HashSet<>();
+    @Column(name = "action_taken")
+    private Boolean actionTaken;
 
     @ManyToOne
     @JsonIgnoreProperties("attractionPurchases")
@@ -63,119 +55,95 @@ public class AttractionPurchase implements Serializable {
         this.id = id;
     }
 
-    public Double getUserLatitude() {
-        return userLatitude;
+    public String getTraveling() {
+        return traveling;
     }
 
-    public void setUserLatitude(Double userLatitude) {
-        this.userLatitude = userLatitude;
-    }
-
-    public AttractionPurchase userLatitude(Double userLatitude) {
-        this.userLatitude = userLatitude;
+    public AttractionPurchase traveling(String traveling) {
+        this.traveling = traveling;
         return this;
     }
 
-    public Double getUserLongitude() {
-        return userLongitude;
+    public void setTraveling(String traveling) {
+        this.traveling = traveling;
     }
 
-    public void setUserLongitude(Double userLongitude) {
-        this.userLongitude = userLongitude;
+    public String getActivity() {
+        return activity;
     }
 
-    public AttractionPurchase userLongitude(Double userLongitude) {
-        this.userLongitude = userLongitude;
+    public AttractionPurchase activity(String activity) {
+        this.activity = activity;
         return this;
     }
 
-    public Double getUserDistance() {
-        return userDistance;
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 
-    public AttractionPurchase userDistance(Double userDistance) {
-        this.userDistance = userDistance;
+    public Double getDistance() {
+        return distance;
+    }
+
+    public AttractionPurchase distance(Double distance) {
+        this.distance = distance;
         return this;
     }
 
-    public void setUserDistance(Double userDistance) {
-        this.userDistance = userDistance;
+    public void setDistance(Double distance) {
+        this.distance = distance;
     }
 
-    public Boolean isPurchased() {
-        return purchased;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public AttractionPurchase purchased(Boolean purchased) {
-        this.purchased = purchased;
+    public AttractionPurchase createdAt(Instant createdAt) {
+        this.createdAt = createdAt;
         return this;
     }
 
-    public void setPurchased(Boolean purchased) {
-        this.purchased = purchased;
+    public void setCreatedAt(Instant createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public Set<AttractionGroupType> getGroupTypes() {
-        return groupTypes;
+    public Instant getActionTakenAt() {
+        return actionTakenAt;
     }
 
-    public AttractionPurchase groupTypes(Set<AttractionGroupType> attractionGroupTypes) {
-        this.groupTypes = attractionGroupTypes;
+    public AttractionPurchase actionTakenAt(Instant actionTakenAt) {
+        this.actionTakenAt = actionTakenAt;
         return this;
     }
 
-    public AttractionPurchase addGroupTypes(AttractionGroupType attractionGroupType) {
-        this.groupTypes.add(attractionGroupType);
-        attractionGroupType.getPurchases().add(this);
+    public void setActionTakenAt(Instant actionTakenAt) {
+        this.actionTakenAt = actionTakenAt;
+    }
+
+    public Boolean isActionTaken() {
+        return actionTaken;
+    }
+
+    public AttractionPurchase actionTaken(Boolean actionTaken) {
+        this.actionTaken = actionTaken;
         return this;
     }
 
-    public AttractionPurchase removeGroupTypes(AttractionGroupType attractionGroupType) {
-        this.groupTypes.remove(attractionGroupType);
-        attractionGroupType.getPurchases().remove(this);
-        return this;
-    }
-
-    public void setGroupTypes(Set<AttractionGroupType> attractionGroupTypes) {
-        this.groupTypes = attractionGroupTypes;
-    }
-
-    public Set<AttractionEventType> getEventTypes() {
-        return eventTypes;
-    }
-
-    public AttractionPurchase eventTypes(Set<AttractionEventType> attractionEventTypes) {
-        this.eventTypes = attractionEventTypes;
-        return this;
-    }
-
-    public AttractionPurchase addEventTypes(AttractionEventType attractionEventType) {
-        this.eventTypes.add(attractionEventType);
-        attractionEventType.getPurchases().add(this);
-        return this;
-    }
-
-    public AttractionPurchase removeEventTypes(AttractionEventType attractionEventType) {
-        this.eventTypes.remove(attractionEventType);
-        attractionEventType.getPurchases().remove(this);
-        return this;
-    }
-
-    public void setEventTypes(Set<AttractionEventType> attractionEventTypes) {
-        this.eventTypes = attractionEventTypes;
+    public void setActionTaken(Boolean actionTaken) {
+        this.actionTaken = actionTaken;
     }
 
     public Attraction getAttraction() {
         return attraction;
     }
 
-    public void setAttraction(Attraction attraction) {
-        this.attraction = attraction;
-    }
-
     public AttractionPurchase attraction(Attraction attraction) {
         this.attraction = attraction;
         return this;
+    }
+
+    public void setAttraction(Attraction attraction) {
+        this.attraction = attraction;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -203,10 +171,12 @@ public class AttractionPurchase implements Serializable {
     public String toString() {
         return "AttractionPurchase{" +
             "id=" + getId() +
-            ", userLatitude=" + getUserLatitude() +
-            ", userLongitude=" + getUserLongitude() +
-            ", userDistance=" + getUserDistance() +
-            ", purchased='" + isPurchased() + "'" +
+            ", traveling='" + getTraveling() + "'" +
+            ", activity='" + getActivity() + "'" +
+            ", distance=" + getDistance() +
+            ", createdAt='" + getCreatedAt() + "'" +
+            ", actionTakenAt='" + getActionTakenAt() + "'" +
+            ", actionTaken='" + isActionTaken() + "'" +
             "}";
     }
 }

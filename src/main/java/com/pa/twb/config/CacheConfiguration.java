@@ -39,25 +39,10 @@ public class CacheConfiguration {
             cm.createCache(com.pa.twb.domain.User.class.getName(), jcacheConfiguration);
             cm.createCache(com.pa.twb.domain.Authority.class.getName(), jcacheConfiguration);
             cm.createCache(com.pa.twb.domain.User.class.getName() + ".authorities", jcacheConfiguration);
+
             cm.createCache(com.pa.twb.domain.Attraction.class.getName(), jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.Attraction.class.getName() + ".attractionGroupTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.Attraction.class.getName() + ".attractionEventTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionGroupType.class.getName(), jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionEventType.class.getName(), jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionPurchase.class.getName(), jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionPurchase.class.getName() + ".attractionGroupTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionPurchase.class.getName() + ".attractionEventTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionGroupType.class.getName() + ".attractions", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionGroupType.class.getName() + ".attractionPurchases", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionEventType.class.getName() + ".attractions", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionEventType.class.getName() + ".attractionPurchases", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.Attraction.class.getName() + ".groupTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.Attraction.class.getName() + ".eventTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionPurchase.class.getName() + ".groupTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionPurchase.class.getName() + ".eventTypes", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionGroupType.class.getName() + ".purchases", jcacheConfiguration);
-            cm.createCache(com.pa.twb.domain.AttractionEventType.class.getName() + ".purchases", jcacheConfiguration);
             cm.createCache(com.pa.twb.domain.Attraction.class.getName() + ".attractionPurchases", jcacheConfiguration);
+            cm.createCache(com.pa.twb.domain.AttractionPurchase.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

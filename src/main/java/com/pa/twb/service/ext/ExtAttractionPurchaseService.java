@@ -1,11 +1,13 @@
 package com.pa.twb.service.ext;
 
+import com.pa.twb.domain.Attraction;
 import com.pa.twb.domain.AttractionPurchase;
 import com.pa.twb.repository.AttractionPurchaseRepository;
 import com.pa.twb.repository.ext.ExtAttractionPurchaseRepository;
 import com.pa.twb.service.AttractionPurchaseService;
-import com.pa.twb.service.ext.dto.attractionpurchase.CreateAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.GetAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.TakeActionDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.UpdateAttractionPurchaseDTO;
 import com.pa.twb.service.mapper.ext.ExtAttractionPurchaseMapper;
 import com.pa.twb.web.rest.errors.ext.AttractionPurchaseNotFoundException;
@@ -13,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.Instant;
 
 @Service
 @Transactional
@@ -35,10 +39,20 @@ public class ExtAttractionPurchaseService extends AttractionPurchaseService {
         this.extAttractionService = extAttractionService;
     }
 
-    public GetAttractionPurchaseDTO create(CreateAttractionPurchaseDTO createAttractionPurchaseDto) {
-        AttractionPurchase attractionPurchase = extAttractionPurchaseMapper.createDtoToEntity(createAttractionPurchaseDto);
+    public GetAttractionPurchaseDTO create(RegisterInterestDTO registerInterestDTO) {
+        Attraction attraction = extAttractionService.findByIdThrowException(registerInterestDTO.getAttractionId());
+        AttractionPurchase attractionPurchase = extAttractionPurchaseMapper.createDtoToEntity(registerInterestDTO);
+        attractionPurchase.setActionTaken(false);
+        attractionPurchase.setCreatedAt(Instant.now());
         attractionPurchase = save(attractionPurchase);
         return extAttractionPurchaseMapper.entityToGetDto(attractionPurchase);
+    }
+
+    public GetAttractionPurchaseDTO takeAction(TakeActionDTO takeActionDTO) {
+        AttractionPurchase result = findByIdThrowException(takeActionDTO.getAttractionPurchaseId());
+        result.setActionTaken(true);
+        result.setActionTakenAt(Instant.now());
+        return extAttractionPurchaseMapper.entityToGetDto(result);
     }
 
     public GetAttractionPurchaseDTO update(UpdateAttractionPurchaseDTO updateAttractionPurchaseDto) {
@@ -65,4 +79,6 @@ public class ExtAttractionPurchaseService extends AttractionPurchaseService {
         Page<AttractionPurchase> page = extAttractionPurchaseRepository.findAll(pageable);
         return page.map(extAttractionPurchaseMapper::entityToGetDto);
     }
+
+
 }

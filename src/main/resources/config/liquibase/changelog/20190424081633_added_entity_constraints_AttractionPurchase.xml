@@ -8,28 +8,6 @@
     -->
     <changeSet id="20190424081633-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="attraction_purchases_id"
-                                 baseTableName="attraction_purchase_group_types"
-                                 constraintName="fk_attraction_purchase_group_types_attraction_purchases_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="attraction_purchase"/>
-        <addForeignKeyConstraint baseColumnNames="group_types_id"
-                                 baseTableName="attraction_purchase_group_types"
-                                 constraintName="fk_attraction_purchase_group_types_group_types_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="attraction_group_type"/>
-        
-        <addForeignKeyConstraint baseColumnNames="attraction_purchases_id"
-                                 baseTableName="attraction_purchase_event_types"
-                                 constraintName="fk_attraction_purchase_event_types_attraction_purchases_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="attraction_purchase"/>
-        <addForeignKeyConstraint baseColumnNames="event_types_id"
-                                 baseTableName="attraction_purchase_event_types"
-                                 constraintName="fk_attraction_purchase_event_types_event_types_id"
-                                 referencedColumnNames="id"
-                                 referencedTableName="attraction_event_type"/>
-
         <addForeignKeyConstraint baseColumnNames="attraction_id"
                                  baseTableName="attraction_purchase"
                                  constraintName="fk_attraction_purchase_attraction_id"

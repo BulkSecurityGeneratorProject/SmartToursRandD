@@ -1,7 +1,7 @@
 package com.pa.twb.web.rest.ext.attractionpurchase;
 
 import com.pa.twb.domain.AttractionPurchase;
-import com.pa.twb.service.ext.dto.attractionpurchase.CreateAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.UpdateAttractionPurchaseDTO;
 import javax.persistence.EntityManager;
 
@@ -27,8 +27,8 @@ public class AttractionPurchaseDataUtil {
         return createAttractionPurchaseEntity(em, entity, deleted);
     }
 
-    public static CreateAttractionPurchaseDTO createCreateAttractionPurchaseEntityDTO(Long parentId) {
-        CreateAttractionPurchaseDTO createEntityDto = new CreateAttractionPurchaseDTO();
+    public static RegisterInterestDTO createCreateAttractionPurchaseEntityDTO(Long parentId) {
+        RegisterInterestDTO createEntityDto = new RegisterInterestDTO();
         // createEntityDto.setParentId(parentId)
         // createEntityDto.setName(DEFAULT_NAME)
         return createEntityDto;

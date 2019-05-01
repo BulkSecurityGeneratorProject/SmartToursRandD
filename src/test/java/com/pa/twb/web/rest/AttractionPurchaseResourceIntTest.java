@@ -1,18 +1,18 @@
 package com.pa.twb.web.rest;
 
 import com.pa.twb.SmarttoursApp;
+
 import com.pa.twb.domain.AttractionPurchase;
 import com.pa.twb.repository.AttractionPurchaseRepository;
 import com.pa.twb.service.AttractionPurchaseService;
 import com.pa.twb.web.rest.errors.ExceptionTranslator;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -22,13 +22,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+
 
 import static com.pa.twb.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
-import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -41,25 +42,28 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = SmarttoursApp.class)
 public class AttractionPurchaseResourceIntTest {
 
-    private static final Double DEFAULT_USER_LATITUDE = 1D;
-    private static final Double UPDATED_USER_LATITUDE = 2D;
+    private static final String DEFAULT_TRAVELING = "AAAAAAAAAA";
+    private static final String UPDATED_TRAVELING = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_USER_LONGITUDE = 1D;
-    private static final Double UPDATED_USER_LONGITUDE = 2D;
+    private static final String DEFAULT_ACTIVITY = "AAAAAAAAAA";
+    private static final String UPDATED_ACTIVITY = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_USER_DISTANCE = 1D;
-    private static final Double UPDATED_USER_DISTANCE = 2D;
+    private static final Double DEFAULT_DISTANCE = 1D;
+    private static final Double UPDATED_DISTANCE = 2D;
 
-    private static final Boolean DEFAULT_PURCHASED = false;
-    private static final Boolean UPDATED_PURCHASED = true;
+    private static final Instant DEFAULT_CREATED_AT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_CREATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Instant DEFAULT_ACTION_TAKEN_AT = Instant.ofEpochMilli(0L);
+    private static final Instant UPDATED_ACTION_TAKEN_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
+
+    private static final Boolean DEFAULT_ACTION_TAKEN = false;
+    private static final Boolean UPDATED_ACTION_TAKEN = true;
 
     @Autowired
     private AttractionPurchaseRepository attractionPurchaseRepository;
-    @Mock
-    private AttractionPurchaseRepository attractionPurchaseRepositoryMock;
+
     
-    @Mock
-    private AttractionPurchaseService attractionPurchaseServiceMock;
 
     @Autowired
     private AttractionPurchaseService attractionPurchaseService;
@@ -99,10 +103,12 @@ public class AttractionPurchaseResourceIntTest {
      */
     public static AttractionPurchase createEntity(EntityManager em) {
         AttractionPurchase attractionPurchase = new AttractionPurchase()
-            .userLatitude(DEFAULT_USER_LATITUDE)
-            .userLongitude(DEFAULT_USER_LONGITUDE)
-            .userDistance(DEFAULT_USER_DISTANCE)
-            .purchased(DEFAULT_PURCHASED);
+            .traveling(DEFAULT_TRAVELING)
+            .activity(DEFAULT_ACTIVITY)
+            .distance(DEFAULT_DISTANCE)
+            .createdAt(DEFAULT_CREATED_AT)
+            .actionTakenAt(DEFAULT_ACTION_TAKEN_AT)
+            .actionTaken(DEFAULT_ACTION_TAKEN);
         return attractionPurchase;
     }
 
@@ -126,10 +132,12 @@ public class AttractionPurchaseResourceIntTest {
         List<AttractionPurchase> attractionPurchaseList = attractionPurchaseRepository.findAll();
         assertThat(attractionPurchaseList).hasSize(databaseSizeBeforeCreate + 1);
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
-        assertThat(testAttractionPurchase.getUserLatitude()).isEqualTo(DEFAULT_USER_LATITUDE);
-        assertThat(testAttractionPurchase.getUserLongitude()).isEqualTo(DEFAULT_USER_LONGITUDE);
-        assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(DEFAULT_USER_DISTANCE);
-        assertThat(testAttractionPurchase.isPurchased()).isEqualTo(DEFAULT_PURCHASED);
+        assertThat(testAttractionPurchase.getTraveling()).isEqualTo(DEFAULT_TRAVELING);
+        assertThat(testAttractionPurchase.getActivity()).isEqualTo(DEFAULT_ACTIVITY);
+        assertThat(testAttractionPurchase.getDistance()).isEqualTo(DEFAULT_DISTANCE);
+        assertThat(testAttractionPurchase.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
+        assertThat(testAttractionPurchase.getActionTakenAt()).isEqualTo(DEFAULT_ACTION_TAKEN_AT);
+        assertThat(testAttractionPurchase.isActionTaken()).isEqualTo(DEFAULT_ACTION_TAKEN);
     }
 
     @Test
@@ -162,42 +170,14 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(attractionPurchase.getId().intValue())))
-            .andExpect(jsonPath("$.[*].userLatitude").value(hasItem(DEFAULT_USER_LATITUDE.doubleValue())))
-            .andExpect(jsonPath("$.[*].userLongitude").value(hasItem(DEFAULT_USER_LONGITUDE.doubleValue())))
-            .andExpect(jsonPath("$.[*].userDistance").value(hasItem(DEFAULT_USER_DISTANCE.doubleValue())))
-            .andExpect(jsonPath("$.[*].purchased").value(hasItem(DEFAULT_PURCHASED.booleanValue())));
+            .andExpect(jsonPath("$.[*].traveling").value(hasItem(DEFAULT_TRAVELING.toString())))
+            .andExpect(jsonPath("$.[*].activity").value(hasItem(DEFAULT_ACTIVITY.toString())))
+            .andExpect(jsonPath("$.[*].distance").value(hasItem(DEFAULT_DISTANCE.doubleValue())))
+            .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
+            .andExpect(jsonPath("$.[*].actionTakenAt").value(hasItem(DEFAULT_ACTION_TAKEN_AT.toString())))
+            .andExpect(jsonPath("$.[*].actionTaken").value(hasItem(DEFAULT_ACTION_TAKEN.booleanValue())));
     }
     
-    public void getAllAttractionPurchasesWithEagerRelationshipsIsEnabled() throws Exception {
-        AttractionPurchaseResource attractionPurchaseResource = new AttractionPurchaseResource(attractionPurchaseServiceMock);
-        when(attractionPurchaseServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-
-        MockMvc restAttractionPurchaseMockMvc = MockMvcBuilders.standaloneSetup(attractionPurchaseResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restAttractionPurchaseMockMvc.perform(get("/api/attraction-purchases?eagerload=true"))
-        .andExpect(status().isOk());
-
-        verify(attractionPurchaseServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
-
-    public void getAllAttractionPurchasesWithEagerRelationshipsIsNotEnabled() throws Exception {
-        AttractionPurchaseResource attractionPurchaseResource = new AttractionPurchaseResource(attractionPurchaseServiceMock);
-            when(attractionPurchaseServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restAttractionPurchaseMockMvc = MockMvcBuilders.standaloneSetup(attractionPurchaseResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter).build();
-
-        restAttractionPurchaseMockMvc.perform(get("/api/attraction-purchases?eagerload=true"))
-        .andExpect(status().isOk());
-
-            verify(attractionPurchaseServiceMock, times(1)).findAllWithEagerRelationships(any());
-    }
 
     @Test
     @Transactional
@@ -210,10 +190,12 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(attractionPurchase.getId().intValue()))
-            .andExpect(jsonPath("$.userLatitude").value(DEFAULT_USER_LATITUDE.doubleValue()))
-            .andExpect(jsonPath("$.userLongitude").value(DEFAULT_USER_LONGITUDE.doubleValue()))
-            .andExpect(jsonPath("$.userDistance").value(DEFAULT_USER_DISTANCE.doubleValue()))
-            .andExpect(jsonPath("$.purchased").value(DEFAULT_PURCHASED.booleanValue()));
+            .andExpect(jsonPath("$.traveling").value(DEFAULT_TRAVELING.toString()))
+            .andExpect(jsonPath("$.activity").value(DEFAULT_ACTIVITY.toString()))
+            .andExpect(jsonPath("$.distance").value(DEFAULT_DISTANCE.doubleValue()))
+            .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
+            .andExpect(jsonPath("$.actionTakenAt").value(DEFAULT_ACTION_TAKEN_AT.toString()))
+            .andExpect(jsonPath("$.actionTaken").value(DEFAULT_ACTION_TAKEN.booleanValue()));
     }
     @Test
     @Transactional
@@ -236,10 +218,12 @@ public class AttractionPurchaseResourceIntTest {
         // Disconnect from session so that the updates on updatedAttractionPurchase are not directly saved in db
         em.detach(updatedAttractionPurchase);
         updatedAttractionPurchase
-            .userLatitude(UPDATED_USER_LATITUDE)
-            .userLongitude(UPDATED_USER_LONGITUDE)
-            .userDistance(UPDATED_USER_DISTANCE)
-            .purchased(UPDATED_PURCHASED);
+            .traveling(UPDATED_TRAVELING)
+            .activity(UPDATED_ACTIVITY)
+            .distance(UPDATED_DISTANCE)
+            .createdAt(UPDATED_CREATED_AT)
+            .actionTakenAt(UPDATED_ACTION_TAKEN_AT)
+            .actionTaken(UPDATED_ACTION_TAKEN);
 
         restAttractionPurchaseMockMvc.perform(put("/api/attraction-purchases")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -250,10 +234,12 @@ public class AttractionPurchaseResourceIntTest {
         List<AttractionPurchase> attractionPurchaseList = attractionPurchaseRepository.findAll();
         assertThat(attractionPurchaseList).hasSize(databaseSizeBeforeUpdate);
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
-        assertThat(testAttractionPurchase.getUserLatitude()).isEqualTo(UPDATED_USER_LATITUDE);
-        assertThat(testAttractionPurchase.getUserLongitude()).isEqualTo(UPDATED_USER_LONGITUDE);
-        assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(UPDATED_USER_DISTANCE);
-        assertThat(testAttractionPurchase.isPurchased()).isEqualTo(UPDATED_PURCHASED);
+        assertThat(testAttractionPurchase.getTraveling()).isEqualTo(UPDATED_TRAVELING);
+        assertThat(testAttractionPurchase.getActivity()).isEqualTo(UPDATED_ACTIVITY);
+        assertThat(testAttractionPurchase.getDistance()).isEqualTo(UPDATED_DISTANCE);
+        assertThat(testAttractionPurchase.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
+        assertThat(testAttractionPurchase.getActionTakenAt()).isEqualTo(UPDATED_ACTION_TAKEN_AT);
+        assertThat(testAttractionPurchase.isActionTaken()).isEqualTo(UPDATED_ACTION_TAKEN);
     }
 
     @Test

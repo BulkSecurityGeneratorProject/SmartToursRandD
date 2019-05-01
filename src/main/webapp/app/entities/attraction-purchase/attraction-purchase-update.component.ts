@@ -2,14 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import * as moment from 'moment';
+import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService } from 'ng-jhipster';
 
 import { IAttractionPurchase } from 'app/shared/model/attraction-purchase.model';
 import { AttractionPurchaseService } from './attraction-purchase.service';
-import { IAttractionGroupType } from 'app/shared/model/attraction-group-type.model';
-import { AttractionGroupTypeService } from 'app/entities/attraction-group-type';
-import { IAttractionEventType } from 'app/shared/model/attraction-event-type.model';
-import { AttractionEventTypeService } from 'app/entities/attraction-event-type';
 import { IAttraction } from 'app/shared/model/attraction.model';
 import { AttractionService } from 'app/entities/attraction';
 
@@ -21,17 +19,13 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
     private _attractionPurchase: IAttractionPurchase;
     isSaving: boolean;
 
-    attractiongrouptypes: IAttractionGroupType[];
-
-    attractioneventtypes: IAttractionEventType[];
-
     attractions: IAttraction[];
+    createdAt: string;
+    actionTakenAt: string;
 
     constructor(
         private jhiAlertService: JhiAlertService,
         private attractionPurchaseService: AttractionPurchaseService,
-        private attractionGroupTypeService: AttractionGroupTypeService,
-        private attractionEventTypeService: AttractionEventTypeService,
         private attractionService: AttractionService,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -41,18 +35,6 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ attractionPurchase }) => {
             this.attractionPurchase = attractionPurchase;
         });
-        this.attractionGroupTypeService.query().subscribe(
-            (res: HttpResponse<IAttractionGroupType[]>) => {
-                this.attractiongrouptypes = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
-        this.attractionEventTypeService.query().subscribe(
-            (res: HttpResponse<IAttractionEventType[]>) => {
-                this.attractioneventtypes = res.body;
-            },
-            (res: HttpErrorResponse) => this.onError(res.message)
-        );
         this.attractionService.query().subscribe(
             (res: HttpResponse<IAttraction[]>) => {
                 this.attractions = res.body;
@@ -67,6 +49,8 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.attractionPurchase.createdAt = moment(this.createdAt, DATE_TIME_FORMAT);
+        this.attractionPurchase.actionTakenAt = moment(this.actionTakenAt, DATE_TIME_FORMAT);
         if (this.attractionPurchase.id !== undefined) {
             this.subscribeToSaveResponse(this.attractionPurchaseService.update(this.attractionPurchase));
         } else {
@@ -91,27 +75,8 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
         this.jhiAlertService.error(errorMessage, null, null);
     }
 
-    trackAttractionGroupTypeById(index: number, item: IAttractionGroupType) {
-        return item.id;
-    }
-
-    trackAttractionEventTypeById(index: number, item: IAttractionEventType) {
-        return item.id;
-    }
-
     trackAttractionById(index: number, item: IAttraction) {
         return item.id;
-    }
-
-    getSelected(selectedVals: Array<any>, option: any) {
-        if (selectedVals) {
-            for (let i = 0; i < selectedVals.length; i++) {
-                if (option.id === selectedVals[i].id) {
-                    return selectedVals[i];
-                }
-            }
-        }
-        return option;
     }
     get attractionPurchase() {
         return this._attractionPurchase;
@@ -119,5 +84,7 @@ export class AttractionPurchaseUpdateComponent implements OnInit {
 
     set attractionPurchase(attractionPurchase: IAttractionPurchase) {
         this._attractionPurchase = attractionPurchase;
+        this.createdAt = moment(attractionPurchase.createdAt).format(DATE_TIME_FORMAT);
+        this.actionTakenAt = moment(attractionPurchase.actionTakenAt).format(DATE_TIME_FORMAT);
     }
 }

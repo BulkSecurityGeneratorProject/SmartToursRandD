@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <property name="now" value="now()" dbms="h2"/>
 
@@ -21,19 +23,19 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="sygic_travel_id" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="rating" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="latitude" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="longitude" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="name" type="varchar(255)">
@@ -57,47 +59,47 @@
             </column>
 
             <column name="ds_summary" type="clob">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_icon" type="varchar(255)">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_apparent_temperature_high" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_apparent_temperature_low" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_dew_point" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_humidity" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_pressure" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_wind_speed" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_wind_gust" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_cloud_cover" type="double">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="ds_visibility" type="bigint">
-                <constraints nullable="true"/>
+                <constraints nullable="true" />
             </column>
 
             <column name="adult_price" type="decimal(10,2)">
@@ -128,28 +130,6 @@
         </createTable>
         <dropDefaultValue tableName="attraction" columnName="open_time" columnDataType="datetime"/>
         <dropDefaultValue tableName="attraction" columnName="close_time" columnDataType="datetime"/>
-        
-        <createTable tableName="attraction_group_types">
-            <column name="group_types_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="attractions_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="attractions_id, group_types_id" tableName="attraction_group_types"/>
-        
-        <createTable tableName="attraction_event_types">
-            <column name="event_types_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-            <column name="attractions_id" type="bigint">
-                <constraints nullable="false"/>
-            </column>
-        </createTable>
-
-        <addPrimaryKey columnNames="attractions_id, event_types_id" tableName="attraction_event_types"/>
         
     </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->

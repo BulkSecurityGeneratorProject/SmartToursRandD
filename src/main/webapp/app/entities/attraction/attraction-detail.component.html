@@ -109,18 +109,6 @@
                 <dd>
                     <span>{{attraction.closeTime}}</span>
                 </dd>
-                <dt><span>Group Types</span></dt>
-                <dd>
-                    <span *ngFor="let groupTypes of attraction.groupTypes; let last = last">
-                        <a [routerLink]="['/attraction-group-type', groupTypes?.id, 'view' ]">{{groupTypes.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
-                <dt><span>Event Types</span></dt>
-                <dd>
-                    <span *ngFor="let eventTypes of attraction.eventTypes; let last = last">
-                        <a [routerLink]="['/attraction-event-type', eventTypes?.id, 'view' ]">{{eventTypes.id}}</a>{{last ? '' : ', '}}
-                    </span>
-                </dd>
             </dl>
 
             <button type="submit"

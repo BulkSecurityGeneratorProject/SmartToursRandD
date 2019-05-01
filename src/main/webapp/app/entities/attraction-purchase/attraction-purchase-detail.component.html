@@ -5,33 +5,29 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span>User Latitude</span></dt>
+                <dt><span>Traveling</span></dt>
                 <dd>
-                    <span>{{attractionPurchase.userLatitude}}</span>
+                    <span>{{attractionPurchase.traveling}}</span>
                 </dd>
-                <dt><span>User Longitude</span></dt>
+                <dt><span>Activity</span></dt>
                 <dd>
-                    <span>{{attractionPurchase.userLongitude}}</span>
+                    <span>{{attractionPurchase.activity}}</span>
                 </dd>
-                <dt><span>User Distance</span></dt>
+                <dt><span>Distance</span></dt>
                 <dd>
-                    <span>{{attractionPurchase.userDistance}}</span>
+                    <span>{{attractionPurchase.distance}}</span>
                 </dd>
-                <dt><span>Purchased</span></dt>
+                <dt><span>Created At</span></dt>
                 <dd>
-                    <span>{{attractionPurchase.purchased}}</span>
+                    <span>{{attractionPurchase.createdAt}}</span>
                 </dd>
-                <dt><span>Group Types</span></dt>
+                <dt><span>Action Taken At</span></dt>
                 <dd>
-                    <span *ngFor="let groupTypes of attractionPurchase.groupTypes; let last = last">
-                        <a [routerLink]="['/attraction-group-type', groupTypes?.id, 'view' ]">{{groupTypes.id}}</a>{{last ? '' : ', '}}
-                    </span>
+                    <span>{{attractionPurchase.actionTakenAt}}</span>
                 </dd>
-                <dt><span>Event Types</span></dt>
+                <dt><span>Action Taken</span></dt>
                 <dd>
-                    <span *ngFor="let eventTypes of attractionPurchase.eventTypes; let last = last">
-                        <a [routerLink]="['/attraction-event-type', eventTypes?.id, 'view' ]">{{eventTypes.id}}</a>{{last ? '' : ', '}}
-                    </span>
+                    <span>{{attractionPurchase.actionTaken}}</span>
                 </dd>
                 <dt><span>Attraction</span></dt>
                 <dd>
