@@ -30,8 +30,14 @@ public class AttractionPurchase implements Serializable {
     @Column(name = "activity")
     private String activity;
 
-    @Column(name = "distance")
-    private Double distance;
+    @Column(name = "user_distance")
+    private Double userDistance;
+
+    @Column(name = "user_latitude")
+    private Double userLatitude;
+
+    @Column(name = "user_longitude")
+    private Double userLongitude;
 
     @Column(name = "created_at")
     private Instant createdAt;
@@ -81,17 +87,43 @@ public class AttractionPurchase implements Serializable {
         this.activity = activity;
     }
 
-    public Double getDistance() {
-        return distance;
+    public Double getUserDistance() {
+        return userDistance;
     }
 
-    public AttractionPurchase distance(Double distance) {
-        this.distance = distance;
+    public AttractionPurchase userDistance(Double userDistance) {
+        this.userDistance = userDistance;
         return this;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public void setUserDistance(Double userDistance) {
+        this.userDistance = userDistance;
+    }
+
+    public Double getUserLatitude() {
+        return userLatitude;
+    }
+
+    public AttractionPurchase userLatitude(Double userLatitude) {
+        this.userLatitude = userLatitude;
+        return this;
+    }
+
+    public void setUserLatitude(Double userLatitude) {
+        this.userLatitude = userLatitude;
+    }
+
+    public Double getUserLongitude() {
+        return userLongitude;
+    }
+
+    public AttractionPurchase userLongitude(Double userLongitude) {
+        this.userLongitude = userLongitude;
+        return this;
+    }
+
+    public void setUserLongitude(Double userLongitude) {
+        this.userLongitude = userLongitude;
     }
 
     public Instant getCreatedAt() {
@@ -173,7 +205,9 @@ public class AttractionPurchase implements Serializable {
             "id=" + getId() +
             ", traveling='" + getTraveling() + "'" +
             ", activity='" + getActivity() + "'" +
-            ", distance=" + getDistance() +
+            ", userDistance=" + getUserDistance() +
+            ", userLatitude=" + getUserLatitude() +
+            ", userLongitude=" + getUserLongitude() +
             ", createdAt='" + getCreatedAt() + "'" +
             ", actionTakenAt='" + getActionTakenAt() + "'" +
             ", actionTaken='" + isActionTaken() + "'" +

@@ -48,8 +48,14 @@ public class AttractionPurchaseResourceIntTest {
     private static final String DEFAULT_ACTIVITY = "AAAAAAAAAA";
     private static final String UPDATED_ACTIVITY = "BBBBBBBBBB";
 
-    private static final Double DEFAULT_DISTANCE = 1D;
-    private static final Double UPDATED_DISTANCE = 2D;
+    private static final Double DEFAULT_USER_DISTANCE = 1D;
+    private static final Double UPDATED_USER_DISTANCE = 2D;
+
+    private static final Double DEFAULT_USER_LATITUDE = 1D;
+    private static final Double UPDATED_USER_LATITUDE = 2D;
+
+    private static final Double DEFAULT_USER_LONGITUDE = 1D;
+    private static final Double UPDATED_USER_LONGITUDE = 2D;
 
     private static final Instant DEFAULT_CREATED_AT = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_CREATED_AT = Instant.now().truncatedTo(ChronoUnit.MILLIS);
@@ -105,7 +111,9 @@ public class AttractionPurchaseResourceIntTest {
         AttractionPurchase attractionPurchase = new AttractionPurchase()
             .traveling(DEFAULT_TRAVELING)
             .activity(DEFAULT_ACTIVITY)
-            .distance(DEFAULT_DISTANCE)
+            .userDistance(DEFAULT_USER_DISTANCE)
+            .userLatitude(DEFAULT_USER_LATITUDE)
+            .userLongitude(DEFAULT_USER_LONGITUDE)
             .createdAt(DEFAULT_CREATED_AT)
             .actionTakenAt(DEFAULT_ACTION_TAKEN_AT)
             .actionTaken(DEFAULT_ACTION_TAKEN);
@@ -134,7 +142,9 @@ public class AttractionPurchaseResourceIntTest {
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
         assertThat(testAttractionPurchase.getTraveling()).isEqualTo(DEFAULT_TRAVELING);
         assertThat(testAttractionPurchase.getActivity()).isEqualTo(DEFAULT_ACTIVITY);
-        assertThat(testAttractionPurchase.getDistance()).isEqualTo(DEFAULT_DISTANCE);
+        assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(DEFAULT_USER_DISTANCE);
+        assertThat(testAttractionPurchase.getUserLatitude()).isEqualTo(DEFAULT_USER_LATITUDE);
+        assertThat(testAttractionPurchase.getUserLongitude()).isEqualTo(DEFAULT_USER_LONGITUDE);
         assertThat(testAttractionPurchase.getCreatedAt()).isEqualTo(DEFAULT_CREATED_AT);
         assertThat(testAttractionPurchase.getActionTakenAt()).isEqualTo(DEFAULT_ACTION_TAKEN_AT);
         assertThat(testAttractionPurchase.isActionTaken()).isEqualTo(DEFAULT_ACTION_TAKEN);
@@ -172,7 +182,9 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(attractionPurchase.getId().intValue())))
             .andExpect(jsonPath("$.[*].traveling").value(hasItem(DEFAULT_TRAVELING.toString())))
             .andExpect(jsonPath("$.[*].activity").value(hasItem(DEFAULT_ACTIVITY.toString())))
-            .andExpect(jsonPath("$.[*].distance").value(hasItem(DEFAULT_DISTANCE.doubleValue())))
+            .andExpect(jsonPath("$.[*].userDistance").value(hasItem(DEFAULT_USER_DISTANCE.doubleValue())))
+            .andExpect(jsonPath("$.[*].userLatitude").value(hasItem(DEFAULT_USER_LATITUDE.doubleValue())))
+            .andExpect(jsonPath("$.[*].userLongitude").value(hasItem(DEFAULT_USER_LONGITUDE.doubleValue())))
             .andExpect(jsonPath("$.[*].createdAt").value(hasItem(DEFAULT_CREATED_AT.toString())))
             .andExpect(jsonPath("$.[*].actionTakenAt").value(hasItem(DEFAULT_ACTION_TAKEN_AT.toString())))
             .andExpect(jsonPath("$.[*].actionTaken").value(hasItem(DEFAULT_ACTION_TAKEN.booleanValue())));
@@ -192,7 +204,9 @@ public class AttractionPurchaseResourceIntTest {
             .andExpect(jsonPath("$.id").value(attractionPurchase.getId().intValue()))
             .andExpect(jsonPath("$.traveling").value(DEFAULT_TRAVELING.toString()))
             .andExpect(jsonPath("$.activity").value(DEFAULT_ACTIVITY.toString()))
-            .andExpect(jsonPath("$.distance").value(DEFAULT_DISTANCE.doubleValue()))
+            .andExpect(jsonPath("$.userDistance").value(DEFAULT_USER_DISTANCE.doubleValue()))
+            .andExpect(jsonPath("$.userLatitude").value(DEFAULT_USER_LATITUDE.doubleValue()))
+            .andExpect(jsonPath("$.userLongitude").value(DEFAULT_USER_LONGITUDE.doubleValue()))
             .andExpect(jsonPath("$.createdAt").value(DEFAULT_CREATED_AT.toString()))
             .andExpect(jsonPath("$.actionTakenAt").value(DEFAULT_ACTION_TAKEN_AT.toString()))
             .andExpect(jsonPath("$.actionTaken").value(DEFAULT_ACTION_TAKEN.booleanValue()));
@@ -220,7 +234,9 @@ public class AttractionPurchaseResourceIntTest {
         updatedAttractionPurchase
             .traveling(UPDATED_TRAVELING)
             .activity(UPDATED_ACTIVITY)
-            .distance(UPDATED_DISTANCE)
+            .userDistance(UPDATED_USER_DISTANCE)
+            .userLatitude(UPDATED_USER_LATITUDE)
+            .userLongitude(UPDATED_USER_LONGITUDE)
             .createdAt(UPDATED_CREATED_AT)
             .actionTakenAt(UPDATED_ACTION_TAKEN_AT)
             .actionTaken(UPDATED_ACTION_TAKEN);
@@ -236,7 +252,9 @@ public class AttractionPurchaseResourceIntTest {
         AttractionPurchase testAttractionPurchase = attractionPurchaseList.get(attractionPurchaseList.size() - 1);
         assertThat(testAttractionPurchase.getTraveling()).isEqualTo(UPDATED_TRAVELING);
         assertThat(testAttractionPurchase.getActivity()).isEqualTo(UPDATED_ACTIVITY);
-        assertThat(testAttractionPurchase.getDistance()).isEqualTo(UPDATED_DISTANCE);
+        assertThat(testAttractionPurchase.getUserDistance()).isEqualTo(UPDATED_USER_DISTANCE);
+        assertThat(testAttractionPurchase.getUserLatitude()).isEqualTo(UPDATED_USER_LATITUDE);
+        assertThat(testAttractionPurchase.getUserLongitude()).isEqualTo(UPDATED_USER_LONGITUDE);
         assertThat(testAttractionPurchase.getCreatedAt()).isEqualTo(UPDATED_CREATED_AT);
         assertThat(testAttractionPurchase.getActionTakenAt()).isEqualTo(UPDATED_ACTION_TAKEN_AT);
         assertThat(testAttractionPurchase.isActionTaken()).isEqualTo(UPDATED_ACTION_TAKEN);

@@ -5,7 +5,9 @@ export interface IAttractionPurchase {
     id?: number;
     traveling?: string;
     activity?: string;
-    distance?: number;
+    userDistance?: number;
+    userLatitude?: number;
+    userLongitude?: number;
     createdAt?: Moment;
     actionTakenAt?: Moment;
     actionTaken?: boolean;
@@ -17,7 +19,9 @@ export class AttractionPurchase implements IAttractionPurchase {
         public id?: number,
         public traveling?: string,
         public activity?: string,
-        public distance?: number,
+        public userDistance?: number,
+        public userLatitude?: number,
+        public userLongitude?: number,
         public createdAt?: Moment,
         public actionTakenAt?: Moment,
         public actionTaken?: boolean,

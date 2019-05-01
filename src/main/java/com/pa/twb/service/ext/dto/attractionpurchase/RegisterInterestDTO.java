@@ -21,7 +21,13 @@ public class RegisterInterestDTO {
 
     @NotNull
     @Positive
-    private Double distance;
+    private Double userDistance;
+
+    @NotNull
+    private Double userLatitude;
+
+    @NotNull
+    private Double userLongitude;
 
     public Long getAttractionId() {
         return attractionId;
@@ -47,11 +53,27 @@ public class RegisterInterestDTO {
         this.activity = activity;
     }
 
-    public Double getDistance() {
-        return distance;
+    public Double getUserDistance() {
+        return userDistance;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public void setUserDistance(Double userDistance) {
+        this.userDistance = userDistance;
+    }
+
+    public Double getUserLatitude() {
+        return userLatitude;
+    }
+
+    public void setUserLatitude(Double userLatitude) {
+        this.userLatitude = userLatitude;
+    }
+
+    public Double getUserLongitude() {
+        return userLongitude;
+    }
+
+    public void setUserLongitude(Double userLongitude) {
+        this.userLongitude = userLongitude;
     }
 }

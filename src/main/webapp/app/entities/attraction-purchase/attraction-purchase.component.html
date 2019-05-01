@@ -17,7 +17,9 @@
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="traveling"><span>Traveling</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="activity"><span>Activity</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="distance"><span>Distance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userDistance"><span>User Distance</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userLatitude"><span>User Latitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="userLongitude"><span>User Longitude</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="createdAt"><span>Created At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="actionTakenAt"><span>Action Taken At</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="actionTaken"><span>Action Taken</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -30,7 +32,9 @@
                 <td><a [routerLink]="['/attraction-purchase', attractionPurchase.id, 'view' ]">{{attractionPurchase.id}}</a></td>
                 <td>{{attractionPurchase.traveling}}</td>
                 <td>{{attractionPurchase.activity}}</td>
-                <td>{{attractionPurchase.distance}}</td>
+                <td>{{attractionPurchase.userDistance}}</td>
+                <td>{{attractionPurchase.userLatitude}}</td>
+                <td>{{attractionPurchase.userLongitude}}</td>
                 <td>{{attractionPurchase.createdAt | date:'medium'}}</td>
                 <td>{{attractionPurchase.actionTakenAt | date:'medium'}}</td>
                 <td>{{attractionPurchase.actionTaken}}</td>

@@ -30,7 +30,15 @@
                 <constraints nullable="true" />
             </column>
 
-            <column name="distance" type="double">
+            <column name="user_distance" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="user_latitude" type="double">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="user_longitude" type="double">
                 <constraints nullable="true" />
             </column>
 

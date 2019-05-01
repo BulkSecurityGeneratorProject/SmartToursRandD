@@ -20,9 +20,19 @@
                         [(ngModel)]="attractionPurchase.activity" />
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_distance">Distance</label>
-                    <input type="number" class="form-control" name="distance" id="field_distance"
-                        [(ngModel)]="attractionPurchase.distance" />
+                    <label class="form-control-label" for="field_userDistance">User Distance</label>
+                    <input type="number" class="form-control" name="userDistance" id="field_userDistance"
+                        [(ngModel)]="attractionPurchase.userDistance" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_userLatitude">User Latitude</label>
+                    <input type="number" class="form-control" name="userLatitude" id="field_userLatitude"
+                        [(ngModel)]="attractionPurchase.userLatitude" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_userLongitude">User Longitude</label>
+                    <input type="number" class="form-control" name="userLongitude" id="field_userLongitude"
+                        [(ngModel)]="attractionPurchase.userLongitude" />
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_createdAt">Created At</label>

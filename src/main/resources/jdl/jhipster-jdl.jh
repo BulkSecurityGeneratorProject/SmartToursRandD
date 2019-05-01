@@ -34,7 +34,9 @@ entity Attraction {
 entity AttractionPurchase {
     traveling String,
     activity String,
-	distance Double,
+	userDistance Double,
+	userLatitude Double,
+	userLongitude Double,
 	createdAt Instant,
 	actionTakenAt Instant,
     actionTaken Boolean

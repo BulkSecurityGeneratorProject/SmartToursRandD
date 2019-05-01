@@ -14,7 +14,11 @@ public class GetAttractionPurchaseDTO {
 
     private String activity;
 
-    private Double distance;
+    private Double userDistance;
+
+    private Double userLatitude;
+
+    private Double userLongitude;
 
     private Instant createdAt;
 
@@ -46,12 +50,28 @@ public class GetAttractionPurchaseDTO {
         this.activity = activity;
     }
 
-    public Double getDistance() {
-        return distance;
+    public Double getUserDistance() {
+        return userDistance;
     }
 
-    public void setDistance(Double distance) {
-        this.distance = distance;
+    public void setUserDistance(Double userDistance) {
+        this.userDistance = userDistance;
+    }
+
+    public Double getUserLatitude() {
+        return userLatitude;
+    }
+
+    public void setUserLatitude(Double userLatitude) {
+        this.userLatitude = userLatitude;
+    }
+
+    public Double getUserLongitude() {
+        return userLongitude;
+    }
+
+    public void setUserLongitude(Double userLongitude) {
+        this.userLongitude = userLongitude;
     }
 
     public Instant getCreatedAt() {
