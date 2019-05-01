@@ -1,4 +1,4 @@
-package com.pa.twb.web.rest.ext;
+package com.pa.twb.web.rest.ext.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
