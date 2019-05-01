@@ -47,5 +47,5 @@ public interface ExtAttractionRepository extends AttractionRepository {
         "ORDER BY distance",
         countQuery = "SELECT COUNT(*) FROM attraction",
         nativeQuery = true)
-    List<GetEntityWithLocationDTO> findByDistance(Double latitude, Double longitude, Pageable pageable);
+    Page<GetEntityWithLocationDTO> findByDistance(Double latitude, Double longitude, Pageable pageable);
 }
