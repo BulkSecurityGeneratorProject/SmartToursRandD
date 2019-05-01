@@ -26,16 +26,6 @@ public interface ExtAttractionRepository extends AttractionRepository {
         "ORDER BY FUNCTION('RAND')")
     List<Attraction> findAllRandomOrder();
 
-    @Override
-    @Query("SELECT a " +
-        "FROM Attraction a ")
-    Page<Attraction> findAll(Pageable pageable);
-
-    @Override
-    @Query("SELECT a " +
-        "FROM Attraction a ")
-    List<Attraction> findAll();
-
     @Query(value = "SELECT " +
         "    attraction.id                                         AS id, " +
         "    (6371 * acos(cos(radians(?2)) " +
@@ -45,6 +35,7 @@ public interface ExtAttractionRepository extends AttractionRepository {
         "                   * sin(radians(attraction.longitude)))) AS distance " +
         "FROM attraction attraction " +
         "ORDER BY distance",
+        name = "GetEntityWithLocationDTO",
         countQuery = "SELECT COUNT(*) FROM attraction",
         nativeQuery = true)
     Page<GetEntityWithLocationDTO> findByDistance(Double latitude, Double longitude, Pageable pageable);

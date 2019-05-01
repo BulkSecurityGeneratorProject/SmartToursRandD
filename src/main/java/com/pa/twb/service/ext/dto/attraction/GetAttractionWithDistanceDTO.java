@@ -3,8 +3,6 @@ package com.pa.twb.service.ext.dto.attraction;
 import javax.persistence.Lob;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import java.math.BigDecimal;
-import java.time.Instant;
 
 @SuppressWarnings("unused")
 public class GetAttractionWithDistanceDTO {
@@ -54,19 +52,35 @@ public class GetAttractionWithDistanceDTO {
 
     private Long dsVisibility;
 
-    private BigDecimal adultPrice;
-
-    private BigDecimal childPrice;
-
-    private Boolean accessible;
-
-    private Boolean facilities;
-
-    private Instant openTime;
-
-    private Instant closeTime;
-
     private Double distance;
+
+    public GetAttractionWithDistanceDTO() {
+    }
+
+    public GetAttractionWithDistanceDTO(@Min(1L) @NotNull Long id, String sygicTravelId, Double rating, Double latitude, Double longitude, String name, String marker, String perex, String thumbnailUrl, String categories, String dsSummary, String dsIcon, Double dsApparentTemperatureHigh, Double dsApparentTemperatureLow, Double dsDewPoint, Double dsHumidity, Double dsPressure, Double dsWindSpeed, Double dsWindGust, Double dsCloudCover, Long dsVisibility, Double distance) {
+        this.id = id;
+        this.sygicTravelId = sygicTravelId;
+        this.rating = rating;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.name = name;
+        this.marker = marker;
+        this.perex = perex;
+        this.thumbnailUrl = thumbnailUrl;
+        this.categories = categories;
+        this.dsSummary = dsSummary;
+        this.dsIcon = dsIcon;
+        this.dsApparentTemperatureHigh = dsApparentTemperatureHigh;
+        this.dsApparentTemperatureLow = dsApparentTemperatureLow;
+        this.dsDewPoint = dsDewPoint;
+        this.dsHumidity = dsHumidity;
+        this.dsPressure = dsPressure;
+        this.dsWindSpeed = dsWindSpeed;
+        this.dsWindGust = dsWindGust;
+        this.dsCloudCover = dsCloudCover;
+        this.dsVisibility = dsVisibility;
+        this.distance = distance;
+    }
 
     public Long getId() {
         return id;
@@ -164,6 +178,14 @@ public class GetAttractionWithDistanceDTO {
         this.dsIcon = dsIcon;
     }
 
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
     public Double getDsApparentTemperatureHigh() {
         return dsApparentTemperatureHigh;
     }
@@ -234,61 +256,5 @@ public class GetAttractionWithDistanceDTO {
 
     public void setDsVisibility(Long dsVisibility) {
         this.dsVisibility = dsVisibility;
-    }
-
-    public BigDecimal getAdultPrice() {
-        return adultPrice;
-    }
-
-    public void setAdultPrice(BigDecimal adultPrice) {
-        this.adultPrice = adultPrice;
-    }
-
-    public BigDecimal getChildPrice() {
-        return childPrice;
-    }
-
-    public void setChildPrice(BigDecimal childPrice) {
-        this.childPrice = childPrice;
-    }
-
-    public Boolean getAccessible() {
-        return accessible;
-    }
-
-    public void setAccessible(Boolean accessible) {
-        this.accessible = accessible;
-    }
-
-    public Boolean getFacilities() {
-        return facilities;
-    }
-
-    public void setFacilities(Boolean facilities) {
-        this.facilities = facilities;
-    }
-
-    public Instant getOpenTime() {
-        return openTime;
-    }
-
-    public void setOpenTime(Instant openTime) {
-        this.openTime = openTime;
-    }
-
-    public Instant getCloseTime() {
-        return closeTime;
-    }
-
-    public void setCloseTime(Instant closeTime) {
-        this.closeTime = closeTime;
-    }
-
-    public Double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Double distance) {
-        this.distance = distance;
     }
 }

@@ -1,8 +1,28 @@
 package com.pa.twb.service.ext.processing.dto.location;
 
-public interface GetEntityWithLocationDTO {
+public class GetEntityWithLocationDTO {
 
-    Long getId();
+    private Long id;
+    private Double distance;
 
-    Double getDistance();
+    public GetEntityWithLocationDTO(Long id, Double distance) {
+        this.id = id;
+        this.distance = distance;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
 }

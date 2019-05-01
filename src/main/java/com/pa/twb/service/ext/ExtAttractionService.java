@@ -8,7 +8,6 @@ import com.pa.twb.service.ext.dto.attraction.CreateAttractionDTO;
 import com.pa.twb.service.ext.dto.attraction.GetAttractionDTO;
 import com.pa.twb.service.ext.dto.attraction.GetAttractionWithDistanceDTO;
 import com.pa.twb.service.ext.dto.attraction.UpdateAttractionDTO;
-import com.pa.twb.service.ext.processing.dto.location.GetEntityWithLocationDTO;
 import com.pa.twb.service.mapper.ext.ExtAttractionMapper;
 import com.pa.twb.web.rest.errors.ext.AttractionNotFoundException;
 import com.pa.twb.web.rest.errors.ext.NoLocationProvidedException;
@@ -18,9 +17,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -30,13 +29,17 @@ public class ExtAttractionService extends AttractionService {
 
     private final ExtAttractionMapper extAttractionMapper;
 
+    private final EntityManager em;
+
     @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
     public ExtAttractionService(AttractionRepository attractionRepository,
                                 ExtAttractionRepository extAttractionRepository,
-                                ExtAttractionMapper extAttractionMapper) {
+                                ExtAttractionMapper extAttractionMapper,
+                                EntityManager em) {
         super(attractionRepository);
         this.extAttractionRepository = extAttractionRepository;
         this.extAttractionMapper = extAttractionMapper;
+        this.em = em;
     }
 
     public GetAttractionDTO create(CreateAttractionDTO createAttractionDto) {
@@ -70,27 +73,47 @@ public class ExtAttractionService extends AttractionService {
         return page.map(extAttractionMapper::entityToGetDto);
     }
 
+    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-    public Page<GetAttractionWithDistanceDTO> getAllByLocation(Pageable pageable, Double latitude, Double longitude, Double radius) {
+    public Page<GetAttractionWithDistanceDTO> getAllByLocation(Pageable pageable, Double latitude, Double longitude) {
         if (latitude == null || longitude == null) {
             throw new NoLocationProvidedException();
         }
-        if (radius == null) {
-            radius = 100d;
-        }
-        Page<GetEntityWithLocationDTO> page = extAttractionRepository.findByDistance(latitude, longitude, pageable);
-        List<GetAttractionWithDistanceDTO> listPage = page.getContent().stream().
-            map(getEntityWithLocationDto -> {
-                Long attractionId = getEntityWithLocationDto.getId();
-                Optional<Attraction> attractionOpt = extAttractionRepository.findById(attractionId);
-                if (attractionOpt.isPresent()) {
-                    GetAttractionWithDistanceDTO getSiteWithDistanceDTO =
-                        extAttractionMapper.entityToGetWithDistanceDto(attractionOpt.get());
-                    getSiteWithDistanceDTO.setDistance(getEntityWithLocationDto.getDistance());
-                    return getSiteWithDistanceDTO;
-                }
-                return null;
-            }).collect(Collectors.toList());
-        return new PageImpl<>(listPage, pageable, listPage.size());
+        Query query = em.createNativeQuery("SELECT " +
+            "    attraction.id AS id, " +
+            "    attraction.sygic_travel_id AS sygicTravelId, " +
+            "    attraction.rating AS rating, " +
+            "    attraction.latitude AS latitude, " +
+            "    attraction.longitude AS longitude, " +
+            "    attraction.name AS name, " +
+            "    attraction.marker AS marker, " +
+            "    attraction.perex AS perex, " +
+            "    attraction.thumbnail_url AS thumbnailUrl, " +
+            "    attraction.categories AS categories, " +
+            "    attraction.ds_summary AS dsSummary, " +
+            "    attraction.ds_icon AS dsIcon, " +
+            "    attraction.ds_apparent_temperature_high AS dsApparentTemperatureHigh, " +
+            "    attraction.ds_apparent_temperature_low AS dsApparentTemperatureLow, " +
+            "    attraction.ds_dew_point AS dsDewPoint, " +
+            "    attraction.ds_humidity AS dsHumidity, " +
+            "    attraction.ds_pressure AS dsPressure, " +
+            "    attraction.ds_wind_speed AS dsWindSpeed, " +
+            "    attraction.ds_wind_gust AS dsWindGust, " +
+            "    attraction.ds_cloud_cover AS dsCloudCover, " +
+            "    attraction.ds_visibility AS dsVisibility, " +
+            "    (6371 * acos(cos(radians(:longitude)) " +
+            "                 * cos(radians(attraction.longitude)) " +
+            "                 * cos(radians(attraction.latitude) - radians(:latitude)) " +
+            "                 + sin(radians(:longitude)) " +
+            "                   * sin(radians(attraction.longitude)))) AS distance " +
+            "FROM attraction attraction " +
+            "ORDER BY distance", "GetAttractionWithDistanceDTO");
+        query.setParameter("latitude", latitude);
+        query.setParameter("longitude", longitude);
+        query.setMaxResults(pageable.getPageSize());
+        query.setFirstResult((int) pageable.getOffset());
+
+        List<GetAttractionWithDistanceDTO> locations = (List<GetAttractionWithDistanceDTO>) query.getResultList();
+        return new PageImpl<>(locations, pageable, locations.size());
     }
 }

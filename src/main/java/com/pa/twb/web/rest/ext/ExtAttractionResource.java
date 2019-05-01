@@ -59,10 +59,10 @@ public class ExtAttractionResource {
     }
 
     @GetMapping("/by-location")
-    public ResponseEntity<List<GetAttractionWithDistanceDTO>> getAllAttractionByLocation(Pageable pageable, @RequestParam Double latitude,
-                                                                                         @RequestParam Double longitude,
-                                                                                         @RequestParam(required = false) Double radius) {
-        Page<GetAttractionWithDistanceDTO> page = extAttractionService.getAllByLocation(pageable, latitude, longitude, radius);
+    public ResponseEntity<List<GetAttractionWithDistanceDTO>> getAllAttractionByLocation(Pageable pageable,
+                                                                                         @RequestParam Double latitude,
+                                                                                         @RequestParam Double longitude) {
+        Page<GetAttractionWithDistanceDTO> page = extAttractionService.getAllByLocation(pageable, latitude, longitude);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ext-attraction/by-location");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
