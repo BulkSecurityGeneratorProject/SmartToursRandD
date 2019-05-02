@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-docker build --no-cache -t item-recommender:latest .
+docker build --no-cache -t smart-tours-ml:latest .
