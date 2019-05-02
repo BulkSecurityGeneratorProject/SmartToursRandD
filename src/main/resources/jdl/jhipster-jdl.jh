@@ -42,6 +42,10 @@ entity AttractionPurchase {
     actionTaken Boolean
 }
 
+entity TrainingLock {
+    lock Boolean
+}
+
 relationship OneToMany {
     Attraction{attractionPurchases} to AttractionPurchase{attraction}
 }

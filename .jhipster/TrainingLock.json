@@ -1,0 +1,19 @@
+{
+    "name": "TrainingLock",
+    "fields": [
+        {
+            "fieldName": "lock",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190502155221",
+    "entityTableName": "training_lock",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

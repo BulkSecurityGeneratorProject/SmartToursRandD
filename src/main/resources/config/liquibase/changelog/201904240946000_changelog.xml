@@ -2,10 +2,18 @@
 <databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
-    <changeSet author="thomasbigger (generated)" id="1556095534332-3">
+    <changeSet author="thomasbigger (generated)" id="1556095534332-1">
         <loadData encoding="UTF-8"
                   file="config/liquibase/ext/attractions_weather_filtered_1.csv"
                   separator=","
                   tableName="attraction"/>
+    </changeSet>
+    <changeSet author="thomasbigger (generated)" id="1556095534332-2">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/ext/training_lock.csv"
+                  separator=","
+                  tableName="training_lock">
+            <column name="jhi_lock" type="BOOLEAN"/>
+        </loadData>
     </changeSet>
 </databaseChangeLog>
