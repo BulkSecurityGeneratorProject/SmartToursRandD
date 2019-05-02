@@ -5,8 +5,8 @@ import com.pa.twb.domain.AttractionPurchase;
 import com.pa.twb.repository.AttractionPurchaseRepository;
 import com.pa.twb.repository.ext.ExtAttractionPurchaseRepository;
 import com.pa.twb.service.AttractionPurchaseService;
-import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.GetAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.TakeActionDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.UpdateAttractionPurchaseDTO;
 import com.pa.twb.service.mapper.ext.ExtAttractionPurchaseMapper;
@@ -42,9 +42,11 @@ public class ExtAttractionPurchaseService extends AttractionPurchaseService {
     public GetAttractionPurchaseDTO create(RegisterInterestDTO registerInterestDTO) {
         Attraction attraction = extAttractionService.findByIdThrowException(registerInterestDTO.getAttractionId());
         AttractionPurchase attractionPurchase = extAttractionPurchaseMapper.createDtoToEntity(registerInterestDTO);
+        attractionPurchase.setAttraction(attraction);
         attractionPurchase.setActionTaken(false);
         attractionPurchase.setCreatedAt(Instant.now());
         attractionPurchase = save(attractionPurchase);
+        attraction.getAttractionPurchases().add(attractionPurchase);
         return extAttractionPurchaseMapper.entityToGetDto(attractionPurchase);
     }
 
