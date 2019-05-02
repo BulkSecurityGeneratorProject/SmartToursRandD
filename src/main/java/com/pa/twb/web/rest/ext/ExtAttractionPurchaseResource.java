@@ -1,9 +1,10 @@
 package com.pa.twb.web.rest.ext;
 
 import com.pa.twb.service.ext.ExtAttractionPurchaseService;
-import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.GetAttractionPurchaseDTO;
+import com.pa.twb.service.ext.dto.attractionpurchase.RegisterInterestDTO;
 import com.pa.twb.service.ext.dto.attractionpurchase.TakeActionDTO;
+import com.pa.twb.service.ext.processing.MachineLearningTrainerService;
 import com.pa.twb.web.rest.util.HeaderUtil;
 import com.pa.twb.web.rest.util.PaginationUtil;
 import org.springframework.data.domain.Page;
@@ -24,13 +25,19 @@ public class ExtAttractionPurchaseResource {
 
     private final ExtAttractionPurchaseService extAttractionPurchaseService;
 
-    public ExtAttractionPurchaseResource(ExtAttractionPurchaseService extAttractionPurchaseService) {
+    private final MachineLearningTrainerService machineLearningTrainerService;
+
+
+    public ExtAttractionPurchaseResource(ExtAttractionPurchaseService extAttractionPurchaseService,
+                                         MachineLearningTrainerService machineLearningTrainerService) {
         this.extAttractionPurchaseService = extAttractionPurchaseService;
+        this.machineLearningTrainerService = machineLearningTrainerService;
     }
 
     @PostMapping("/interest")
     public ResponseEntity<GetAttractionPurchaseDTO> takeInterest(@Valid @RequestBody RegisterInterestDTO registerInterestDTO) {
         GetAttractionPurchaseDTO result = extAttractionPurchaseService.create(registerInterestDTO);
+        machineLearningTrainerService.train();
         return ResponseEntity.status(HttpStatus.CREATED)
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -39,6 +46,7 @@ public class ExtAttractionPurchaseResource {
     @PutMapping("/take-action")
     public ResponseEntity<GetAttractionPurchaseDTO> takeAction(@Valid @RequestBody TakeActionDTO takeActionDTO) {
         GetAttractionPurchaseDTO result = extAttractionPurchaseService.takeAction(takeActionDTO);
+        machineLearningTrainerService.train();
         return ResponseEntity.status(HttpStatus.OK)
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);

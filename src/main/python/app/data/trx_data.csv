@@ -1,11 +1,10 @@
-distance,actionTaken
-1,true
-2,true
-3,false
-5,true
-6,false
-7,false
-8,true
-9,false
-10,false
-11,false
+userDistance       ,actionTaken
+0.34592931045471387,false
+0.34592931045471387,false
+0.34592931045471387,true
+0.3795839702538404 ,true
+0.34592931045471387,true
+0.34592931045471387,true
+0.34592931045471387,false
+0.34592931045471387,false
+0.34592931045471387,true

@@ -4,6 +4,7 @@ import com.pa.twb.SmarttoursApp;
 import com.pa.twb.domain.AttractionPurchase;
 import com.pa.twb.repository.ext.ExtAttractionPurchaseRepository;
 import com.pa.twb.service.ext.ExtAttractionPurchaseService;
+import com.pa.twb.service.ext.processing.MachineLearningTrainerService;
 import com.pa.twb.web.rest.TestUtil;
 import com.pa.twb.web.rest.errors.ExceptionTranslator;
 import com.pa.twb.web.rest.errors.ext.AttractionPurchaseNotFoundException;
@@ -46,6 +47,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SuppressWarnings("unused")
 public class ExtAttractionPurchaseResourceIntTest {
     @Autowired
+    private MachineLearningTrainerService machineLearningTrainerService;
+
+    @Autowired
     private ExtAttractionPurchaseRepository extAttractionPurchaseRepository;
 
     @Autowired
@@ -68,7 +72,7 @@ public class ExtAttractionPurchaseResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        final ExtAttractionPurchaseResource extAttractionPurchaseResource = new ExtAttractionPurchaseResource(extAttractionPurchaseService);
+        final ExtAttractionPurchaseResource extAttractionPurchaseResource = new ExtAttractionPurchaseResource(extAttractionPurchaseService, machineLearningTrainerService);
         this.restAttractionPurchaseMockMvc = MockMvcBuilders.standaloneSetup(extAttractionPurchaseResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setConversionService(createFormattingConversionService())

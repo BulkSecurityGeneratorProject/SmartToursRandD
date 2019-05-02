@@ -1,11 +1,4 @@
-from django.db import models
-from django.utils import timezone
-
-import pandas as pd
-import numpy as np
-import time
 import turicreate as tc
-from sklearn.model_selection import train_test_split
 
 # constants
 data_folder = 'app/data'
@@ -21,12 +14,12 @@ class ItemRecommender:
 
         print('Creating model')
         model = tc.logistic_classifier.create(
-            data, target='actionTaken', features=['distance'])
+            data, target='actionTaken', features=['userDistance'])
 
         print("Coefficients...")
         print(model.coefficients)
 
-        test = tc.SFrame({'distance': [0, 5, 11], })
+        test = tc.SFrame({'userDistance': [0, 5, 11], })
 
         print("Predictions...")
         # get out true or false for each

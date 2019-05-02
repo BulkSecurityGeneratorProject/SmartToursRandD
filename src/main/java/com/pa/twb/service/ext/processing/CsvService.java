@@ -15,14 +15,13 @@ import java.util.List;
 
 @Service
 public class CsvService {
-    private static final String FOLDER_NAME = "/Desktop/location-test";
-    private static final String FILE_NAME = "smarttours.csv";
+    private static final String FOLDER_NAME = "/Users/thomasbigger/Desktop/projects/backend/smart-tours/src/main/python/app/data";
+    private static final String FILE_NAME = "trx_data.csv";
 
     public void write(List<CsvDataDTO> list) throws Exception {
-        String folderPath = System.getProperty("user.home") + File.separator + FOLDER_NAME;
-        FileUtils.createDirectories(folderPath);
+        FileUtils.createDirectories(FOLDER_NAME);
 
-        String filePath = folderPath + File.separator + FILE_NAME;
+        String filePath = FOLDER_NAME + File.separator + FILE_NAME;
         FileUtils.createFile(filePath);
 
         ICsvBeanWriter beanWriter = null;
@@ -31,10 +30,9 @@ public class CsvService {
                 CsvPreference.STANDARD_PREFERENCE);
 
             // the header elements are used to map the bean values to each column (names must match)
-            final String[] header = new String[]{"id", "distance", "avgTemp", "weight", "takenAction"};
+            final String[] header = new String[]{"userDistance", "actionTaken"};
             final CellProcessor[] processors = new CellProcessor[]{
-                new NotNull(), new NotNull(), new NotNull(), new NotNull(),
-                new NotNull(),
+                new NotNull(), new NotNull(),
             };
             // write the header
             beanWriter.writeHeader(header);
