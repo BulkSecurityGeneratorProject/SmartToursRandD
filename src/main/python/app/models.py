@@ -21,9 +21,11 @@ class LogisticClassifier:
     def query(self, inputData):
         ids = list()
         distances = list()
+        ratings = list()
         for index, thisItem in enumerate(inputData):
             ids.append(thisItem['itemId'])
             distances.append(thisItem['distance'])
+            ratings.append(thisItem['rating'])
 
         test = tc.SFrame({'userDistance': distances, })
 

@@ -19,18 +19,15 @@ public class ScheduledTrainerService {
     private final Logger log = LoggerFactory.getLogger(ScheduledTrainerService.class);
     private final ExtAttractionRepository extAttractionRepository;
     private final ExtAttractionPurchaseRepository extAttractionPurchaseRepository;
-    private final MockUserLocationGenerateService locationGenerateService;
     private final DarkSkyWeatherService darkSkyWeatherService;
     private final CsvService csvService;
 
     public ScheduledTrainerService(ExtAttractionRepository extAttractionRepository,
                                    ExtAttractionPurchaseRepository extAttractionPurchaseRepository,
-                                   MockUserLocationGenerateService locationGenerateService,
                                    DarkSkyWeatherService darkSkyWeatherService,
                                    CsvService csvService) {
         this.extAttractionRepository = extAttractionRepository;
         this.extAttractionPurchaseRepository = extAttractionPurchaseRepository;
-        this.locationGenerateService = locationGenerateService;
         this.darkSkyWeatherService = darkSkyWeatherService;
         this.csvService = csvService;
     }
