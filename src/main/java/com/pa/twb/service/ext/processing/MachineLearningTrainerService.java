@@ -40,18 +40,10 @@ public class MachineLearningTrainerService {
     public void train() {
         List<AttractionPurchase> result = extAttractionPurchaseRepository.findAll();
         List<CsvDataDTO> csvList = extAttractionPurchaseMapper.entityListToCsv(result);
-
-        CsvDataDTO initialTrueCsv = new CsvDataDTO();
-        initialTrueCsv.setUserDistance(0d);
-        initialTrueCsv.setActionTaken(true);
-
-        CsvDataDTO initialFalseCsv = new CsvDataDTO();
-        initialFalseCsv.setUserDistance(10000d);
-        initialFalseCsv.setActionTaken(false);
-
-        csvList.add(initialTrueCsv);
-        csvList.add(initialFalseCsv);
-
+        if (csvList == null || csvList.size() < 1) {
+            return;
+        }
+        addAtLeastOneTrueAndFalseIfNecessary(csvList);
         try {
             csvService.write(csvList);
         } catch (Exception e) {
@@ -61,6 +53,43 @@ public class MachineLearningTrainerService {
         URI uri = URI.create("http://127.0.0.1:8000/logistic-regression/");
         ResponseEntity<Void> responseEntity =
             restTemplate.exchange(uri, HttpMethod.PUT, null, Void.class);
+    }
 
+    private void addAtLeastOneTrueAndFalseIfNecessary(List<CsvDataDTO> csvList) {
+        Double lowestTrue = Double.MAX_VALUE;
+        Double highestFalse = Double.MIN_VALUE;
+        boolean hasAtLeastOneTrue = false;
+        boolean hasAtLeastOneFalse = false;
+        for (CsvDataDTO csvDataDTO : csvList) {
+            if (csvDataDTO.getActionTaken() == Boolean.TRUE) {
+                if (csvDataDTO.getUserDistance() < lowestTrue) {
+                    lowestTrue = csvDataDTO.getUserDistance();
+                }
+                if (!hasAtLeastOneTrue) {
+                    hasAtLeastOneTrue = true;
+                }
+            }
+            if (csvDataDTO.getActionTaken() == Boolean.FALSE) {
+                if (csvDataDTO.getUserDistance() > highestFalse) {
+                    highestFalse = csvDataDTO.getUserDistance();
+                }
+                if (!hasAtLeastOneFalse) {
+                    hasAtLeastOneFalse = true;
+                }
+            }
+        }
+        if (!hasAtLeastOneTrue) {
+            CsvDataDTO initialTrueCsv = new CsvDataDTO();
+            initialTrueCsv.setUserDistance(lowestTrue);
+            initialTrueCsv.setActionTaken(true);
+            csvList.add(initialTrueCsv);
+        }
+
+        if (!hasAtLeastOneFalse) {
+            CsvDataDTO initialFalseCsv = new CsvDataDTO();
+            initialFalseCsv.setUserDistance(highestFalse);
+            initialFalseCsv.setActionTaken(false);
+            csvList.add(initialFalseCsv);
+        }
     }
 }

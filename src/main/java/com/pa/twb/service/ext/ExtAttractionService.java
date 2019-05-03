@@ -4,27 +4,30 @@ import com.pa.twb.domain.Attraction;
 import com.pa.twb.repository.AttractionRepository;
 import com.pa.twb.repository.ext.ExtAttractionRepository;
 import com.pa.twb.service.AttractionService;
-import com.pa.twb.service.ext.dto.attraction.CreateAttractionDTO;
-import com.pa.twb.service.ext.dto.attraction.GetAttractionDTO;
-import com.pa.twb.service.ext.dto.attraction.GetAttractionWithDistanceDTO;
-import com.pa.twb.service.ext.dto.attraction.UpdateAttractionDTO;
+import com.pa.twb.service.ext.dto.attraction.*;
 import com.pa.twb.service.mapper.ext.ExtAttractionMapper;
 import com.pa.twb.web.rest.errors.ext.AttractionNotFoundException;
 import com.pa.twb.web.rest.errors.ext.NoLocationProvidedException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.List;
+import java.net.URI;
+import java.util.*;
 
 @Service
 @Transactional
 @SuppressWarnings("unused")
 public class ExtAttractionService extends AttractionService {
+    private final Logger log = LoggerFactory.getLogger(ExtAttractionService.class);
+
     private final ExtAttractionRepository extAttractionRepository;
 
     private final ExtAttractionMapper extAttractionMapper;
@@ -76,6 +79,50 @@ public class ExtAttractionService extends AttractionService {
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public Page<GetAttractionWithDistanceDTO> getAllByLocation(Pageable pageable, Double latitude, Double longitude) {
+        Query query = getAttractionsByDistnaceQuery(latitude, longitude);
+        query.setMaxResults(pageable.getPageSize());
+        query.setFirstResult((int) pageable.getOffset());
+
+        List<GetAttractionWithDistanceDTO> locations = (List<GetAttractionWithDistanceDTO>) query.getResultList();
+        return new PageImpl<>(locations, pageable, locations.size());
+    }
+
+    @SuppressWarnings("unchecked")
+    @Transactional(readOnly = true)
+    public Optional<List<GetRecommendationDTO>> getAllByRecommendation(Double latitude, Double longitude) {
+        Query query = getAttractionsByDistnaceQuery(latitude, longitude);
+        List<GetAttractionWithDistanceDTO> locations = (List<GetAttractionWithDistanceDTO>) query.getResultList();
+
+        List<RequestRecommendationDTO> requestRecommendList = new ArrayList<>();
+        for (GetAttractionWithDistanceDTO attractionWithDistance : locations) {
+            RequestRecommendationDTO requestRecommendationDTO = new RequestRecommendationDTO();
+            requestRecommendationDTO.setItemId(attractionWithDistance.getId());
+            requestRecommendationDTO.setDistance(attractionWithDistance.getDistance());
+            requestRecommendList.add(requestRecommendationDTO);
+        }
+        RestTemplate restTemplate = new RestTemplate();
+        URI uri = URI.create("http://127.0.0.1:8000/logistic-regression/");
+
+        GetRecommendationDTO[] recommendations = restTemplate.
+            postForObject(uri, requestRecommendList, GetRecommendationDTO[].class);
+        if (recommendations == null) {
+//            might want to return something instead of nothing
+            return Optional.empty();
+        }
+//        set attraction to recommendation
+        for (GetRecommendationDTO recommendation : recommendations) {
+            GetAttractionWithDistanceDTO attractionWithDistance =
+                getAttractionWithDistanceForId(locations, recommendation.getItemId());
+            recommendation.setAttraction(attractionWithDistance);
+        }
+
+//        sort based on probability
+        ArrayList<GetRecommendationDTO> recommendationList = new ArrayList<>(Arrays.asList(recommendations));
+        recommendationList.sort(Comparator.comparing(GetRecommendationDTO::getProbability).reversed());
+        return Optional.of(recommendationList);
+    }
+
+    private Query getAttractionsByDistnaceQuery(Double latitude, Double longitude) {
         if (latitude == null || longitude == null) {
             throw new NoLocationProvidedException();
         }
@@ -110,10 +157,15 @@ public class ExtAttractionService extends AttractionService {
             "ORDER BY distance", "GetAttractionWithDistanceDTO");
         query.setParameter("latitude", latitude);
         query.setParameter("longitude", longitude);
-        query.setMaxResults(pageable.getPageSize());
-        query.setFirstResult((int) pageable.getOffset());
+        return query;
+    }
 
-        List<GetAttractionWithDistanceDTO> locations = (List<GetAttractionWithDistanceDTO>) query.getResultList();
-        return new PageImpl<>(locations, pageable, locations.size());
+    private GetAttractionWithDistanceDTO getAttractionWithDistanceForId(List<GetAttractionWithDistanceDTO> list, Long id) {
+        for (GetAttractionWithDistanceDTO attractionWithDistance : list) {
+            if (Objects.equals(attractionWithDistance.getId(), id)) {
+                return attractionWithDistance;
+            }
+        }
+        return null;
     }
 }

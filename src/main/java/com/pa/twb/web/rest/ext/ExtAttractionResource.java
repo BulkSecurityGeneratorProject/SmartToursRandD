@@ -1,10 +1,7 @@
 package com.pa.twb.web.rest.ext;
 
 import com.pa.twb.service.ext.ExtAttractionService;
-import com.pa.twb.service.ext.dto.attraction.CreateAttractionDTO;
-import com.pa.twb.service.ext.dto.attraction.GetAttractionDTO;
-import com.pa.twb.service.ext.dto.attraction.GetAttractionWithDistanceDTO;
-import com.pa.twb.service.ext.dto.attraction.UpdateAttractionDTO;
+import com.pa.twb.service.ext.dto.attraction.*;
 import com.pa.twb.web.rest.util.HeaderUtil;
 import com.pa.twb.web.rest.util.PaginationUtil;
 import org.springframework.data.domain.Page;
@@ -16,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/ext-attraction")
@@ -65,5 +63,13 @@ public class ExtAttractionResource {
         Page<GetAttractionWithDistanceDTO> page = extAttractionService.getAllByLocation(pageable, latitude, longitude);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ext-attraction/by-location");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+
+    @GetMapping("/by-recommendation")
+    public ResponseEntity<List<GetRecommendationDTO>> getAttractionsByRecommendation(@RequestParam Double latitude,
+                                                                                     @RequestParam Double longitude) {
+        Optional<List<GetRecommendationDTO>> recommendationsOpt = extAttractionService.getAllByRecommendation(latitude, longitude);
+        return recommendationsOpt.map(getRecommendationDTOS -> new ResponseEntity<>(getRecommendationDTOS, HttpStatus.OK)).
+            orElseGet(() -> new ResponseEntity<>(HttpStatus.BAD_REQUEST));
     }
 }
